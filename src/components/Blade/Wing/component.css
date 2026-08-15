@@ -1,0 +1,39 @@
+.blade-wing {
+    height: calc(100vh + 100px);
+    translate: 0 -50px;
+    position: absolute;
+}
+
+.blade-wing-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+}
+
+.blade-wing-title-anchor {
+    position: absolute;
+
+    left: 65px;
+    top: 23vh;
+
+    width: 0;
+    height: 0;
+}
+.blade-wing-title {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    margin: 0;
+    white-space: nowrap;
+
+    transform-origin: left bottom;
+    transform: rotate(90deg);
+
+    color: #505050;
+    font-weight: 100;
+    font-size: 3.2vh;
+    letter-spacing: 1.5px;
+}

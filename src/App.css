@@ -1,0 +1,19 @@
+
+@font-face {
+    font-family: Convection Regular;
+    src: url("assets/Fonts/Conv.ttf") format("truetype");
+}
+
+.content-container {
+    font-family: "Convection Regular";
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}

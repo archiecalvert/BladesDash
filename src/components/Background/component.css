@@ -1,0 +1,66 @@
+.blades-background {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+
+  background: var(--blades-base);
+
+  z-index: -1;
+  pointer-events: none;
+}
+
+.blades-background__layers {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.blades-background__layer {
+  position: absolute;
+
+  /*
+   * Oversized so that rotation never exposes
+   * the edges of the texture.
+   */
+  width: 120vmax;
+  height: 120vmax;
+
+  left: 50%;
+  top: 50%;
+
+  transform-origin: center center;
+
+  animation-name: blades-spin;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  will-change: transform;
+}
+
+.blades-background__layer img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+@keyframes blades-spin {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(var(--start-rotation));
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(calc(var(--start-rotation) + 360deg));
+  }
+}
+
+

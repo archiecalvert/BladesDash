@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="770" viewBox="0 0 1120 770">
+<title>blade_2_bgcolor</title>
+<defs><linearGradient id="xui_grad_106" x1="0%" y1="0%" x2="100%" y2="0%" gradientTransform="translate(0 -0.5) scale(1.56 1) rotate(-90 .5 .5)"><stop offset="0%" stop-color="#eb660f" stop-opacity="1"/><stop offset="34.902%" stop-color="#e69a26" stop-opacity="1"/><stop offset="67.451%" stop-color="#ebb13c" stop-opacity="1"/><stop offset="90.9804%" stop-color="#c86e19" stop-opacity="1"/></linearGradient><linearGradient id="xui_grad_107" x1="0%" y1="0%" x2="100%" y2="0%" gradientTransform="translate(0 -0.5) scale(1.56 1) rotate(-90 .5 .5)"><stop offset="0%" stop-color="#eb660f" stop-opacity="1"/><stop offset="34.902%" stop-color="#e6911e" stop-opacity="1"/><stop offset="66.2745%" stop-color="#eba51e" stop-opacity="1"/><stop offset="100%" stop-color="#c86e19" stop-opacity="1"/></linearGradient></defs>
+<path d="M 1120 720 C 1120 720 1120 720 0 720 C 0 720 0 720 0 0 C 0 0 0 0 1120 0 C 1120 0 1120 0 1120 720 Z" fill="url(#xui_grad_106)" fill-opacity="1" stroke="#000000" stroke-opacity="1"/><path d="M 0 0 C 0 0 0 0 75 0 C 75 0 75 0 75 575 C 75 575 75 575 0 575 C 0 575 0 575 0 0 Z" fill="url(#xui_grad_107)" fill-opacity="0.7" stroke="none" stroke-opacity="1"/>
+</svg>

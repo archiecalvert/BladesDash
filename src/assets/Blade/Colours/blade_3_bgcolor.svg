@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="770" viewBox="0 0 1120 770">
+<title>blade_3_bgcolor</title>
+<defs><linearGradient id="xui_grad_105" x1="0%" y1="0%" x2="100%" y2="0%" gradientTransform="translate(0 -0.501389) scale(1.55556 0.999999) rotate(-90 .5 .5)"><stop offset="0%" stop-color="#0f6514" stop-opacity="1"/><stop offset="33.7255%" stop-color="#37af28" stop-opacity="1"/><stop offset="73.7255%" stop-color="#0f7f0f" stop-opacity="1"/><stop offset="100%" stop-color="#0f2114" stop-opacity="1"/></linearGradient></defs>
+<path d="M 0 0 C 0 0 0 0 75 0 C 75 0 75 0 75 575 C 75 575 75 575 0 575 C 0 575 0 575 0 0 Z" fill="#55eb0f" fill-opacity="1" stroke="none" stroke-opacity="1"/><path d="M 0 0 C 0 0 0 0 75 0 C 75 0 75 0 75 575 C 75 575 75 575 0 575 C 0 575 0 575 0 0 Z" fill="url(#xui_grad_105)" fill-opacity="0.7" stroke="none" stroke-opacity="1"/>
+</svg>

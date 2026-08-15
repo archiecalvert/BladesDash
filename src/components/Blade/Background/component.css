@@ -1,0 +1,47 @@
+
+.blade-background-left {
+    z-index: 5;
+    left: 0px;
+        position: absolute;
+    top: -2.5vh;
+    height: 105vh;
+    width: auto;
+    transition-timing-function: ease-in-out;
+    animation-name: blades-enter-left;
+    animation-duration: var(--blade-background-duration);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.blade-background-right {
+    z-index: 5;
+    right: 0px;
+    scale: -1;
+    position: absolute;
+    top: -2.5vh;
+    height: 105vh;
+    width: auto;
+    animation-name: blades-enter-right;
+    animation-duration: var(--blade-background-duration);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes blades-enter-left {
+  from {
+    scale: var(--blade-background-max-scale);
+}
+
+to {
+    scale: 1;
+}
+}
+
+@keyframes blades-enter-right {
+    from {
+      scale: calc(var(--blade-background-max-scale) * -1);
+
+  }
+
+  to {
+    scale: -1;
+  }
+}
