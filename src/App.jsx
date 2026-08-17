@@ -25,11 +25,11 @@ function App() {
 				<>
 					<BladeBackground side="left"></BladeBackground>
 					<BladeBackground side="right"></BladeBackground>
-					<Wing isSelected={false} currentIndex={1} pageActiveIndex={3} maximumIndex={5} title={"marketplace"}></Wing>
-					<Wing isSelected={false} currentIndex={2} pageActiveIndex={3} maximumIndex={5} title={"xbox live"}></Wing>
-					<Wing isSelected={false} currentIndex={3} pageActiveIndex={3} maximumIndex={5} title={"games"}></Wing>
-					<Wing isSelected={false} currentIndex={4} pageActiveIndex={3} maximumIndex={5} isLeft={false} title={"media"}></Wing>
-					<Wing isSelected={false} currentIndex={5} pageActiveIndex={3} maximumIndex={5}  isLeft={false} title={"system"}></Wing>
+					<Wing isSelected={false} startIndex={1} pageActiveIndex={3} maximumIndex={5} title={"marketplace"}></Wing>
+					<Wing isSelected={false} startIndex={2} pageActiveIndex={3} maximumIndex={5} title={"xbox live"}></Wing>
+					<Wing isSelected={false} startIndex={3} pageActiveIndex={3} maximumIndex={5} title={"games"}></Wing>
+					<Wing isSelected={false} startIndex={4} pageActiveIndex={3} maximumIndex={5} isLeft={false} title={"media"}></Wing>
+					<Wing isSelected={false} startIndex={5} pageActiveIndex={3} maximumIndex={5}  isLeft={false} title={"system"}></Wing>
 
 				</>
 			}

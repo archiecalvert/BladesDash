@@ -1,19 +1,38 @@
-
+:root {
+    background-color: black;
+}
 @font-face {
     font-family: Convection Regular;
     src: url("assets/Fonts/Conv.ttf") format("truetype");
 }
 
 .content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: "Convection Regular";
-    width: 100vw;
-    height: 100vh;
+    overflow: hidden;
     background-color: transparent;
     overflow-x: hidden;
     overflow-y: hidden;
-    margin: 0px;
     padding: 0px;
     position: absolute;
-    top: 0px;
-    left: 0px;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+}
+
+.fourbythree {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 4 / 3;
+}
+
+.sixteenbynine {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
 }
