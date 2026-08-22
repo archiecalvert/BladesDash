@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useLayoutEffect } from "react"
 import { easeIn, motion, useAnimationControls } from "motion/react"
 
 import "./component.css"
@@ -10,6 +10,7 @@ import {BLADE_BACKGROUND_SWIPEIN_TIME,
         BLADE_BACKGROUND_Z_INDEX,
         BLADE_ANIMATION_KEYFRAME_DURATION
     }  from "../../../utils/constants"
+import { SIDES } from "../../../utils/enums"
 
 
 export function Wing({
@@ -18,128 +19,117 @@ export function Wing({
     maximumIndex,
     pageActiveIndex
 }) {
+    const BLADE_WIDTH = 55;// 42;
 
-    const [BACKGROUND_X, set_BACKGROUND_X] = useState(0);
-    const [BLADE_WIDTH_PIXELS, setBLADE_WIDTH_PIXELS] = useState(BACKGROUND_X);
     const controls = useAnimationControls();
-    const [isLeft, setIsLeft] = useState(true);
-    const [isSelected, setIsSelected] = useState(false);
-    const [windowDimensions, setWindowsDimensions] = useState({width: 0 , height: 0})
     const [currentIndex, setCurrentIndex] = useState(startIndex)
+    const [activeIndex, setActiveIndex] = useState(pageActiveIndex)
+    const [isSelected, setIsSelected] = useState(currentIndex == activeIndex);
 
     const [x, setX] = useState(130);
-    const [y, setY] = useState(0);
+    const [ration, setRation] = useState(1);
+    const [bladeWidth, setBladeWidth] = useState(ration * BLADE_WIDTH);
 
-    function setBladeWidthOnClient() {
-        // divide by the images height in px
-        const ratio = height / windowDimensions.height;
-        // apply scaling to the image width
-        setBLADE_WIDTH_PIXELS(ratio * 51)
-    }
-
-    async function MoveBladesOnTransition(left) {
-        if(left) {
-
-        }
-        else {
-
-        }
-    }  
-
-
-    async function InitBladesAnimation(left) {
+    /**
+     * Function which extracts the top width where the curve begins on the blade
+     * @returns width, ration
+     */
+    function getBackgroundInnerSideCoord() {
+        const widthClient = document.getElementById("blade-background-left").getBoundingClientRect().width
+        const widthFile = 256
+        const ration = widthClient / widthFile
+        const width = (widthClient) * ration
         
-        /**
-         * Load the blades from behind the background to stack on top of each other
-         * @param {boolean} left Whether the blade is a left blade or right blade
-         */
-        async function BringWingsOnScreen(left) {
-            if(left) {
-                await controls.start({zIndex: -1})
-                await sleep(BLADE_BACKGROUND_SWIPEIN_TIME * 1000)
-                // appear from behind and then set to be on top
-                await controls.start({zIndex: currentIndex })
-                await controls.start({left: x + BLADE_WIDTH_PIXELS, transition: {duration: BLADE_ANIMATION_KEYFRAME_DURATION} })
-                await controls.start({zIndex: BLADE_BACKGROUND_Z_INDEX + currentIndex })
-            }
-            else {
-                // wait for backgrounds to settle
-                await controls.start({zIndex: -1, right: x, transition: {duration: 0} })
-                await sleep(BLADE_BACKGROUND_SWIPEIN_TIME * 1000)
-                // appear from behind and then set to be on top
-                await controls.start({zIndex: currentIndex })
-                await controls.start({right: x + BLADE_WIDTH_PIXELS, transition: {duration: BLADE_ANIMATION_KEYFRAME_DURATION} })
-                await controls.start({zIndex: BLADE_BACKGROUND_Z_INDEX + currentIndex })
-            }
-        }
+        return {width, ration}
+    }
 
-        await BringWingsOnScreen(left)
+    /* 
+                |======================================|
+                |------------- ANIMATIONS -------------|
+                |======================================|
+    */
+
+    /**
+     * Function which plays the start animation where the blades go from behind the background to in-front
+     * and stacked.
+     * @param left 
+     */
+    async function InitSetBladesInfrontOfBackground(left) {
+        
+        const DURATION = 0.25;
         if(left) {
-            // set positions
-            await controls.start({
-                    left: x + (BLADE_WIDTH_PIXELS * (currentIndex - pageActiveIndex + 1)),
-                    top: y + (25 * (pageActiveIndex - currentIndex)),
-                    transition: {duration: 0.1 * ((pageActiveIndex - currentIndex))} 
-            })
+            await controls.start({zIndex: 0, x: -bladeWidth, transition: {duration: 0.1, ease: "easeInOut"}})
+            await sleep(BLADE_BACKGROUND_SWIPEIN_TIME * 1000 + 10)
+            await controls.start({zIndex: BLADE_BACKGROUND_Z_INDEX - 1, x: 0, transition: {duration: DURATION, ease: "easeInOut"}})  
+            await controls.start({zIndex: BLADE_BACKGROUND_Z_INDEX + 1})  
         }
         else {
-            // set positions
-            await controls.start({
-                    right: x - (BLADE_WIDTH_PIXELS * (currentIndex - maximumIndex - 1)),
-                    top: y - (10 * (pageActiveIndex - currentIndex)),
-                    transition: {duration: 0.1 * (maximumIndex - currentIndex + 1)} 
-            })
-        }
-    
-    }
-
-    async function SetBladePosition(newIndex, oldIndex) {
-        // if the blade is moving towards the right
-        if (newIndex > oldIndex) {
-            // if the blade was the active blade, then move to the right side
-            if (oldIndex == pageActiveIndex) {
-                await controls.start({right: BACKGROUND_X - (BLADE_WIDTH_PIXELS * (currentIndex - maximumIndex - 1))})
-            }
+            await controls.start({zIndex: 0, x: bladeWidth, scaleX: -1, transition: {duration: 0.1, ease: "easeInOut"}})
+            await sleep(BLADE_BACKGROUND_SWIPEIN_TIME * 1000 + 10)
+            await controls.start({zIndex: BLADE_BACKGROUND_Z_INDEX - 1, x: 0, scaleX: -1, transition: {duration: DURATION, ease: "easeInOut"}})
+            await controls.start({zIndex: BLADE_BACKGROUND_Z_INDEX + 1})
         }
     }
 
-    // STARTUP LOGIC
-    useEffect(() => {
-
-        function ResizeLogic() {
-            setWindowsDimensions({width: window.innerWidth, height: window.innerHeight})
-            setBladeWidthOnClient()
-        }
-        async function start() {
+    async function SetBladePosition(duration = 0.2, width) {
+        
+        let offsetX = (currentIndex - 1) * width
+        let offsetY = (activeIndex -currentIndex) * 12;
+        
+        if (currentIndex <= activeIndex) {
+            offsetX = (currentIndex - 1) * width
+            offsetY = (activeIndex - currentIndex) * 12;
             
-            setIsLeft(currentIndex <= pageActiveIndex)
-            setIsSelected(currentIndex == pageActiveIndex)
-            await InitBladesAnimation(currentIndex <= pageActiveIndex)
+        }
+        else {
+            offsetX = -(maximumIndex - currentIndex) * width;
+            offsetY = currentIndex * 12 - activeIndex * 12;
+        }
+        await controls.start({x: offsetX, y: offsetY, scaleX: currentIndex <= activeIndex ? 1 : -1, transition: {duration: duration, ease: "easeInOut"}});
+    }
+
+    function ResizeHandler() {
+        const {width, ration} = getBackgroundInnerSideCoord()
+        setX(document.getElementById("blade-background-left").getBoundingClientRect().width - ration * 83)
+        setRation(ration)
+        setBladeWidth(ration * BLADE_WIDTH);
+        SetBladePosition(0, ration * BLADE_WIDTH)
+    }
+    
+    window.addEventListener("resize", ResizeHandler);
+
+
+    useEffect(() => {
+        async function onStart() {
+            const {width, ration} = getBackgroundInnerSideCoord()
+            await InitSetBladesInfrontOfBackground(currentIndex <= activeIndex);
+            await sleep(100)
+            await SetBladePosition(0.2, ration * BLADE_WIDTH)
         }
         
-        window.addEventListener("resize", () => {
-            ResizeLogic()
-        })
-        start();
+        ResizeHandler();
+        onStart();
     }, [])
+
 
     return (
         <motion.div
             className="blade-wing"
             style={{
-                transform: `scaleX(${isLeft ? 1 : -1})`,
-                left: x,
-                top: y
+                left:   currentIndex <= activeIndex   ? x : "unset",
+                right: !(currentIndex <= activeIndex) ? x : "unset",
+                top: 0,
+                zIndex: 4
             }}
             animate={controls}
         >
             <img
                 className="blade-wing-image"
-                src={isSelected ? WingSelected : WingDeselected}
+                src={currentIndex == activeIndex ? WingSelected : WingDeselected}
             />
 
             <div className="blade-wing-title-anchor">
-                <p style={!isLeft ? {transform: "scaleX(-1) rotate(90deg) translateY(35px)"} : {}} className="blade-wing-title">
+                <p style={!(currentIndex <= activeIndex ) ? {transform: "scaleX(-1) rotate(90deg) translateY(35px)"} : {}} className="blade-wing-title">
                     {title}
                 </p>
             </div>
