@@ -9,6 +9,7 @@
     left: 0;
     top: 0;
     height: 100%;
+    mix-blend-mode:multiply;
 }
 
 .blade-wing-title-anchor {

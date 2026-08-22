@@ -1,6 +1,7 @@
 
 import React from "react";
 import "./component.css";
+import { WAVES_BACKGROUND_Z_INDEX } from "../../utils/constants";
 
 const layers = [
     {
@@ -39,7 +40,7 @@ const layers = [
 
 export function WavesBackground({
     texture,
-    baseColor = "#363636",
+    baseColor = "#776c6c",
     opacity = 1,
     speed = 1,
     className = "",
@@ -53,6 +54,7 @@ export function WavesBackground({
             style={{
                 "--blades-base": baseColor,
                 "--blades-opacity": opacity,
+                "--wave-background-z-index": WAVES_BACKGROUND_Z_INDEX
             }}
         >
             <div className="blades-background__layers">

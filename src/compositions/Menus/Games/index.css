@@ -1,0 +1,12 @@
+.game-menu {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: var(--menu-z-index);
+    opacity: 0.4;
+    filter: saturate(4);
+    mix-blend-mode:soft-light;
+    background: linear-gradient(180deg,rgba(15, 101, 20, 1) 0%, rgb(36, 198, 15) 33%, rgb(23, 158, 23) 77%, rgba(15, 101, 20, 1) 100%);
+}

@@ -2,10 +2,10 @@ import wingImage from "../../../assets/Blade/background.png"
 import plainBackground from "../../../assets/Blade/background_gradient.png"
 import "./component.css"
 import { SIDES } from "../../../utils/enums"
-import { BLADE_BACKGROUND_SWIPEIN_TIME, BLADE_BACKGROUND_Z_INDEX } from "../../../utils/constants"
+import { BLADE_BACKGROUND_SWIPEIN_TIME, BLADE_SLIDER_BACKGROUND_Z_INDEX } from "../../../utils/constants"
 import { useRef, useState, useEffect } from "react"
 import { motion } from "framer-motion"
-export function BladeBackground({side = SIDES.LEFT}) {
+export function BladeBackground({side = SIDES.LEFT, backgroundSide }) {
     
     const MAX_BLADE_SCALE = 10
     const bladeEdge = useRef(null)
@@ -13,9 +13,17 @@ export function BladeBackground({side = SIDES.LEFT}) {
     const [start, setStart] = useState()
     const [end, setEnd] = useState()
     const [width, setWidth] = useState()
+    
+    function SetBladeEdge(element) {
 
+        bladeEdge.current = element
+
+        if (backgroundSide) {
+            backgroundSide.current = element
+        }
+    }
     useEffect(() => {
-        if(bladeEdge.current === undefined) return
+        if (!bladeEdge.current) return
 
         const w = window.innerWidth / 2 - bladeEdge.current.getBoundingClientRect().width
         setStart(0)
@@ -26,28 +34,35 @@ export function BladeBackground({side = SIDES.LEFT}) {
     return (
         <motion.div
             style={{
-                scaleX: side == SIDES.LEFT ? 1 : -1, 
-                scaleY: 1.2, 
+                scaleX: side === SIDES.LEFT ? 1 : -1,
+                scaleY: 1.2,
                 top: 50,
-                left: side == SIDES.LEFT ? start : "unset", 
-                right: side == SIDES.RIGHT ? start : "unset",
-                height: "100%", 
-                zIndex: BLADE_BACKGROUND_Z_INDEX, 
-                display: "flex", 
+                left: side === SIDES.LEFT ? start : "unset",
+                right: side === SIDES.RIGHT ? start : "unset",
+                height: "100%",
+                zIndex: BLADE_SLIDER_BACKGROUND_Z_INDEX,
+                display: "flex",
                 position: "absolute"
             }}
-            animate={{x: end, transition: {duration: BLADE_BACKGROUND_SWIPEIN_TIME}}}
+            animate={{
+                x: end,
+                transition: {
+                    duration: BLADE_BACKGROUND_SWIPEIN_TIME
+                }
+            }}
         >
             <motion.img
                 src={plainBackground}
-                className={`blade-background-extension`}
-                style={{width: width}}
+                className="blade-background-extension"
+                style={{ width }}
             />
+
             <motion.img
-                ref={bladeEdge}
+                ref={SetBladeEdge}
                 className={`blade-background-${side}`}
                 id={`blade-background-${side}`}
-                src={wingImage}/>
+                src={wingImage}
+            />
         </motion.div>
 
     )

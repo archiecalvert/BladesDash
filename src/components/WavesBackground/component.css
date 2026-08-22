@@ -5,7 +5,7 @@
 
   background: var(--blades-base);
 
-  z-index: 1;
+  z-index: var(--wave-background-z-index);
   pointer-events: none;
 }
 
