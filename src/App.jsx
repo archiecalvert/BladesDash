@@ -16,7 +16,7 @@ function App() {
 	const [booting, setIsBooting] = useState(ENABLE_BOOT_ANIMATION)
 	const backgroundWing = useRef(null)
 	
-	const [currentlyOpenIndex, setCurrentlyOpenIndex] = useState(3)
+	const [currentlyOpenIndex, setCurrentlyOpenIndex] = useState(2)
 
 	if(FORCE_FULLSCREEN) getCurrentWindow().setFullscreen(true);
 	

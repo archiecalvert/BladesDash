@@ -4,6 +4,7 @@ import { easeIn, motion, useAnimationControls } from "motion/react"
 import "./component.css"
 import WingDeselected from "../../../assets/Blade/blade_left_opaque.png"
 import WingSelected from "../../../assets/Blade/blade_left_transparent.png"
+import WingTransition from "../../../assets/Blade/blade_left_blank.png"
 import { sleep }  from "../../../utils/sleep"
 import { GetDimensions }  from "../../../utils/getWindowDimensions"
 import {BLADE_BACKGROUND_SWIPEIN_TIME,
@@ -27,13 +28,16 @@ export function Wing({
     backgroundRef
 }) {
     const BLADE_WIDTH = 57;// 42;
-
+    const [inTransition, setInTransition] = useState(false)
     const controls = useAnimationControls();
     const [isSelected, setIsSelected] = useState(index == openPageIndex);
-
+    const wingRef = useRef(null)
     const [x, setX] = useState(130);
+    const [offsetX, setOffsetX] = useState(0)
     const [ration, setRation] = useState(1);
     const [bladeWidth, setBladeWidth] = useState(ration * BLADE_WIDTH);
+
+    const previousOpenIndex = useRef(openPageIndex)
 
     /**
      * Function which extracts the top width where the curve begins on the blade
@@ -91,14 +95,17 @@ export function Wing({
             offsetX = -(maximumIndex - index) * width;
             offsetY = index * 12 - openPageIndex * 12;
         }
+        setOffsetX(offsetX)
         await controls.start({x: offsetX, y: offsetY, scaleX: index <= openPageIndex ? 1 : -1, transition: {duration: duration, ease: "easeInOut"}});
     }
 
     function ResizeHandler() {
-        console.log(backgroundRef.current)
         if(!backgroundRef.current) return
         const {width, ration} = getBackgroundInnerSideCoord()
-        setX(backgroundRef.current.getBoundingClientRect().width - ration * 85)
+        setX(index <= openPageIndex ? 
+            backgroundRef.current.getBoundingClientRect().width - ration * 85 :
+            window.innerWidth - backgroundRef.current.getBoundingClientRect().width + ration * 85
+        )
         setRation(ration)
         setBladeWidth(ration * BLADE_WIDTH);
         SetBladePosition(0, ration * BLADE_WIDTH)
@@ -109,13 +116,54 @@ export function Wing({
     // ==          KEYBOARD TRANSITION LOGIC          ==
     // =================================================
 
-    async function transitionBlade(indexTarget, currentlyOpenPage) {
-          
+    async function transitionBlade(openPagePrev, openPageCurrent) {
+        const D = 0.15
+        const {width, ration} = getBackgroundInnerSideCoord()
+        // if moved ->
+        if(openPageCurrent < openPagePrev && index == openPageCurrent + 1) {
+            const newOffsetX = -(maximumIndex - (index + 1)) * ration * BLADE_WIDTH;
+            const newOffsetY = index * 12 - openPageIndex * 12;
+            
+            const finalOffset = (window.innerWidth - 2 * width) + newOffsetX
+            await controls.start({x: finalOffset / 4, y: newOffsetY, scaleX: 1, transition: {duration: D / 4, ease: "linear"}})
+            setInTransition(true)
+            await controls.start({x: finalOffset * 0.75, y: newOffsetY, scaleX: 1, transition: {duration: D / 2, ease: "linear"}})
+            setInTransition(false)
+            await controls.start({scaleX: -1, transition: {duration: 0.000001}})
+            await controls.start({x: finalOffset, y: newOffsetY, scaleX: -1, transition: {duration: D / 4, ease: "linear"}})
+            ResizeHandler()
+        }
+        // if moved <-
+        else if(openPageCurrent > openPagePrev && index == openPageCurrent) {
+            console.log(title)
+            const newOffsetX = -((index - 2) * ration * BLADE_WIDTH)
+            const newOffsetY = (openPageIndex - index) * 12;
+            
+            const finalOffset = (window.innerWidth - 2 * width) + newOffsetX
+            await controls.start({x: -finalOffset / 4, y: newOffsetY, scaleX: -1, transition: {duration: D / 4, ease: "linear"}})
+            setInTransition(true)
+            await controls.start({x: -finalOffset * 0.75, y: newOffsetY, scaleX: -1, transition: {duration: D / 2, ease: "linear"}})
+            setInTransition(false)
+            await controls.start({scaleX: 1, transition: {duration: 0.000001}})
+            await controls.start({x: -finalOffset, y: newOffsetY, scaleX: 1, transition: {duration: D / 4, ease: "linear"}})
+            ResizeHandler()
+        }
+
+        else {
+            setInTransition(false)
+            ResizeHandler()
+        }
     }
 
     useEffect(() => {
-        
-    }, [openPageIndex, openPageIndex])
+        async function f() {
+            const oldOpen = previousOpenIndex.current;
+            await transitionBlade(oldOpen, openPageIndex)
+            previousOpenIndex.current = openPageIndex
+        }
+        f()
+
+    }, [openPageIndex])
 
 
     // =================================================
@@ -145,16 +193,20 @@ export function Wing({
         <motion.div
             className="blade-wing"
             style={{
-                left:    index <= openPageIndex  ? x : "unset",
-                right: !(index <= openPageIndex) ? x : "unset",
+                left: x,
                 top: 0,
                 zIndex: 4,
             }}
             animate={controls}
         >
             <img
+                ref={wingRef}
                 className="blade-wing-image"
-                src={index == openPageIndex ? WingSelected : WingDeselected}
+                src={
+                    inTransition 
+                        ? WingTransition 
+                        : (index == openPageIndex ? WingSelected : WingDeselected)
+                }
             />
 
             <div className="blade-wing-title-anchor">
