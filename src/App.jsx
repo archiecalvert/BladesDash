@@ -1,18 +1,16 @@
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { useRef, useState, useEffect } from "react";
-import { invoke } from "@tauri-apps/api/core";
 import { BootAnimationComponent } from "./components/BootAnim/component";
 import { WavesBackground } from "./components/WavesBackground/component"
 import { BladeBackground } from './components/Blade/Background/component';
 import "./App.css";
 import { Wing } from './components/Blade/Wing/component';
 import { OpenApplication } from './utils/tauriWrapper';
-import { ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN } from './utils/constants';
+import { BLADE_SWIPE_ANIMATION_DURATION, ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN } from './utils/constants';
 import { GamesMenu } from './compositions/Menus/Games';
 
 function App() {
-	const [greetMsg, setGreetMsg] = useState("");
-	const [name, setName] = useState("");
+
 	const [booting, setIsBooting] = useState(ENABLE_BOOT_ANIMATION)
 	const backgroundWing = useRef(null)
 	
@@ -33,19 +31,17 @@ function App() {
 
 		function handleKeyDown(e) {
 			if (e.key !== "a" && e.key !== "d") return
-			if (heldKeys.current[e.key]) return // already held
+			if (heldKeys.current[e.key]) return
 
 			heldKeys.current[e.key] = true
 
-			// Immediate move
 			move(e.key)
 
-			// Start repeating after 300ms
 			repeatTimer.current = setTimeout(() => {
 				repeatInterval.current = setInterval(() => {
 					if (heldKeys.current[e.key]) move(e.key)
-				}, 120) // repeat speed
-			}, 300)
+				}, BLADE_SWIPE_ANIMATION_DURATION * 1000 + 100) // repeat speed
+			}, BLADE_SWIPE_ANIMATION_DURATION * 1000 + 100) // time taken to repeat
 		}
 
 		function handleKeyUp(e) {

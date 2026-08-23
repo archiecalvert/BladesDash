@@ -7,9 +7,10 @@ import WingSelected from "../../../assets/Blade/blade_left_transparent.png"
 import WingTransition from "../../../assets/Blade/blade_left_blank.png"
 import { sleep }  from "../../../utils/sleep"
 import { GetDimensions }  from "../../../utils/getWindowDimensions"
-import {BLADE_BACKGROUND_SWIPEIN_TIME,
+import {BLADE_BACKGROUND_SWIPEIN_DURATION,
         BLADE_SLIDER_BACKGROUND_Z_INDEX,
-        BLADE_ANIMATION_KEYFRAME_DURATION
+        BLADE_ANIMATION_KEYFRAME_DURATION,
+        BLADE_SWIPE_ANIMATION_DURATION
     }  from "../../../utils/constants"
 import { SIDES } from "../../../utils/enums"
 
@@ -69,13 +70,13 @@ export function Wing({
         const DURATION = 0.2;
         if(left) {
             await controls.start({zIndex: 0, x: -bladeWidth, transition: {duration: 0.1, ease: "easeInOut"}})
-            await sleep(BLADE_BACKGROUND_SWIPEIN_TIME * 1000 + 10)
+            await sleep(BLADE_BACKGROUND_SWIPEIN_DURATION * 1000 + 10)
             await controls.start({zIndex: BLADE_SLIDER_BACKGROUND_Z_INDEX - 1, x: 0, transition: {duration: DURATION, ease: "easeInOut"}})  
             await controls.start({zIndex: BLADE_SLIDER_BACKGROUND_Z_INDEX + 1})  
         }
         else {
             await controls.start({zIndex: 0, x: bladeWidth, scaleX: -1, transition: {duration: 0.1, ease: "easeInOut"}})
-            await sleep(BLADE_BACKGROUND_SWIPEIN_TIME * 1000 + 10)
+            await sleep(BLADE_BACKGROUND_SWIPEIN_DURATION * 1000 + 10)
             await controls.start({zIndex: BLADE_SLIDER_BACKGROUND_Z_INDEX - 1, x: 0, scaleX: -1, transition: {duration: DURATION, ease: "easeInOut"}})
             await controls.start({zIndex: BLADE_SLIDER_BACKGROUND_Z_INDEX + 1})
         }
@@ -99,7 +100,7 @@ export function Wing({
         await controls.start({x: offsetX, y: offsetY, scaleX: index <= openPageIndex ? 1 : -1, transition: {duration: duration, ease: "easeInOut"}});
     }
 
-    function ResizeHandler() {
+    function ResizeHandler(duration=0) {
         if(!backgroundRef.current) return
         const {width, ration} = getBackgroundInnerSideCoord()
         setX(index <= openPageIndex ? 
@@ -108,7 +109,7 @@ export function Wing({
         )
         setRation(ration)
         setBladeWidth(ration * BLADE_WIDTH);
-        SetBladePosition(0, ration * BLADE_WIDTH)
+        SetBladePosition(duration, ration * BLADE_WIDTH)
     }
     
 
@@ -117,7 +118,7 @@ export function Wing({
     // =================================================
 
     async function transitionBlade(openPagePrev, openPageCurrent) {
-        const D = 0.15
+        const D = BLADE_SWIPE_ANIMATION_DURATION
         const {width, ration} = getBackgroundInnerSideCoord()
         // if moved ->
         if(openPageCurrent < openPagePrev && index == openPageCurrent + 1) {
@@ -129,7 +130,7 @@ export function Wing({
             setInTransition(true)
             await controls.start({x: finalOffset * 0.75, y: newOffsetY, scaleX: 1, transition: {duration: D / 2, ease: "linear"}})
             setInTransition(false)
-            await controls.start({scaleX: -1, transition: {duration: 0.000001}})
+            await controls.start({scaleX: -1, transition: {duration: 0.001}})
             await controls.start({x: finalOffset, y: newOffsetY, scaleX: -1, transition: {duration: D / 4, ease: "linear"}})
             ResizeHandler()
         }
@@ -144,14 +145,14 @@ export function Wing({
             setInTransition(true)
             await controls.start({x: -finalOffset * 0.75, y: newOffsetY, scaleX: -1, transition: {duration: D / 2, ease: "linear"}})
             setInTransition(false)
-            await controls.start({scaleX: 1, transition: {duration: 0.000001}})
+            await controls.start({scaleX: 1, transition: {duration: 0.001}})
             await controls.start({x: -finalOffset, y: newOffsetY, scaleX: 1, transition: {duration: D / 4, ease: "linear"}})
             ResizeHandler()
         }
 
         else {
             setInTransition(false)
-            ResizeHandler()
+            ResizeHandler(D)
         }
     }
 
@@ -210,9 +211,9 @@ export function Wing({
             />
 
             <div className="blade-wing-title-anchor">
-                <p style={!(index <= openPageIndex ) ? {transform: "scaleX(-1) rotate(90deg) translateY(35px)"} : {}} className="blade-wing-title">
+                {!inTransition && <p style={!(index <= openPageIndex ) ? {transform: "scaleX(-1) rotate(90deg) translateY(35px)"} : {}} className="blade-wing-title">
                     {title}
-                </p>
+                </p>}
             </div>
         </motion.div>
     );

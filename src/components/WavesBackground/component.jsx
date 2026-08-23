@@ -5,7 +5,7 @@ import { WAVES_BACKGROUND_Z_INDEX } from "../../utils/constants";
 
 const layers = [
     {
-        name: "mix",
+        name: "normal",
         speed: 0.23,
         opacity: 0.105882,
         rotation: 0,
@@ -13,7 +13,7 @@ const layers = [
         scale: 1
     },
     {
-        name: "add",
+        name: "screen",
         speed: 0.29,
         opacity: 0.096078,
         rotation: 0,
@@ -29,7 +29,7 @@ const layers = [
         scale: 1
     },
     {
-        name: "add2",
+        name: "screen2",
         speed: -0.51,
         opacity: 0.925098,
         rotation: 0,

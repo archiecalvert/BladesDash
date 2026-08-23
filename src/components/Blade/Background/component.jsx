@@ -2,7 +2,7 @@ import wingImage from "../../../assets/Blade/background.png"
 import plainBackground from "../../../assets/Blade/background_gradient.png"
 import "./component.css"
 import { SIDES } from "../../../utils/enums"
-import { BLADE_BACKGROUND_SWIPEIN_TIME, BLADE_SLIDER_BACKGROUND_Z_INDEX } from "../../../utils/constants"
+import { BLADE_BACKGROUND_SWIPEIN_DURATION, BLADE_SLIDER_BACKGROUND_Z_INDEX } from "../../../utils/constants"
 import { useRef, useState, useEffect } from "react"
 import { motion } from "framer-motion"
 export function BladeBackground({side = SIDES.LEFT, backgroundSide }) {
@@ -47,7 +47,7 @@ export function BladeBackground({side = SIDES.LEFT, backgroundSide }) {
             animate={{
                 x: end,
                 transition: {
-                    duration: BLADE_BACKGROUND_SWIPEIN_TIME
+                    duration: BLADE_BACKGROUND_SWIPEIN_DURATION
                 }
             }}
         >
