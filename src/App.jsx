@@ -10,22 +10,21 @@ import { BLADE_SWIPE_ANIMATION_DURATION, ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN
 import { GamesMenu } from './compositions/Menus/Games';
 
 function App() {
+	const BLADE_COUNT = 5
 
 	const [booting, setIsBooting] = useState(ENABLE_BOOT_ANIMATION)
+	const [currentlyOpenIndex, setCurrentlyOpenIndex] = useState(3)
+	
 	const backgroundWing = useRef(null)
-	
-	const [currentlyOpenIndex, setCurrentlyOpenIndex] = useState(2)
-
-	if(FORCE_FULLSCREEN) getCurrentWindow().setFullscreen(true);
-	
-		
 	const heldKeys = useRef({})
 	const repeatTimer = useRef(null)
 	const repeatInterval = useRef(null)
+	
+	if(FORCE_FULLSCREEN) getCurrentWindow().setFullscreen(true);
 
 	useEffect(() => {
 		function move(key) {
-			if (key === "d") setCurrentlyOpenIndex(prev => Math.min(5, prev + 1))
+			if (key === "d") setCurrentlyOpenIndex(prev => Math.min(BLADE_COUNT, prev + 1))
 			if (key === "a") setCurrentlyOpenIndex(prev => Math.max(1, prev - 1))
 		}
 
@@ -73,11 +72,11 @@ function App() {
 					<GamesMenu/>
 					<BladeBackground backgroundSide={backgroundWing} side="left"></BladeBackground>
 					<BladeBackground side="right"></BladeBackground>
-					<Wing backgroundRef={backgroundWing} isSelected={false} index={1} openPageIndex={currentlyOpenIndex} maximumIndex={5} title={"marketplace"}></Wing>
-					<Wing backgroundRef={backgroundWing} isSelected={false} index={2} openPageIndex={currentlyOpenIndex} maximumIndex={5} title={"xbox live"}></Wing>
-					<Wing backgroundRef={backgroundWing} isSelected={false} index={3} openPageIndex={currentlyOpenIndex} maximumIndex={5} title={"games"}></Wing>
-					<Wing backgroundRef={backgroundWing} isSelected={false} index={4} openPageIndex={currentlyOpenIndex} maximumIndex={5} isLeft={false} title={"media"}></Wing>
-					<Wing backgroundRef={backgroundWing} isSelected={false} index={5} openPageIndex={currentlyOpenIndex} maximumIndex={5}  isLeft={false} title={"system"}></Wing>
+					<Wing backgroundRef={backgroundWing} isSelected={false} index={1} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"marketplace"}></Wing>
+					<Wing backgroundRef={backgroundWing} isSelected={false} index={2} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"xbox live"}></Wing>
+					<Wing backgroundRef={backgroundWing} isSelected={false} index={3} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"games"}></Wing>
+					<Wing backgroundRef={backgroundWing} isSelected={false} index={4} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} isLeft={false} title={"media"}></Wing>
+					<Wing backgroundRef={backgroundWing} isSelected={false} index={5} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT}  isLeft={false} title={"system"}></Wing>
 				</>
 			}
 		</div>

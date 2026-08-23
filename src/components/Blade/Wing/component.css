@@ -15,8 +15,8 @@
 .blade-wing-title-anchor {
     position: absolute;
 
-    left: 65px;
-    top: 23vh;
+    left: 6.4vh;
+    top: 21.5%;
 
     width: 0;
     height: 0;
@@ -24,8 +24,8 @@
 .blade-wing-title {
     position: absolute;
 
-    left: 0;
-    top: 0;
+    left: 0px;
+    top: 0px;
 
     margin: 0;
     white-space: nowrap;

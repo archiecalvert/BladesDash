@@ -211,7 +211,7 @@ export function Wing({
             />
 
             <div className="blade-wing-title-anchor">
-                {!inTransition && <p style={!(index <= openPageIndex ) ? {transform: "scaleX(-1) rotate(90deg) translateY(35px)"} : {}} className="blade-wing-title">
+                {!inTransition && <p style={!(index <= openPageIndex ) ? {transform: "scaleX(-1) rotate(90deg) translateY(3.25dvh)"} : {}} className="blade-wing-title">
                     {title}
                 </p>}
             </div>
