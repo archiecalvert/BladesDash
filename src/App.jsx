@@ -7,7 +7,7 @@ import "./App.css";
 import { Wing } from './components/Blade/Wing/component';
 import { OpenApplication } from './utils/tauriWrapper';
 import { BLADE_SWIPE_ANIMATION_DURATION, ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN } from './utils/constants';
-import { GamesMenu } from './compositions/Menus/Games';
+import { MenuManager } from './components/MenuManager/component';
 
 function App() {
 	const BLADE_COUNT = 5
@@ -64,12 +64,12 @@ function App() {
 
 
 	return (
-		<div className="content-container">
+		<div className="content-container sixteenbynine">
 			<BootAnimationComponent isVisible={booting} setVideoDone={b => setIsBooting(!b)}/>
 			<WavesBackground isVisible={!booting} texture="/bg_spin_hq.jpg" speed={20} />
 			{!booting &&
 				<>
-					<GamesMenu/>
+					<MenuManager/>
 					<BladeBackground backgroundSide={backgroundWing} side="left"></BladeBackground>
 					<BladeBackground side="right"></BladeBackground>
 					<Wing backgroundRef={backgroundWing} isSelected={false} index={1} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"marketplace"}></Wing>

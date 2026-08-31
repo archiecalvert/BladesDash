@@ -24,11 +24,11 @@ export function BladeBackground({side = SIDES.LEFT, backgroundSide }) {
     }
     useEffect(() => {
         if (!bladeEdge.current) return
-
-        const w = window.innerWidth / 2 - bladeEdge.current.getBoundingClientRect().width
+        const offset = window.innerWidth * 0.035
+        const w = (window.innerWidth / 2 - bladeEdge.current.getBoundingClientRect().width)
         setStart(0)
         setWidth(w)
-        setEnd(side == SIDES.LEFT ? -w : w)
+        setEnd(side == SIDES.LEFT ? -w - offset  : w + offset)
     }, [])
     
     return (

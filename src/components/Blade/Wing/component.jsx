@@ -28,8 +28,11 @@ export function Wing({
     maximumIndex,
     backgroundRef
 }) {
-    const BLADE_WIDTH = 57;// 42;
-    const [inTransition, setInTransition] = useState(false)
+    const BLADE_SCALE = 1.1;
+    const BLADE_WIDTH = 57 * BLADE_SCALE;
+
+    const [isMiddleTransitionState, setIsMiddleTransitionState] = useState(false)
+    const [inTransition, setIsInTransition] = useState(false)
     const controls = useAnimationControls();
     const [isSelected, setIsSelected] = useState(index == openPageIndex);
     const wingRef = useRef(null)
@@ -75,9 +78,9 @@ export function Wing({
             await controls.start({zIndex: BLADE_SLIDER_BACKGROUND_Z_INDEX + 1})  
         }
         else {
-            await controls.start({zIndex: 0, x: bladeWidth, scaleX: -1, transition: {duration: 0.1, ease: "easeInOut"}})
+            await controls.start({zIndex: 0, x: bladeWidth, scaleY: BLADE_SCALE, scaleX: -1 * BLADE_SCALE, transition: {duration: 0.1, ease: "easeInOut"}})
             await sleep(BLADE_BACKGROUND_SWIPEIN_DURATION * 1000 + 10)
-            await controls.start({zIndex: BLADE_SLIDER_BACKGROUND_Z_INDEX - 1, x: 0, scaleX: -1, transition: {duration: DURATION, ease: "easeInOut"}})
+            await controls.start({zIndex: BLADE_SLIDER_BACKGROUND_Z_INDEX - 1, x: 0, scaleY: BLADE_SCALE, scaleX: -1 * BLADE_SCALE, transition: {duration: DURATION, ease: "easeInOut"}})
             await controls.start({zIndex: BLADE_SLIDER_BACKGROUND_Z_INDEX + 1})
         }
     }
@@ -97,15 +100,15 @@ export function Wing({
             offsetY = index * 12 - openPageIndex * 12;
         }
         setOffsetX(offsetX)
-        await controls.start({x: offsetX, y: offsetY, scaleX: index <= openPageIndex ? 1 : -1, transition: {duration: duration, ease: "easeInOut"}});
+        await controls.start({x: offsetX, y: offsetY, scaleY: BLADE_SCALE, scaleX: index <= openPageIndex ? 1 * BLADE_SCALE : -1 * BLADE_SCALE, transition: {duration: duration, ease: "easeInOut"}});
     }
 
     function ResizeHandler(duration=0) {
         if(!backgroundRef.current) return
         const {width, ration} = getBackgroundInnerSideCoord()
         setX(index <= openPageIndex ? 
-            backgroundRef.current.getBoundingClientRect().width - ration * 85 :
-            window.innerWidth - backgroundRef.current.getBoundingClientRect().width + ration * 85
+            backgroundRef.current.getBoundingClientRect().width - ration * 85 - window.innerWidth * 0.035:
+            window.innerWidth - backgroundRef.current.getBoundingClientRect().width + ration * 85 + window.innerWidth * 0.035
         )
         setRation(ration)
         setBladeWidth(ration * BLADE_WIDTH);
@@ -122,36 +125,39 @@ export function Wing({
         const {width, ration} = getBackgroundInnerSideCoord()
         // if moved ->
         if(openPageCurrent < openPagePrev && index == openPageCurrent + 1) {
+            setIsInTransition(true)
             const newOffsetX = -(maximumIndex - (index + 1)) * ration * BLADE_WIDTH;
             const newOffsetY = index * 12 - openPageIndex * 12;
             
             const finalOffset = (window.innerWidth - 2 * width) + newOffsetX
-            await controls.start({x: finalOffset / 4, y: newOffsetY, scaleX: 1, transition: {duration: D / 4, ease: "linear"}})
-            setInTransition(true)
-            await controls.start({x: finalOffset * 0.75, y: newOffsetY, scaleX: 1, transition: {duration: D / 2, ease: "linear"}})
-            setInTransition(false)
-            await controls.start({scaleX: -1, transition: {duration: 0.001}})
-            await controls.start({x: finalOffset, y: newOffsetY, scaleX: -1, transition: {duration: D / 4, ease: "linear"}})
+            await controls.start({x: finalOffset / 4, y: newOffsetY, scaleY: BLADE_SCALE, scaleX: 1 * BLADE_SCALE, transition: {duration: D / 4, ease: "linear"}})
+            setIsMiddleTransitionState(true)
+            await controls.start({x: finalOffset * 0.75, y: newOffsetY, scaleY: BLADE_SCALE, scaleX: 1 * BLADE_SCALE, transition: {duration: D / 2, ease: "linear"}})
+            setIsMiddleTransitionState(false)
+            await controls.start({scaleY: BLADE_SCALE, scaleX: -1 * BLADE_SCALE, transition: {duration: 0.001}})
+            await controls.start({x: finalOffset, y: newOffsetY, scaleY: BLADE_SCALE, scaleX: -1 * BLADE_SCALE, transition: {duration: D / 4, ease: "linear"}})
+            setIsInTransition(false)
             ResizeHandler()
         }
         // if moved <-
         else if(openPageCurrent > openPagePrev && index == openPageCurrent) {
-            console.log(title)
+            setIsInTransition(true)
             const newOffsetX = -((index - 2) * ration * BLADE_WIDTH)
             const newOffsetY = (openPageIndex - index) * 12;
             
             const finalOffset = (window.innerWidth - 2 * width) + newOffsetX
-            await controls.start({x: -finalOffset / 4, y: newOffsetY, scaleX: -1, transition: {duration: D / 4, ease: "linear"}})
-            setInTransition(true)
-            await controls.start({x: -finalOffset * 0.75, y: newOffsetY, scaleX: -1, transition: {duration: D / 2, ease: "linear"}})
-            setInTransition(false)
-            await controls.start({scaleX: 1, transition: {duration: 0.001}})
-            await controls.start({x: -finalOffset, y: newOffsetY, scaleX: 1, transition: {duration: D / 4, ease: "linear"}})
+            await controls.start({x: -finalOffset / 4, y: newOffsetY, scaleY: BLADE_SCALE, scaleX: -1 * BLADE_SCALE, transition: {duration: D / 4, ease: "linear"}})
+            setIsMiddleTransitionState(true)
+            await controls.start({x: -finalOffset * 0.75, y: newOffsetY, scaleY: BLADE_SCALE, scaleX: -1 * BLADE_SCALE, transition: {duration: D / 2, ease: "linear"}})
+            setIsMiddleTransitionState(false)
+            await controls.start({scaleY: BLADE_SCALE, scaleX: 1 * BLADE_SCALE, transition: {duration: 0.001}})
+            await controls.start({x: -finalOffset, y: newOffsetY, scaleY: BLADE_SCALE, scaleX: 1 * BLADE_SCALE, transition: {duration: D / 4, ease: "linear"}})
             ResizeHandler()
+            setIsInTransition(false)
         }
 
         else {
-            setInTransition(false)
+            setIsMiddleTransitionState(false)
             ResizeHandler(D)
         }
     }
@@ -204,14 +210,14 @@ export function Wing({
                 ref={wingRef}
                 className="blade-wing-image"
                 src={
-                    inTransition 
+                    isMiddleTransitionState 
                         ? WingTransition 
                         : (index == openPageIndex ? WingSelected : WingDeselected)
                 }
             />
 
             <div className="blade-wing-title-anchor">
-                {!inTransition && <p style={!(index <= openPageIndex ) ? {transform: "scaleX(-1) rotate(90deg) translateY(3.25dvh)"} : {}} className="blade-wing-title">
+                {!inTransition && <p style={!(index <= openPageIndex ) ? {transform: `scaleX(-1) rotate(90deg) translateY(3.2vh)`} : {}} className="blade-wing-title">
                     {title}
                 </p>}
             </div>
