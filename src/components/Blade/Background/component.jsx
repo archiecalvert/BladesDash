@@ -13,7 +13,8 @@ export function BladeBackground({side = SIDES.LEFT, backgroundSide }) {
     const [start, setStart] = useState()
     const [end, setEnd] = useState()
     const [width, setWidth] = useState()
-    
+    const [duration, setDuration] = useState(BLADE_BACKGROUND_SWIPEIN_DURATION)
+
     function SetBladeEdge(element) {
 
         bladeEdge.current = element
@@ -24,11 +25,21 @@ export function BladeBackground({side = SIDES.LEFT, backgroundSide }) {
     }
     useEffect(() => {
         if (!bladeEdge.current) return
+
+        window.addEventListener("resize", () => {
+            setDuration(0)
+            const offset = window.innerWidth * 0.035
+            const w = (window.innerWidth / 2 - bladeEdge.current.getBoundingClientRect().width)
+            setStart(0)
+            setWidth(w)
+            setEnd(side == SIDES.LEFT ? -w - offset  : w + offset)
+        })
         const offset = window.innerWidth * 0.035
         const w = (window.innerWidth / 2 - bladeEdge.current.getBoundingClientRect().width)
         setStart(0)
         setWidth(w)
         setEnd(side == SIDES.LEFT ? -w - offset  : w + offset)
+
     }, [])
     
     return (
@@ -36,7 +47,7 @@ export function BladeBackground({side = SIDES.LEFT, backgroundSide }) {
             style={{
                 scaleX: side === SIDES.LEFT ? 1 : -1,
                 scaleY: 1.2,
-                top: 50,
+                top: "10%",
                 left: side === SIDES.LEFT ? start : "unset",
                 right: side === SIDES.RIGHT ? start : "unset",
                 height: "100%",
@@ -47,7 +58,7 @@ export function BladeBackground({side = SIDES.LEFT, backgroundSide }) {
             animate={{
                 x: end,
                 transition: {
-                    duration: BLADE_BACKGROUND_SWIPEIN_DURATION
+                    duration: duration
                 }
             }}
         >

@@ -1,5 +1,12 @@
 
 
 .menu-manager-grid {
-    
+    display: flex;
+    height: 0px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+    filter: saturate(4);
+    mix-blend-mode:soft-light;
 }

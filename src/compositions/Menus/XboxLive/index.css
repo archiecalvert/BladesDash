@@ -1,8 +1,9 @@
-.game-menu {
+.live-menu {
     width: 100vw;
     height: 100vh;
+    position: relative;
     top: 0;
     left: 0;
     z-index: var(--menu-z-index);
-    background: rgb(36, 198, 15);
+    background: rgb(255, 174, 0);
 }

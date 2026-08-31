@@ -1,8 +1,8 @@
-.game-menu {
+.marketplace-menu {
     width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
     z-index: var(--menu-z-index);
-    background: rgb(36, 198, 15);
+    background: rgb(251, 134, 1);
 }

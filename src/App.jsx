@@ -8,6 +8,7 @@ import { Wing } from './components/Blade/Wing/component';
 import { OpenApplication } from './utils/tauriWrapper';
 import { BLADE_SWIPE_ANIMATION_DURATION, ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN } from './utils/constants';
 import { MenuManager } from './components/MenuManager/component';
+import { Wingv2 } from './components/Wingv2/component';
 
 function App() {
 	const BLADE_COUNT = 5
@@ -64,10 +65,10 @@ function App() {
 
 
 	return (
-		<div className="content-container sixteenbynine">
+		<div className="content-container">
 			<BootAnimationComponent isVisible={booting} setVideoDone={b => setIsBooting(!b)}/>
 			<WavesBackground isVisible={!booting} texture="/bg_spin_hq.jpg" speed={20} />
-			{!booting &&
+			{/* {!booting &&
 				<>
 					<MenuManager/>
 					<BladeBackground backgroundSide={backgroundWing} side="left"></BladeBackground>
@@ -77,7 +78,20 @@ function App() {
 					<Wing backgroundRef={backgroundWing} isSelected={false} index={3} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"games"}></Wing>
 					<Wing backgroundRef={backgroundWing} isSelected={false} index={4} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} isLeft={false} title={"media"}></Wing>
 					<Wing backgroundRef={backgroundWing} isSelected={false} index={5} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT}  isLeft={false} title={"system"}></Wing>
-				</>
+					</>
+					} */}
+			{
+				!booting && 
+				<>
+						<BladeBackground backgroundSide={backgroundWing} side="left"></BladeBackground>
+						<BladeBackground side="right"></BladeBackground>
+						<Wingv2 backgroundRef={backgroundWing} isSelected={false} index={1} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"marketplace"}/>
+						<Wingv2 backgroundRef={backgroundWing} isSelected={false} index={2} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"xbox live"}/>
+						<Wingv2 backgroundRef={backgroundWing} isSelected={false} index={3} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"games"}/>
+						<Wingv2 backgroundRef={backgroundWing} isSelected={false} index={4} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} isLeft={false} title={"media"}/>
+						<Wingv2 backgroundRef={backgroundWing} isSelected={false} index={5} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT}  isLeft={false} title={"system"}/>
+						<MenuManager currentOpenPage={currentlyOpenIndex}/>
+					</>
 			}
 		</div>
 	);
