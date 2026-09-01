@@ -35,6 +35,7 @@ export function Wingv2({
     const [initing, setIniting] = useState(true)
     const [isMiddleTransitionState, setIsMiddleTransitionState] = useState(false)
     const [inTransition, setIsInTransition] = useState(false)
+    const [isLeft, setIsLeft] = useState(index <= openPageIndex)
     const [baseX, setBaseX] = useState(0);
     const [_r, _sr] = useState();
 
@@ -137,24 +138,52 @@ export function Wingv2({
             // if <- and is now open
             if (oldOpen === index - 1 && openPageIndex == index) {
                 setBaseX(0)
+                setIsInTransition(true)
                 const [oldX, oldY] = getOffsetPosition(oldOpen + 1, oldOpen)
                 const [newX, newY] = getOffsetPosition(index, openPageIndex)
-                await controls.start({x: (window.innerWidth - _getBackgroundXPosition()) + oldX, y: oldY, transition: {duration: 0.00001,  ease: "linear"}})
-                await controls.start({x: _getBackgroundXPosition() + newX, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION, ease: "linear"}})
+
+                const start = (window.innerWidth - _getBackgroundXPosition()) + oldX
+                const end = (_getBackgroundXPosition() + newX)
+                const total_distance = start - end
+                const x1 = start - total_distance / 4
+                const x2 = start - total_distance * 0.75
+
+                await controls.start({x: start, y: oldY, transition: {duration: 0.00001,  ease: "linear"}})
+                await controls.start({x: x1, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
+                setIsMiddleTransitionState(true)
+                await controls.start({x: x2, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 2, ease: "linear"}})
+                setIsMiddleTransitionState(false)
+                setIsLeft(true)
+                await controls.start({x: end, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
 
                 setBaseX(_getBackgroundXPosition())
                 await animBladesIdlePosition(0)
+                setIsInTransition(false)
             }
             // if -> and no longer open
             else if (openPageIndex < oldOpen && index == openPageIndex + 1) {
                 setBaseX(0)
+                setIsInTransition(true)
                 const [oldX, oldY] = getOffsetPosition(oldOpen, oldOpen)
                 const [newX, newY] = getOffsetPosition(index, openPageIndex)
-                await controls.start({x: _getBackgroundXPosition() + oldX, y: oldY, transition: {duration: 0.00001,  ease: "linear"}})
-                await controls.start({x: window.innerWidth - _getBackgroundXPosition() + newX, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION, ease: "linear"}})
+
+                const start = _getBackgroundXPosition() + oldX
+                const end = window.innerWidth - _getBackgroundXPosition() + newX
+                const total_distance = end - start
+                const x1 = end - total_distance * 0.75
+                const x2 = end - total_distance / 4
+
+                await controls.start({x: start, y: oldY, transition: {duration: 0.00001,  ease: "linear"}})
+                await controls.start({x: x1, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
+                setIsMiddleTransitionState(true)
+                await controls.start({x: x2, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 2, ease: "linear"}})
+                setIsMiddleTransitionState(false)
+                setIsLeft(false)
+                await controls.start({x: end, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
 
                 setBaseX(window.innerWidth - _getBackgroundXPosition())
                 await animBladesIdlePosition(0)
+                setIsInTransition(false)
             }
             // if blade is not transitioning across screen
             else {
@@ -175,7 +204,7 @@ export function Wingv2({
                 left: baseX,
                 top: 0,
                 zIndex: 4,
-                scaleX: index > openPageIndex ? -1.1 : 1.1,
+                scaleX: !isLeft ? -1.1 : 1.1,
                 scaleY: 1.1
             }}
             animate={controls}
