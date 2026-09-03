@@ -1,0 +1,17 @@
+
+.standard-button-container {
+    margin: 0px;
+    padding: 0px;
+    border: solid 2.5px;
+    border-right: 0px;
+    border-left: 0px;
+    border-color: rgba(50, 50, 50, 0.5);
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.2) 0%, 
+        rgba(255, 255, 255, 0.5) 33%, 
+        rgba(255, 255, 255, 0.5) 77%, 
+        rgba(255, 255, 255, 0.2) 100%
+    );
+    z-index: 1000;
+}
