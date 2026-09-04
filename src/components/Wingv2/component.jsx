@@ -72,6 +72,9 @@ export function Wingv2({
         return selfRef.current.getBoundingClientRect().width
     }
 
+    function calculateZIndex(left, current) {
+        return BLADE_SLIDER_BACKGROUND_Z_INDEX + (left ? current : maximumIndex - current)
+    }
     /**
      * 
      * @param i the index which we want to calculate the offset for
@@ -104,12 +107,12 @@ export function Wingv2({
     async function animBladesInitHideUnhide() {
         
         // hide behind blade for now
-        await controls.start({x: (index > openPageIndex ? 1 : -1) * getSelfWidth(), transition: {duration: 0, ease: "linear"}})
+        await controls.start({zIndex: calculateZIndex(isLeft, index) - maximumIndex * 2, x: (index > openPageIndex ? 1 : -1) * getSelfWidth(), transition: {duration: 0, ease: "linear"}})
         await sleep(BLADE_BACKGROUND_SWIPEIN_DURATION * 1000)
         // move onto screen
         await controls.start({x: 0, transition: {duration: 0.2, ease: "linear"}})
         // place on top of background
-        await controls.start({zIndex: BLADE_SLIDER_BACKGROUND_Z_INDEX})
+        await controls.start({zIndex: calculateZIndex(isLeft, index)})
     }
 
 
@@ -121,7 +124,7 @@ export function Wingv2({
 
         async function f() {
             Resize()
-
+            Rerender()
             await animBladesInitHideUnhide()
             await animBladesIdlePosition()
             setIniting(false)
@@ -133,7 +136,6 @@ export function Wingv2({
     useEffect(() => {
         async function f() {
             const oldOpen = previousOpenIndex.current;
-            await animBladesIdlePosition(0)
 
             // if <- and is now open
             if (oldOpen === index - 1 && openPageIndex == index) {
@@ -148,10 +150,10 @@ export function Wingv2({
                 const x1 = start - total_distance / 4
                 const x2 = start - total_distance * 0.75
 
-                await controls.start({x: start, y: oldY, transition: {duration: 0.00001,  ease: "linear"}})
+                await controls.start({zIndex: calculateZIndex(false, index), x: start, y: oldY, transition: {duration: 0.00000001,  ease: "linear"}})
                 await controls.start({x: x1, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
                 setIsMiddleTransitionState(true)
-                await controls.start({x: x2, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 2, ease: "linear"}})
+                await controls.start({zIndex: calculateZIndex(true, index), x: x2, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 2, ease: "linear"}})
                 setIsMiddleTransitionState(false)
                 setIsLeft(true)
                 await controls.start({x: end, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
@@ -170,13 +172,13 @@ export function Wingv2({
                 const start = _getBackgroundXPosition() + oldX
                 const end = window.innerWidth - _getBackgroundXPosition() + newX
                 const total_distance = end - start
-                const x1 = end - total_distance * 0.75
+                const x1 = start + total_distance / 4
                 const x2 = end - total_distance / 4
 
-                await controls.start({x: start, y: oldY, transition: {duration: 0.00001,  ease: "linear"}})
+                await controls.start({zIndex: calculateZIndex(true, index), x: start, y: oldY, transition: {duration: 0,  ease: "linear"}})
                 await controls.start({x: x1, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
                 setIsMiddleTransitionState(true)
-                await controls.start({x: x2, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 2, ease: "linear"}})
+                await controls.start({zIndex: calculateZIndex(false, index), x: x2, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 2, ease: "linear"}})
                 setIsMiddleTransitionState(false)
                 setIsLeft(false)
                 await controls.start({x: end, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
@@ -189,6 +191,10 @@ export function Wingv2({
             else {
                 await animBladesIdlePosition(BLADE_SWIPE_ANIMATION_DURATION)
             }
+            await animBladesIdlePosition(0)
+            setIsMiddleTransitionState(false)
+            setIsInTransition(false)
+
             Resize()
             previousOpenIndex.current = openPageIndex
         }
@@ -203,7 +209,6 @@ export function Wingv2({
             style={{
                 left: baseX,
                 top: 0,
-                zIndex: 4,
                 scaleX: !isLeft ? -1.1 : 1.1,
                 scaleY: 1.1
             }}
@@ -217,11 +222,12 @@ export function Wingv2({
                         ? WingTransition 
                         : (index == openPageIndex ? WingSelected : WingDeselected)
                 }
+                style={index != openPageIndex ? {filter: "drop-shadow(-12px -2px 5px rgba(40,40,40,0.6)) drop-shadow(12px -2px 5px rgba(40,40,40,0.6))"} : {}}
 
             />
 
             <div className="blade-wing-title-anchor">
-                {!inTransition && <p style={!(index <= openPageIndex ) ? {transform: `scaleX(-1) rotate(90deg) translateY(3.2vh)`} : {}} className="blade-wing-title">
+                {!inTransition && <p style={!(index <= openPageIndex ) ? {transform: `scaleX(-1) rotate(90deg) translateY(3.2vh) translateX(-5%)`} : {}} className="blade-wing-title">
                     {title}
                 </p>}
             </div>
