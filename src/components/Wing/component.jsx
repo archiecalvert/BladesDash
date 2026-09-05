@@ -1,17 +1,19 @@
 import { useState, useEffect, useRef, useLayoutEffect } from "react"
 import { easeIn, motion, transform, useAnimationControls } from "motion/react"
 
-import "./component.css"
 import WingDeselected from "../../assets/Blade/blade_left_opaque.png"
 import WingSelected from "../../assets/Blade/blade_left_transparent.png"
 import WingTransition from "../../assets/Blade/blade_left_blank.png"
+import WingMask from "../../assets/Blade/blade_mask.png"
+
 import {BLADE_BACKGROUND_SWIPEIN_DURATION,
-        BLADE_SLIDER_BACKGROUND_Z_INDEX,
-        BLADE_ANIMATION_KEYFRAME_DURATION,
-        BLADE_SWIPE_ANIMATION_DURATION,
-    }  from "../../utils/constants"
+    BLADE_SLIDER_BACKGROUND_Z_INDEX,
+    BLADE_ANIMATION_KEYFRAME_DURATION,
+    BLADE_SWIPE_ANIMATION_DURATION,
+}  from "../../utils/constants"
 import {sleep}  from "../../utils/sleep"
 import { SIDES } from "../../utils/enums"
+import "./component.css"
 
 /**
  * @param title the title which is displayed on the wing
@@ -20,12 +22,13 @@ import { SIDES } from "../../utils/enums"
  * @param maximumIndex
  * @param backgroundRef a reference to the background gradient behind the wings
  */
-export function Wingv2({
+export function Wing({
     title = "<placeholder>",
     index,
     openPageIndex,
     maximumIndex,
-    backgroundRef
+    backgroundRef,
+    color="#ff0000"
 }) {
     const controls = useAnimationControls();
     
@@ -37,20 +40,16 @@ export function Wingv2({
     const [inTransition, setIsInTransition] = useState(false)
     const [isLeft, setIsLeft] = useState(index <= openPageIndex)
     const [baseX, setBaseX] = useState(0);
-    const [_r, _sr] = useState();
 
     const selfRef = useRef(null)
     const previousOpenIndex = useRef(openPageIndex)
-
-    // Function which causes a component rerender due to state change
-    function Rerender() { _sr(null) }
-
+    
     // ===========================================================================
     // ============================= EVENT LISTENERS =============================
     // ===========================================================================
     async function Resize() {
-        if (index > openPageIndex) { setBaseX(window.innerWidth - _getBackgroundXPosition())}
-        else { setBaseX(_getBackgroundXPosition()) }
+        if (index > openPageIndex) { setBaseX(window.innerWidth - getBackgroundXPosition())}
+        else { setBaseX(getBackgroundXPosition()) }
 
         await animBladesIdlePosition(0)
     }
@@ -59,16 +58,16 @@ export function Wingv2({
     // ================================= HELPERS =================================
     // ===========================================================================
     // Gets the X position of the blade background
-    function _getBackgroundXPosition() {
+    function getBackgroundXPosition() {
         function _getBackgroundPositionOffset() { return window.innerWidth * 0.035 }
     
-        if(!backgroundRef.current) return;
+        if(!backgroundRef.current || !window) return;
         
         return backgroundRef.current.getBoundingClientRect().width - _getBackgroundPositionOffset() - getSelfWidth() * (1 - WHITESPACE_LEFT)
     }
 
     function getSelfWidth() {
-        if (!selfRef) return
+        if (!selfRef.current) return
         return selfRef.current.getBoundingClientRect().width
     }
 
@@ -94,6 +93,25 @@ export function Wingv2({
             const offsetY = (cur - i - 1) * 10
             return [-offsetX, offsetY]
         }
+    }
+
+    function waitForLayout() {
+        return new Promise(resolve => {
+            const check = () => {
+                if (
+                    backgroundRef.current &&
+                    selfRef.current &&
+                    backgroundRef.current.getBoundingClientRect().width > 0 &&
+                    selfRef.current.getBoundingClientRect().width > 0
+                ) {
+                    resolve()
+                } else {
+                    requestAnimationFrame(check)
+                }
+            }
+
+            check()
+        })
     }
 
     // ===========================================================================
@@ -123,8 +141,10 @@ export function Wingv2({
         window.addEventListener("resize", Resize)
 
         async function f() {
-            Resize()
-            Rerender()
+            await waitForLayout()
+            if (index > openPageIndex) { setBaseX(window.innerWidth - getBackgroundXPosition())}
+            else { setBaseX(getBackgroundXPosition()) }
+            console.log(getBackgroundXPosition())
             await animBladesInitHideUnhide()
             await animBladesIdlePosition()
             setIniting(false)
@@ -144,8 +164,8 @@ export function Wingv2({
                 const [oldX, oldY] = getOffsetPosition(oldOpen + 1, oldOpen)
                 const [newX, newY] = getOffsetPosition(index, openPageIndex)
 
-                const start = (window.innerWidth - _getBackgroundXPosition()) + oldX
-                const end = (_getBackgroundXPosition() + newX)
+                const start = (window.innerWidth - getBackgroundXPosition()) + oldX
+                const end = (getBackgroundXPosition() + newX)
                 const total_distance = start - end
                 const x1 = start - total_distance / 4
                 const x2 = start - total_distance * 0.75
@@ -158,7 +178,7 @@ export function Wingv2({
                 setIsLeft(true)
                 await controls.start({x: end, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
 
-                setBaseX(_getBackgroundXPosition())
+                setBaseX(getBackgroundXPosition())
                 await animBladesIdlePosition(0)
                 setIsInTransition(false)
             }
@@ -169,8 +189,8 @@ export function Wingv2({
                 const [oldX, oldY] = getOffsetPosition(oldOpen, oldOpen)
                 const [newX, newY] = getOffsetPosition(index, openPageIndex)
 
-                const start = _getBackgroundXPosition() + oldX
-                const end = window.innerWidth - _getBackgroundXPosition() + newX
+                const start = getBackgroundXPosition() + oldX
+                const end = window.innerWidth - getBackgroundXPosition() + newX
                 const total_distance = end - start
                 const x1 = start + total_distance / 4
                 const x2 = end - total_distance / 4
@@ -183,7 +203,7 @@ export function Wingv2({
                 setIsLeft(false)
                 await controls.start({x: end, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
 
-                setBaseX(window.innerWidth - _getBackgroundXPosition())
+                setBaseX(window.innerWidth - getBackgroundXPosition())
                 await animBladesIdlePosition(0)
                 setIsInTransition(false)
             }
@@ -210,7 +230,10 @@ export function Wingv2({
                 left: baseX,
                 top: 0,
                 scaleX: !isLeft ? -1.1 : 1.1,
-                scaleY: 1.1
+                scaleY: 1.1,
+                filter: index == openPageIndex
+                    ?  "drop-shadow(-12px -2px 5px rgba(40,40,40,0.6)) drop-shadow(12px -2px 5px rgba(40,40,40,0.8))"
+                    :  "drop-shadow(-12px -2px 5px rgba(40,40,40,0.6)) drop-shadow(12px -2px 5px rgba(40,40,40,0.6))",
             }}
             animate={controls}
         >
@@ -218,16 +241,31 @@ export function Wingv2({
                 ref={selfRef}
                 className="blade-wing-image"
                 src={
-                    isMiddleTransitionState 
-                        ? WingTransition 
+                    isMiddleTransitionState
+                        ? WingTransition
                         : (index == openPageIndex ? WingSelected : WingDeselected)
                 }
-                style={index != openPageIndex ? {filter: "drop-shadow(-12px -2px 5px rgba(40,40,40,0.6)) drop-shadow(12px -2px 5px rgba(40,40,40,0.6))"} : {}}
+                style={
+                    !isMiddleTransitionState ?
+                        {
+                            backgroundColor: color,
+                            
+                            maskImage: `url(${WingMask})`,
+                            maskRepeat: "no-repeat",
+                            maskPosition: "center",
+                            maskSize: "100% 100%",
 
+                            WebkitMaskImage: `url(${WingMask})`,
+                            WebkitMaskRepeat: "no-repeat",
+                            WebkitMaskPosition: "center",
+                            WebkitMaskSize: "100% 100%",
+                        }
+                        : {}
+                }
             />
 
             <div className="blade-wing-title-anchor">
-                {!inTransition && <p style={!(index <= openPageIndex ) ? {transform: `scaleX(-1) rotate(90deg) translateY(3.2vh) translateX(-5%)`} : {}} className="blade-wing-title">
+                {!inTransition && <p style={!(index <= openPageIndex ) ? {transform: `scaleX(-1) rotate(90deg) translateY(3.0vh) translateX(-5%)`} : {}} className="blade-wing-title">
                     {title}
                 </p>}
             </div>

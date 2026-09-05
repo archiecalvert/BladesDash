@@ -1,0 +1,8 @@
+.menu-underlay {
+    width: 100vw;
+    height: 75vh;
+    background: white;
+    align-self: center;
+    justify-self: center;
+    opacity: 0.3;
+}

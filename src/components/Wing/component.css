@@ -2,6 +2,7 @@
     height: calc(120%);
     translate: 0 -5%;
     position: absolute;
+    background-color: black;
 }
 
 .blade-wing-image {
@@ -9,7 +10,6 @@
     left: 0;
     top: 0;
     height: 100%;
-    mix-blend-mode:multiply;
 }
 
 .blade-wing-title-anchor {

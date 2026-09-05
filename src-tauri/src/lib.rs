@@ -26,6 +26,7 @@ pub fn run() {
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
+        // .plugin(tauri_plugin_prevent_default::init())
         .invoke_handler(tauri::generate_handler![greet])
         .invoke_handler(tauri::generate_handler![launch_app])
         .run(tauri::generate_context!())

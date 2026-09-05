@@ -4,11 +4,10 @@ import { BootAnimationComponent } from "./components/BootAnim/component";
 import { WavesBackground } from "./components/WavesBackground/component"
 import { BladeBackground } from './components/Blade/Background/component';
 import "./App.css";
-import { Wing } from './components/Blade/Wing/component';
 import { OpenApplication } from './utils/tauriWrapper';
 import { BLADE_SWIPE_ANIMATION_DURATION, ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN } from './utils/constants';
 import { MenuManager } from './components/MenuManager/component';
-import { Wingv2 } from './components/Wingv2/component';
+import { Wing } from './components/Wing/component';
 
 function App() {
 	const BLADE_COUNT = 5
@@ -68,28 +67,16 @@ function App() {
 		<div className="content-container">
 			<BootAnimationComponent isVisible={booting} setVideoDone={b => setIsBooting(!b)}/>
 			<WavesBackground isVisible={!booting} texture="/bg_spin_hq.jpg" speed={20} />
-			{/* {!booting &&
-				<>
-					<MenuManager/>
-					<BladeBackground backgroundSide={backgroundWing} side="left"></BladeBackground>
-					<BladeBackground side="right"></BladeBackground>
-					<Wing backgroundRef={backgroundWing} isSelected={false} index={1} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"marketplace"}></Wing>
-					<Wing backgroundRef={backgroundWing} isSelected={false} index={2} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"xbox live"}></Wing>
-					<Wing backgroundRef={backgroundWing} isSelected={false} index={3} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"games"}></Wing>
-					<Wing backgroundRef={backgroundWing} isSelected={false} index={4} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} isLeft={false} title={"media"}></Wing>
-					<Wing backgroundRef={backgroundWing} isSelected={false} index={5} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT}  isLeft={false} title={"system"}></Wing>
-					</>
-					} */}
 			{
 				!booting && 
 				<>
 						<BladeBackground backgroundSide={backgroundWing} side="left"></BladeBackground>
 						<BladeBackground side="right"></BladeBackground>
-						<Wingv2 backgroundRef={backgroundWing} isSelected={false} index={1} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"marketplace"}/>
-						<Wingv2 backgroundRef={backgroundWing} isSelected={false} index={2} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"xbox live"}/>
-						<Wingv2 backgroundRef={backgroundWing} isSelected={false} index={3} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"games"}/>
-						<Wingv2 backgroundRef={backgroundWing} isSelected={false} index={4} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} isLeft={false} title={"media"}/>
-						<Wingv2 backgroundRef={backgroundWing} isSelected={false} index={5} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT}  isLeft={false} title={"system"}/>
+						<Wing color="rgb(254, 119, 0)" backgroundRef={backgroundWing} isSelected={false} index={1} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"marketplace"}/>
+						<Wing color="rgb(227, 152, 14)" backgroundRef={backgroundWing} isSelected={false} index={2} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"xbox live"}/>
+						<Wing color="rgb(52, 187, 34)" backgroundRef={backgroundWing} isSelected={false} index={3} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"games"}/>
+						<Wing color="rgb(56, 112, 176)" backgroundRef={backgroundWing} isSelected={false} index={4} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} isLeft={false} title={"media"}/>
+						<Wing color="rgb(134, 87, 177)" backgroundRef={backgroundWing} isSelected={false} index={5} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT}  isLeft={false} title={"system"}/>
 						<MenuManager currentOpenPage={currentlyOpenIndex}/>
 					</>
 			}

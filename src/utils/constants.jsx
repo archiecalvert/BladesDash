@@ -1,6 +1,6 @@
 // ============== | SETTINGS | ===============
-export const FORCE_FULLSCREEN = true
-export const ENABLE_BOOT_ANIMATION = true;
+export const FORCE_FULLSCREEN = false
+export const ENABLE_BOOT_ANIMATION = false;
 
 // ============== | Z-INDEXES | ==============
 export const WAVES_BACKGROUND_Z_INDEX = 0           // base background image
@@ -14,4 +14,4 @@ export const BLADE_SLIDER_BACKGROUND_Z_INDEX = 100  // blades solid background
 // to the side
 export const BLADE_BACKGROUND_SWIPEIN_DURATION = 0.6
 export const BLADE_ANIMATION_KEYFRAME_DURATION = 0.25
-export const BLADE_SWIPE_ANIMATION_DURATION = 0.15
+export const BLADE_SWIPE_ANIMATION_DURATION = 0.1

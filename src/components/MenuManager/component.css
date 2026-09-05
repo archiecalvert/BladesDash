@@ -1,6 +1,6 @@
 
 
-.menu-manager-grid {
+.menu-manager-filter-grid {
     display: flex;
     height: 0px;
     position: absolute;
@@ -9,4 +9,12 @@
     opacity: 0.5;
     filter: saturate(4);
     mix-blend-mode:soft-light;
+}
+
+.menu-manager-content-grid {
+    display: flex;
+    height: 0px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
