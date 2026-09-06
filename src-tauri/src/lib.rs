@@ -1,7 +1,9 @@
 mod input;
+mod audio;
 
 use std::process::Command;
 use crate::input::init_controller_listener;
+use crate::audio::play_audio;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
@@ -27,8 +29,10 @@ pub fn run() {
         })
         .plugin(tauri_plugin_opener::init())
         // .plugin(tauri_plugin_prevent_default::init())
-        .invoke_handler(tauri::generate_handler![greet])
-        .invoke_handler(tauri::generate_handler![launch_app])
+        .invoke_handler(tauri::generate_handler![
+            launch_app,
+            play_audio,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

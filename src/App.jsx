@@ -4,10 +4,15 @@ import { BootAnimationComponent } from "./components/BootAnim/component";
 import { WavesBackground } from "./components/WavesBackground/component"
 import { BladeBackground } from './components/Blade/Background/component';
 import "./App.css";
-import { OpenApplication } from './utils/tauriWrapper';
+import { OpenApplication, PlaySound, SOUNDS } from './utils/tauriWrapper';
 import { BLADE_SWIPE_ANIMATION_DURATION, ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN } from './utils/constants';
 import { MenuManager } from './components/MenuManager/component';
 import { Wing } from './components/Wing/component';
+import BladeSwoosh1 from "./assets/Audio/Wings/blades_swoosh_1.wav"
+import BladeSwoosh2 from "./assets/Audio/Wings/blades_swoosh_2.wav"
+import BladeSwoosh3 from "./assets/Audio/Wings/blades_swoosh_3.wav"
+import BladeSwoosh4 from "./assets/Audio/Wings/blades_swoosh_4.wav"
+import BladeSwoosh5 from "./assets/Audio/Wings/blades_swoosh_5.wav"
 
 function App() {
 	const BLADE_COUNT = 5
@@ -20,11 +25,21 @@ function App() {
 	const repeatTimer = useRef(null)
 	const repeatInterval = useRef(null)
 	
-	if(FORCE_FULLSCREEN) getCurrentWindow().setFullscreen(true);
+	useEffect(() => {
+		if (FORCE_FULLSCREEN) {
+			getCurrentWindow().setFullscreen(true);
+		}
+	}, []);
+
+	useEffect(() => {
+		PlaySound(SOUNDS.BLADE_SWOOSH[currentlyOpenIndex - 1])
+	}, [currentlyOpenIndex])
 
 	useEffect(() => {
 		function move(key) {
-			if (key === "d") setCurrentlyOpenIndex(prev => Math.min(BLADE_COUNT, prev + 1))
+			if (key === "d") {
+				setCurrentlyOpenIndex(prev => Math.min(BLADE_COUNT, prev + 1))
+			}
 			if (key === "a") setCurrentlyOpenIndex(prev => Math.max(1, prev - 1))
 		}
 
