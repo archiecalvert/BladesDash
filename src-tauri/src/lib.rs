@@ -2,10 +2,9 @@ mod input;
 mod audio;
 
 use std::process::Command;
+use tauri::Manager;
 use crate::input::init_controller_listener;
-use crate::audio::play_audio;
 
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
@@ -24,14 +23,18 @@ pub fn run() {
     tauri::Builder::default()
         .setup(|app| {
             let handle = app.handle().clone();
-            init_controller_listener(handle);
+
+            init_controller_listener(handle.clone());
+
+            app.manage(audio::AudioManager::new(handle));
+
             Ok(())
         })
         .plugin(tauri_plugin_opener::init())
-        // .plugin(tauri_plugin_prevent_default::init())
         .invoke_handler(tauri::generate_handler![
+            greet,
             launch_app,
-            play_audio,
+            audio::play_audio
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

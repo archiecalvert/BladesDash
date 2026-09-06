@@ -10,6 +10,8 @@ import {BLADE_BACKGROUND_SWIPEIN_DURATION,
     BLADE_SLIDER_BACKGROUND_Z_INDEX,
     BLADE_ANIMATION_KEYFRAME_DURATION,
     BLADE_SWIPE_ANIMATION_DURATION,
+    BLADE_WHITESPACE_LEFT,
+    BLADE_WHITESPACE_RIGHT,
 }  from "../../utils/constants"
 import {sleep}  from "../../utils/sleep"
 import { SIDES } from "../../utils/enums"
@@ -32,9 +34,6 @@ export function Wing({
 }) {
     const controls = useAnimationControls();
     
-    const WHITESPACE_LEFT = 0.403
-    const WHITESPACE_RIGHT = 0.18548387
-
     const [initing, setIniting] = useState(true)
     const [isMiddleTransitionState, setIsMiddleTransitionState] = useState(false)
     const [inTransition, setIsInTransition] = useState(false)
@@ -63,7 +62,7 @@ export function Wing({
     
         if(!backgroundRef.current || !window) return;
         
-        return backgroundRef.current.getBoundingClientRect().width - _getBackgroundPositionOffset() - getSelfWidth() * (1 - WHITESPACE_LEFT)
+        return backgroundRef.current.getBoundingClientRect().width - _getBackgroundPositionOffset() - getSelfWidth() * (1 - BLADE_WHITESPACE_LEFT)
     }
 
     function getSelfWidth() {
@@ -80,7 +79,7 @@ export function Wing({
      * @param cur the currently active page index
      */
     function getOffsetPosition(i, cur) {
-        const bladeWidth = getSelfWidth() * ((1 - WHITESPACE_LEFT) - WHITESPACE_RIGHT)
+        const bladeWidth = getSelfWidth() * ((1 - BLADE_WHITESPACE_LEFT) - BLADE_WHITESPACE_RIGHT)
 
         // if right
         if (i > cur) {
@@ -144,7 +143,6 @@ export function Wing({
             await waitForLayout()
             if (index > openPageIndex) { setBaseX(window.innerWidth - getBackgroundXPosition())}
             else { setBaseX(getBackgroundXPosition()) }
-            console.log(getBackgroundXPosition())
             await animBladesInitHideUnhide()
             await animBladesIdlePosition()
             setIniting(false)
@@ -195,7 +193,7 @@ export function Wing({
                 const x1 = start + total_distance / 4
                 const x2 = end - total_distance / 4
 
-                await controls.start({zIndex: calculateZIndex(true, index), x: start, y: oldY, transition: {duration: 0,  ease: "linear"}})
+                await controls.start({zIndex: calculateZIndex(true, index), x: start, y: oldY, transition: {duration: 0.00000001,  ease: "linear"}})
                 await controls.start({x: x1, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
                 setIsMiddleTransitionState(true)
                 await controls.start({zIndex: calculateZIndex(false, index), x: x2, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 2, ease: "linear"}})
@@ -240,6 +238,7 @@ export function Wing({
             <img
                 ref={selfRef}
                 className="blade-wing-image"
+                id={`blade-wing-image-${index}`}
                 src={
                     isMiddleTransitionState
                         ? WingTransition

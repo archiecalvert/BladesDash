@@ -1,0 +1,11 @@
+.menu-content-container {
+    margin-top: 6.5vh;
+    margin-bottom: 12.5vh;
+    animation-name: fadeIn;
+    animation-duration: 0.15s;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0}
+  to {opacity: 1}
+}

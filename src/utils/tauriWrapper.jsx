@@ -1,7 +1,11 @@
 import { invoke } from "@tauri-apps/api/core";
 
 export const SOUNDS = {
-    BLADE_SWOOSH: ["blades_swoosh_1.wav", "blades_swoosh_2.wav", "blades_swoosh_3.wav", "blades_swoosh_4.wav", "blades_swoosh_5.wav"],
+    BLADE_SWOOSH: ["Blades/blades_swoosh_1.wav", 
+                   "Blades/blades_swoosh_2.wav", 
+                   "Blades/blades_swoosh_3.wav", 
+                   "Blades/blades_swoosh_4.wav", 
+                   "Blades/blades_swoosh_5.wav",],
 }
 
 /**

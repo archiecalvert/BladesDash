@@ -9,6 +9,10 @@ export const MENU_Z_INDEX = 2                       // blending filter for backg
 export const UI_Z_INDEX = 3                         // buttons, menus, images, etc...
 export const BLADE_SLIDER_BACKGROUND_Z_INDEX = 100  // blades solid background
 
+// ============ | BLADE SIZING | =============
+export const BLADE_WHITESPACE_LEFT = 0.403
+export const BLADE_WHITESPACE_RIGHT = 0.18548387
+
 // =========== | BLADE CONSTANTS | ===========
 // time taken for the blades to go from the center of the screen
 // to the side

@@ -1,0 +1,9 @@
+.menu-title {
+    color: white;
+    font-weight: normal;
+    text-shadow: 0px 1px 0px black;
+    font-size: 4vh;
+    letter-spacing: 0.05rem;
+    padding: 0px;
+    margin: 0px;
+}

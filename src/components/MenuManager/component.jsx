@@ -17,7 +17,7 @@ import { BlankMenu } from "../../compositions/MenuFilters/Blank";
 
 export function MenuManager({currentOpenPage=1}) {
     const controlsFilters = useAnimationControls();
-
+    
     useEffect(() => {
         async function f() {
             await controlsFilters.start({x: -window.innerWidth * (currentOpenPage), transition: {duration: BLADE_SWIPE_ANIMATION_DURATION, ease: "linear"}})
@@ -36,14 +36,16 @@ export function MenuManager({currentOpenPage=1}) {
             <MediaMenu/>
             <SettingsMenu/>
         </motion.div>
-        <motion.div initial={{x: -window.innerWidth * (currentOpenPage)}} animate={controlsFilters} className="menu-manager-content-grid">
-            <BlankMenu/>
-            <MarketplaceMenuContent/>
-            <XboxLiveMenuContent/>
-            <GamesMenuContent isOpen={currentOpenPage==3}/>
-            <MediaMenuContent/>
-            <SettingsMenuContent/>
-        </motion.div>
+
+        <div className="menu-manager-content-grid">
+            {
+                currentOpenPage == 1 && <MarketplaceMenuContent/> ||
+                currentOpenPage == 2 && <XboxLiveMenuContent/> ||
+                currentOpenPage == 3 && <GamesMenuContent isOpen={currentOpenPage==3}/> ||
+                currentOpenPage == 4 && <MediaMenuContent/> ||
+                currentOpenPage == 5 && <SettingsMenuContent/>
+            }
+        </div>
         </>
     )
 }

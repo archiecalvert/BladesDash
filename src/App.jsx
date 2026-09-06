@@ -8,17 +8,12 @@ import { OpenApplication, PlaySound, SOUNDS } from './utils/tauriWrapper';
 import { BLADE_SWIPE_ANIMATION_DURATION, ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN } from './utils/constants';
 import { MenuManager } from './components/MenuManager/component';
 import { Wing } from './components/Wing/component';
-import BladeSwoosh1 from "./assets/Audio/Wings/blades_swoosh_1.wav"
-import BladeSwoosh2 from "./assets/Audio/Wings/blades_swoosh_2.wav"
-import BladeSwoosh3 from "./assets/Audio/Wings/blades_swoosh_3.wav"
-import BladeSwoosh4 from "./assets/Audio/Wings/blades_swoosh_4.wav"
-import BladeSwoosh5 from "./assets/Audio/Wings/blades_swoosh_5.wav"
 
 function App() {
 	const BLADE_COUNT = 5
 
 	const [booting, setIsBooting] = useState(ENABLE_BOOT_ANIMATION)
-	const [currentlyOpenIndex, setCurrentlyOpenIndex] = useState(3)
+	const [currentlyOpenIndex, setCurrentlyOpenIndex] = useState(1)
 	
 	const backgroundWing = useRef(null)
 	const heldKeys = useRef({})
