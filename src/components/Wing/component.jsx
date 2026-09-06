@@ -248,7 +248,7 @@ export function Wing({
                 style={
                     !isMiddleTransitionState ?
                         {
-                            backgroundColor: color,
+                            backgroundColor: index == openPageIndex ? color : "rgb(205, 205, 205)",
                             
                             maskImage: `url(${WingMask})`,
                             maskRepeat: "no-repeat",
@@ -265,7 +265,7 @@ export function Wing({
             />
 
             <div className="blade-wing-title-anchor">
-                {!inTransition && <p style={!(index <= openPageIndex ) ? {transform: `scaleX(-1) rotate(90deg) translateY(3.0vh) translateX(-5%)`} : {}} className="blade-wing-title">
+                {!isMiddleTransitionState && <p style={!isLeft ? {transform: `scaleX(-1) rotate(90deg) translateY(3.0vh) translateX(-5%)`} : {}} className="blade-wing-title">
                     {title}
                 </p>}
             </div>

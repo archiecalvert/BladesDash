@@ -72,7 +72,7 @@ function App() {
 				<>
 						<BladeBackground backgroundSide={backgroundWing} side="left"></BladeBackground>
 						<BladeBackground side="right"></BladeBackground>
-						<Wing color="rgb(254, 119, 0)" backgroundRef={backgroundWing} isSelected={false} index={1} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"marketplace"}/>
+						<Wing color="rgb(223, 123, 36)" backgroundRef={backgroundWing} isSelected={false} index={1} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"marketplace"}/>
 						<Wing color="rgb(227, 152, 14)" backgroundRef={backgroundWing} isSelected={false} index={2} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"xbox live"}/>
 						<Wing color="rgb(52, 187, 34)" backgroundRef={backgroundWing} isSelected={false} index={3} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"games"}/>
 						<Wing color="rgb(56, 112, 176)" backgroundRef={backgroundWing} isSelected={false} index={4} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} isLeft={false} title={"media"}/>

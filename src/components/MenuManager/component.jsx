@@ -13,14 +13,14 @@ import "./component.css"
 import { useEffect } from "react";
 import { BLADE_SWIPE_ANIMATION_DURATION } from "../../utils/constants";
 import { MediaMenu } from "../../compositions/MenuFilters/Media";
+import { BlankMenu } from "../../compositions/MenuFilters/Blank";
 
 export function MenuManager({currentOpenPage=1}) {
     const controlsFilters = useAnimationControls();
-    const controlsContent = useAnimationControls();
 
     useEffect(() => {
         async function f() {
-            await controlsFilters.start({x: -window.innerWidth * (currentOpenPage - 1), transition: {duration: BLADE_SWIPE_ANIMATION_DURATION, ease: "linear"}})
+            await controlsFilters.start({x: -window.innerWidth * (currentOpenPage), transition: {duration: BLADE_SWIPE_ANIMATION_DURATION, ease: "linear"}})
         }
         f()
     }, [currentOpenPage])
@@ -29,6 +29,7 @@ export function MenuManager({currentOpenPage=1}) {
     return (
         <>
         <motion.div initial={{x: -window.innerWidth * (currentOpenPage)}} animate={controlsFilters} className="menu-manager-filter-grid">
+            <BlankMenu/>
             <MarketplaceMenu/>
             <XboxLiveMenu/>
             <GamesMenu/>
@@ -36,6 +37,7 @@ export function MenuManager({currentOpenPage=1}) {
             <SettingsMenu/>
         </motion.div>
         <motion.div initial={{x: -window.innerWidth * (currentOpenPage)}} animate={controlsFilters} className="menu-manager-content-grid">
+            <BlankMenu/>
             <MarketplaceMenuContent/>
             <XboxLiveMenuContent/>
             <GamesMenuContent isOpen={currentOpenPage==3}/>
