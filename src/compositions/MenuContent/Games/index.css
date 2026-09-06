@@ -7,3 +7,16 @@
     display: flex;
     justify-content: center;
 }
+
+.game-menu-rows{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 5vh;
+}
+
+.game-menu-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

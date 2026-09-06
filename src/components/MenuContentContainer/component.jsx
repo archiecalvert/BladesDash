@@ -46,7 +46,7 @@ export function MenuContentContainer({index=2, offsetIndex=2, children}) {
         setOffset(getOffsetPosition(offsetIndex))
     }, [])
     return (
-        <div style={{width: width, marginLeft: offset}} className="menu-content-container">
+        <div style={{width: width, marginLeft: offset, "--menu-content-container-z-index": MENU_Z_INDEX + 1}} className="menu-content-container">
             {children}
         </div>
     )

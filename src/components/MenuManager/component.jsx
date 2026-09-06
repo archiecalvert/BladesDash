@@ -41,7 +41,7 @@ export function MenuManager({currentOpenPage=1}) {
             {
                 currentOpenPage == 1 && <MarketplaceMenuContent/> ||
                 currentOpenPage == 2 && <XboxLiveMenuContent/> ||
-                currentOpenPage == 3 && <GamesMenuContent isOpen={currentOpenPage==3}/> ||
+                currentOpenPage == 3 && <GamesMenuContent/> ||
                 currentOpenPage == 4 && <MediaMenuContent/> ||
                 currentOpenPage == 5 && <SettingsMenuContent/>
             }

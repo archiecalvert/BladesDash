@@ -3,6 +3,7 @@
     margin-bottom: 12.5vh;
     animation-name: fadeIn;
     animation-duration: 0.15s;
+    z-index: var(--menu-content-container-z-index);
 }
 
 @keyframes fadeIn {

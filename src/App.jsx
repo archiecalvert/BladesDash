@@ -13,7 +13,7 @@ function App() {
 	const BLADE_COUNT = 5
 
 	const [booting, setIsBooting] = useState(ENABLE_BOOT_ANIMATION)
-	const [currentlyOpenIndex, setCurrentlyOpenIndex] = useState(1)
+	const [currentlyOpenIndex, setCurrentlyOpenIndex] = useState(3)
 	
 	const backgroundWing = useRef(null)
 	const heldKeys = useRef({})
