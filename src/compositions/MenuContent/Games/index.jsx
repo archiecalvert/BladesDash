@@ -15,6 +15,7 @@ import AchievementsImage from "../../../assets/Images/DefaultIcons/ico_64x_troph
 import PlayedGamesImage from "../../../assets/Images/DefaultIcons/icon-games.png"
 
 import {strings} from "../../../assets/Texts/en_strings"
+import { ButtonGroup } from "../../../components/ButtonGroup/component"
 
 export function GamesMenuContent(isOpen=false) {
 
@@ -36,11 +37,11 @@ export function GamesMenuContent(isOpen=false) {
                         </div>
                     </div>
                     <div className="game-menu-row">
-                        <div style={{width: "50%", gap: "-1vh", display: "flex", flexDirection: "column"}}>
+                        <ButtonGroup>
                             <StandardButton iconImage={GamesLibraryImage}>Games Library</StandardButton>
                             <StandardButton iconImage={AchievementsImage}>Achievements</StandardButton>
                             <StandardButton iconImage={PlayedGamesImage}>Played Games</StandardButton>
-                        </div>
+                        </ButtonGroup>
                         <div className="menu-description-panel" style={{width: "50%", marginLeft: "5vh"}}>
                             <p>{strings.menus.games.profile_card.title}</p>
                             <p>{strings.menus.games.profile_card.description}</p>
