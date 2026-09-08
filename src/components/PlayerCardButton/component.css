@@ -1,9 +1,5 @@
 .player-card-button {
-    font-size: 2.85vh;
-    font-weight: 100;
-    letter-spacing: 1px;
     color: rgba(40, 40, 40, 1);
-    text-shadow: 0px 1px 0px rgb(196, 196, 196);
     width: 100%;
     outline: 0.3vh solid;
     outline-color: rgba(30, 30, 30, 0.4);
@@ -15,12 +11,21 @@
 }
 
 .player-card-title {
-    background: linear-gradient(90deg, #d3c231a4 0%, #d1bf22a4 100%);
     width: 100%;
     padding: 2px;
     padding-left: 1.3vh;
-    box-shadow: 0 0 4px 5px rgba(30, 30, 30, 0.1);
+    /* box-shadow: 0 0 4px 5px rgba(30, 30, 30, 0.1); */
 }
+
+.player-card-title-gold {
+    background: linear-gradient(90deg, #d3c231a4 0%, #d1bf22a4 100%);
+}
+
+.player-card-title-silver {
+    background: linear-gradient(90deg, #33323266 0%, #33323229 60%, #00000000 90%);
+    text-shadow: none;
+}
+
 
 .player-card-content {
     padding: 1.3vh;

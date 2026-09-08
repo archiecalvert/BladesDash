@@ -1,17 +1,28 @@
 
 .standard-button-container {
-    margin: 0px;
-    padding: 0px;
-    border: solid 2.5px;
+    border: solid 0.3vh;
     border-right: 0px;
     border-left: 0px;
-    border-color: rgba(50, 50, 50, 0.5);
+    border-color: rgba(50, 50, 50, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0.3vh;
+    padding-left: 2vh;
+    margin: 0px;
+    gap: 2vh;
+}
+
+.standard-button-container-selected {
     background: linear-gradient(
         90deg,
-        rgba(255, 255, 255, 0.2) 0%, 
-        rgba(255, 255, 255, 0.5) 33%, 
-        rgba(255, 255, 255, 0.5) 77%, 
-        rgba(255, 255, 255, 0.2) 100%
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(255, 255, 255, 0.2) 33%, 
+        rgba(255, 255, 255, 0.2) 77%, 
+        rgba(255, 255, 255, 0.1) 100%
     );
-    z-index: 1000;
+}
+
+.standard-button-container + .standard-button-container {
+    margin-top: -0.3vh;
 }

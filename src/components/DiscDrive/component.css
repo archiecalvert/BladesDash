@@ -1,0 +1,19 @@
+.disc-drive-container {
+    width: 100%;
+    border: solid 0.3vh;
+    border-radius: 15vh;
+    border-color: rgba(50, 50, 50, 0.3);
+    height: 5vh;
+    position: relative;
+}
+
+.disc-drive-circle {
+    border: solid 0.3vh;
+    border-radius: 100%;
+    border-color: rgba(50, 50, 50, 0.3);
+    transform: translateX(-25%) translateY(-2vh);
+    position: absolute;
+    height: 8vh;
+    width: 8vh;
+    z-index: 10000;
+}
