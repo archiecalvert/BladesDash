@@ -13,6 +13,7 @@ import { PlayerCardButton } from "../../../components/PlayerCardButton/component
 import MessagesImage from "../../../assets/Images/DefaultIcons/ico_32x_Mail.png"
 import FriendsImage from "../../../assets/Images/DefaultIcons/ico_64x_friend.png"
 import ChatAndImImage from "../../../assets/Images/DefaultIcons/icon-games.png"
+import PicturesImage from "../../../assets/Images/DefaultIcons/icon-pictures.png"
 
 import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
@@ -39,7 +40,7 @@ export function MediaMenuContent(isOpen=false) {
                     <div className="media-menu-row">
                         <ButtonGroup>
                             <StandardButton iconImage={MessagesImage}>Music</StandardButton>
-                            <StandardButton iconImage={FriendsImage}>Pictures</StandardButton>
+                            <StandardButton iconImage={PicturesImage}>Pictures</StandardButton>
                             <StandardButton iconImage={ChatAndImImage}>Videos</StandardButton>
                             <StandardButton iconImage={ChatAndImImage}>Video Store</StandardButton>
                             <StandardButton iconImage={ChatAndImImage}>Media Center</StandardButton>

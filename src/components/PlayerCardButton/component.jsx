@@ -20,7 +20,7 @@ export function PlayerCardButton({gamertag="Player", rep=5, gamerscore=0, zone=Z
                     <img className="player-card-gamerpic" src={PlaceholderImage}/>
                     <div>
                         <div>Games</div>
-                        <div style={{display: "flex", alignItems: "center"}}><img style={{transform: "translateY(0.2vh) translateX(-0.75vh)", marginRight: "-0.85vh", height: "3.5vh", aspectRatio: "1 / 1"}} src={GScoreImage}/>amerscore</div>
+                        <div style={{display: "flex", alignItems: "center"}}><img style={{transform: "translateY(0.35vh) translateX(-0.75vh)", marginRight: "-0.85vh", height: "3.5vh", aspectRatio: "1 / 1"}} src={GScoreImage}/>amerscore</div>
                         <div>Achievements</div>
                     </div>
                 </div>

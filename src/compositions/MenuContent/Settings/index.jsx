@@ -12,7 +12,10 @@ import { PlayerCardButton } from "../../../components/PlayerCardButton/component
 
 import MessagesImage from "../../../assets/Images/DefaultIcons/ico_32x_Mail.png"
 import FriendsImage from "../../../assets/Images/DefaultIcons/ico_64x_friend.png"
-import ChatAndImImage from "../../../assets/Images/DefaultIcons/icon-games.png"
+import ChatAndImImage from "../../../assets/Images/DefaultIcons/icn-64-Consoles.png"
+import MemoryImage from "../../../assets/Images/DefaultIcons/icn-64-MU.png"
+import InitialSetupImage from "../../../assets/Images/DefaultIcons/icn-64-Consoles.png"
+
 
 import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
@@ -28,11 +31,11 @@ export function SettingsMenuContent() {
                         <ButtonGroup>
                             <StandardButton iconImage={MessagesImage}>Console Settings</StandardButton>
                             <StandardButton iconImage={FriendsImage}>Family Settings</StandardButton>
-                            <StandardButton iconImage={ChatAndImImage}>Memory</StandardButton>
+                            <StandardButton iconImage={MemoryImage}>Memory</StandardButton>
                             <StandardButton iconImage={ChatAndImImage}>Network Settings</StandardButton>
                             <StandardButton iconImage={ChatAndImImage}>Computers</StandardButton>
                             <StandardButton iconImage={ChatAndImImage}>Xbox LIVE Vision</StandardButton>
-                            <StandardButton iconImage={ChatAndImImage}>Initial Setup</StandardButton>
+                            <StandardButton iconImage={InitialSetupImage}>Initial Setup</StandardButton>
                         </ButtonGroup>
                         <div className="menu-description-panel" style={{width: "50%", marginLeft: "5vh"}}>
                             <p>{strings.menus.games.profile_card.title}</p>
