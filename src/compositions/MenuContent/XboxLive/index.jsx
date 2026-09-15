@@ -10,9 +10,9 @@ import "./index.css"
 import { MenuContentContainer } from "../../../components/MenuContentContainer/component"
 import { PlayerCardButton } from "../../../components/PlayerCardButton/component"
 
-import MessagesImage from "../../../assets/Images/DefaultIcons/ico_32x_Mail.png"
-import FriendsImage from "../../../assets/Images/DefaultIcons/ico_64x_friend.png"
-import ChatAndImImage from "../../../assets/Images/DefaultIcons/icon-games.png"
+import MessagesImage from "../../../assets/icons/xboxlive/messages.png"
+import FriendsImage from "../../../assets/icons/xboxlive/friends.png"
+import ChatAndImImage from "../../../assets/icons/xboxlive/chatandim.png"
 
 import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
@@ -42,9 +42,11 @@ export function XboxLiveMenuContent(isOpen=false) {
                             <StandardButton iconImage={FriendsImage}>Friends</StandardButton>
                             <StandardButton iconImage={ChatAndImImage}>Chat and IM</StandardButton>
                         </ButtonGroup>
-                        <div className="menu-description-panel" style={{width: "50%", marginLeft: "5vh"}}>
-                            <p>{strings.menus.games.profile_card.title}</p>
-                            <p>{strings.menus.games.profile_card.description}</p>
+                        <div className="menu-description-panel" style={{width: "49%", alignSelf: "start"}}>
+                            <div style={{marginLeft: "5vh"}}>
+                                <p>{strings.menus.games.profile_card.title}</p>
+                                <p>{strings.menus.games.profile_card.description}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -10,10 +10,11 @@ import "./index.css"
 import { MenuContentContainer } from "../../../components/MenuContentContainer/component"
 import { PlayerCardButton } from "../../../components/PlayerCardButton/component"
 
-import MessagesImage from "../../../assets/Images/DefaultIcons/ico_32x_Mail.png"
-import FriendsImage from "../../../assets/Images/DefaultIcons/ico_64x_friend.png"
-import ChatAndImImage from "../../../assets/Images/DefaultIcons/icon-games.png"
-import PicturesImage from "../../../assets/Images/DefaultIcons/icon-pictures.png"
+import MusicIcon from "../../../assets/icons/media/music.png"
+import PicturesIcon from "../../../assets/icons/media/pictures.png"
+import VideosIcon from "../../../assets/icons/media/videos.png"
+import VideosStoreIcon from "../../../assets/icons/media/store.png"
+import MediaCenterIcon from "../../../assets/icons/media/center.png"
 
 import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
@@ -39,15 +40,17 @@ export function MediaMenuContent(isOpen=false) {
                     </div>
                     <div className="media-menu-row">
                         <ButtonGroup>
-                            <StandardButton iconImage={MessagesImage}>Music</StandardButton>
-                            <StandardButton iconImage={PicturesImage}>Pictures</StandardButton>
-                            <StandardButton iconImage={ChatAndImImage}>Videos</StandardButton>
-                            <StandardButton iconImage={ChatAndImImage}>Video Store</StandardButton>
-                            <StandardButton iconImage={ChatAndImImage}>Media Center</StandardButton>
+                            <StandardButton iconImage={MusicIcon}>Music</StandardButton>
+                            <StandardButton iconImage={PicturesIcon}>Pictures</StandardButton>
+                            <StandardButton iconImage={VideosIcon}>Videos</StandardButton>
+                            <StandardButton iconImage={VideosStoreIcon}>Video Store</StandardButton>
+                            <StandardButton iconImage={MediaCenterIcon}>Media Center</StandardButton>
                         </ButtonGroup>
-                        <div className="menu-description-panel" style={{width: "50%", marginLeft: "5vh"}}>
-                            <p>{strings.menus.games.profile_card.title}</p>
-                            <p>{strings.menus.games.profile_card.description}</p>
+                        <div className="menu-description-panel" style={{width: "49%", alignSelf: "start"}}>
+                            <div style={{marginLeft: "5vh"}}>
+                                <p>{strings.menus.games.profile_card.title}</p>
+                                <p>{strings.menus.games.profile_card.description}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

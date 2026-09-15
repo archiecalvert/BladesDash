@@ -10,11 +10,12 @@ import "./index.css"
 import { MenuContentContainer } from "../../../components/MenuContentContainer/component"
 import { PlayerCardButton } from "../../../components/PlayerCardButton/component"
 
-import MessagesImage from "../../../assets/Images/DefaultIcons/ico_32x_Mail.png"
-import FriendsImage from "../../../assets/Images/DefaultIcons/ico_64x_friend.png"
-import ChatAndImImage from "../../../assets/Images/DefaultIcons/icn-64-Consoles.png"
-import MemoryImage from "../../../assets/Images/DefaultIcons/icn-64-MU.png"
-import InitialSetupImage from "../../../assets/Images/DefaultIcons/icn-64-Consoles.png"
+import ConsoleSettingsIcon from "../../../assets/icons/settings/console.png"
+import FamilySettingsIcon from "../../../assets/icons/settings/family.png"
+import MemoryImage from "../../../assets/icons/settings/memory.png"
+import NetworkSettingsIcon from "../../../assets/icons/settings/network.png"
+import VisionSettingsIcon from "../../../assets/icons/settings/vision.png"
+import InitialSetupImage from "../../../assets/icons/settings/initialsetup.png"
 
 
 import {strings} from "../../../assets/Texts/en_strings"
@@ -29,17 +30,19 @@ export function SettingsMenuContent() {
                 <div className="settings-menu-rows">
                     <div className="media-menu-row">
                         <ButtonGroup>
-                            <StandardButton iconImage={MessagesImage}>Console Settings</StandardButton>
-                            <StandardButton iconImage={FriendsImage}>Family Settings</StandardButton>
+                            <StandardButton iconImage={ConsoleSettingsIcon}>Console Settings</StandardButton>
+                            <StandardButton iconImage={FamilySettingsIcon}>Family Settings</StandardButton>
                             <StandardButton iconImage={MemoryImage}>Memory</StandardButton>
-                            <StandardButton iconImage={ChatAndImImage}>Network Settings</StandardButton>
-                            <StandardButton iconImage={ChatAndImImage}>Computers</StandardButton>
-                            <StandardButton iconImage={ChatAndImImage}>Xbox LIVE Vision</StandardButton>
+                            <StandardButton iconImage={NetworkSettingsIcon}>Network Settings</StandardButton>
+                            <StandardButton iconImage={NetworkSettingsIcon}>Computers</StandardButton>
+                            <StandardButton iconImage={VisionSettingsIcon}>Xbox LIVE Vision</StandardButton>
                             <StandardButton iconImage={InitialSetupImage}>Initial Setup</StandardButton>
                         </ButtonGroup>
-                        <div className="menu-description-panel" style={{width: "50%", marginLeft: "5vh"}}>
-                            <p>{strings.menus.games.profile_card.title}</p>
-                            <p>{strings.menus.games.profile_card.description}</p>
+                        <div className="menu-description-panel" style={{width: "49%", alignSelf: "start"}}>
+                            <div style={{marginLeft: "5vh"}}>
+                                <p>{strings.menus.games.profile_card.title}</p>
+                                <p>{strings.menus.games.profile_card.description}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
