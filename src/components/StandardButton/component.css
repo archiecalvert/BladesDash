@@ -1,5 +1,6 @@
-
 .standard-button-container {
+    position: relative;
+
     border: solid 0.3vh;
     border-right: 0px;
     border-left: 0px;
@@ -11,18 +12,41 @@
     padding-left: 2vh;
     margin: 0px;
     gap: 2vh;
+
+    overflow: visible;
 }
 
 .standard-button-container-selected {
     background: linear-gradient(
         90deg,
-        rgba(255, 255, 255, 0.1) 0%, 
-        rgba(255, 255, 255, 0.2) 33%, 
-        rgba(255, 255, 255, 0.2) 77%, 
-        rgba(255, 255, 255, 0.1) 100%
+        rgba(255, 255, 255, 0.0) 0%, 
+        rgba(255, 255, 255, 0.5) 33%, 
+        rgba(255, 255, 255, 0.75) 45%, 
+        rgba(255, 255, 255, 0.75) 55%, 
+        rgba(255, 255, 255, 0.5) 77%, 
+        rgba(255, 255, 255, 0.0) 100%
     );
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .standard-button-container + .standard-button-container {
     margin-top: -0.3vh;
+}
+
+.standard-button-shadow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateY(100%);
+}
+
+.standard-button-icon {
+    height: 80%;
+    position: relative;
 }

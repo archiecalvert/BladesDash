@@ -28,7 +28,7 @@ export function SettingsMenuContent() {
             <MenuContentContainer  index={1} offsetIndex={6}>
                 <MenuTitle title="Settings"/>
                 <div className="settings-menu-rows">
-                    <div className="media-menu-row">
+                    <div className="media-menu-row" style={{alignItems: "start"}}>
                         <ButtonGroup>
                             <StandardButton iconImage={ConsoleSettingsIcon}>Console Settings</StandardButton>
                             <StandardButton iconImage={FamilySettingsIcon}>Family Settings</StandardButton>
@@ -38,7 +38,7 @@ export function SettingsMenuContent() {
                             <StandardButton iconImage={VisionSettingsIcon}>Xbox LIVE Vision</StandardButton>
                             <StandardButton iconImage={InitialSetupImage}>Initial Setup</StandardButton>
                         </ButtonGroup>
-                        <div className="menu-description-panel" style={{width: "49%", alignSelf: "start"}}>
+                        <div className="menu-description-panel" style={{width: "50%", alignSelf: "start"}}>
                             <div style={{marginLeft: "5vh"}}>
                                 <p>{strings.menus.games.profile_card.title}</p>
                                 <p>{strings.menus.games.profile_card.description}</p>

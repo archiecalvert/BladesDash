@@ -36,13 +36,13 @@ export function XboxLiveMenuContent(isOpen=false) {
                             <img style={{width: "100%", paddingLeft: "27%", paddingRight: "27%", aspectRatio: "auto", boxSizing: "border-box", filter: "drop-shadow(0 0 3px black)"}} src={XboxLiveLogo}/>
                         </div>
                     </div>
-                    <div className="live-menu-row">
+                    <div className="live-menu-row" style={{alignItems: "start"}}>
                         <ButtonGroup>
                             <StandardButton iconImage={MessagesImage}>Messages</StandardButton>
                             <StandardButton iconImage={FriendsImage}>Friends</StandardButton>
                             <StandardButton iconImage={ChatAndImImage}>Chat and IM</StandardButton>
                         </ButtonGroup>
-                        <div className="menu-description-panel" style={{width: "49%", alignSelf: "start"}}>
+                        <div className="menu-description-panel" style={{width: "50%", alignSelf: "start"}}>
                             <div style={{marginLeft: "5vh"}}>
                                 <p>{strings.menus.games.profile_card.title}</p>
                                 <p>{strings.menus.games.profile_card.description}</p>

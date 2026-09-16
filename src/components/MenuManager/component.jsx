@@ -23,6 +23,9 @@ export function MenuManager({currentOpenPage=1}) {
             await controlsFilters.start({x: -window.innerWidth * (currentOpenPage), transition: {duration: BLADE_SWIPE_ANIMATION_DURATION, ease: "linear"}})
         }
         f()
+        window.addEventListener("resize", () => {
+            controlsFilters.start({x: -window.innerWidth * (currentOpenPage), transition: {duration: 0, ease: "linear"}})
+        })
     }, [currentOpenPage])
 
 

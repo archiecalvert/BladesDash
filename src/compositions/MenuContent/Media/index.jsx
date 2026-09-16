@@ -38,7 +38,7 @@ export function MediaMenuContent(isOpen=false) {
                             <img style={{width: "100%", paddingLeft: "27%", paddingRight: "27%", aspectRatio: "auto", boxSizing: "border-box", filter: "drop-shadow(0 0 3px black)"}} src={Xbox360Logo}/>
                         </div>
                     </div>
-                    <div className="media-menu-row">
+                    <div className="media-menu-row" style={{alignItems: "start"}}>
                         <ButtonGroup>
                             <StandardButton iconImage={MusicIcon}>Music</StandardButton>
                             <StandardButton iconImage={PicturesIcon}>Pictures</StandardButton>
@@ -46,7 +46,7 @@ export function MediaMenuContent(isOpen=false) {
                             <StandardButton iconImage={VideosStoreIcon}>Video Store</StandardButton>
                             <StandardButton iconImage={MediaCenterIcon}>Media Center</StandardButton>
                         </ButtonGroup>
-                        <div className="menu-description-panel" style={{width: "49%", alignSelf: "start"}}>
+                        <div className="menu-description-panel" style={{width: "50%", alignSelf: "start"}}>
                             <div style={{marginLeft: "5vh"}}>
                                 <p>{strings.menus.games.profile_card.title}</p>
                                 <p>{strings.menus.games.profile_card.description}</p>

@@ -6,6 +6,7 @@
     z-index: var(--menu-z-index);
     display: flex;
     justify-content: center;
+    align-items: "start";
 }
 
 .game-menu-rows{

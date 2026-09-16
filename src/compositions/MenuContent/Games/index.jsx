@@ -19,8 +19,12 @@ import { ButtonGroup } from "../../../components/ButtonGroup/component"
 
 export function GamesMenuContent(isOpen=false) {
 
+    const [currentButtonIndex, setCurrentButtonIndex] = useState(1)
+
     useEffect(() => {
-        
+        window.addEventListener("keydown", () => {
+            setCurrentButtonIndex(2)
+        })
     }, [])
     return (
         <div className="game-menu-content" style={{"--menu-z-index": MENU_Z_INDEX}}>
@@ -36,13 +40,13 @@ export function GamesMenuContent(isOpen=false) {
                             <img style={{width: "100%", paddingLeft: "27%", paddingRight: "27%", aspectRatio: "auto", boxSizing: "border-box", filter: "drop-shadow(0 0 3px black)"}} src={Xbox360Logo}/>
                         </div>
                     </div>
-                    <div className="game-menu-row">
+                    <div className="game-menu-row" style={{alignItems: "start"}}>
                         <ButtonGroup>
-                            <StandardButton iconImage={GamesLibraryImage}>Games Library</StandardButton>
-                            <StandardButton iconImage={AchievementsImage}>Achievements</StandardButton>
-                            <StandardButton iconImage={PlayedGamesImage}>Played Games</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 1} iconImage={GamesLibraryImage}>Games Library</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 2} iconImage={AchievementsImage}>Achievements</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 3} iconImage={PlayedGamesImage}>Played Games</StandardButton>
                         </ButtonGroup>
-                        <div className="menu-description-panel" style={{width: "49%", alignSelf: "start"}}>
+                        <div className="menu-description-panel" style={{width: "50%", alignSelf: "start"}}>
                             <div style={{marginLeft: "5vh"}}>
                                 <p>{strings.menus.games.profile_card.title}</p>
                                 <p>{strings.menus.games.profile_card.description}</p>

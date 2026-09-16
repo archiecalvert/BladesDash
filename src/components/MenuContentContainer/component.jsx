@@ -55,7 +55,12 @@ export function MenuContentContainer({index=2, offsetIndex=2, children}) {
         setWidth(final)
         setOffset(getOffsetPosition(offsetIndex))
         fadeIn()
-        
+        window.addEventListener("resize", () => {
+            const backgroundWidth = document.getElementById("blade-background-left").getBoundingClientRect().width;
+            const final = window.innerWidth - 2 * backgroundWidth - window.innerWidth * 0.15;
+            setWidth(final)
+            setOffset(getOffsetPosition(offsetIndex))
+        })
     }, [])
 
     return (
