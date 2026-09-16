@@ -5,15 +5,35 @@
     border-color: rgba(50, 50, 50, 0.3);
     height: 5vh;
     position: relative;
+    filter: drop-shadow(-0px -0px 0.2vh rgba(40,40,40,0.5))
+            drop-shadow(-0px -0px 0.2vh rgba(40,40,40,0.5))
+            drop-shadow(-0px -0px 0.5vh rgba(40,40,40,0.5))
+            drop-shadow(-0px -0px 0.7vh rgba(40,40,40,0.5));
 }
 
 .disc-drive-circle {
     border: solid 0.3vh;
     border-radius: 100%;
     border-color: rgba(50, 50, 50, 0.3);
-    transform: translateX(-25%) translateY(-2vh);
+    transform: translateX(-25%) translateY(-1.75vh);
     position: absolute;
     height: 8vh;
     width: 8vh;
     z-index: 10000;
+}
+
+.disc-drive-content-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 1.5vh;
+    gap: 3vh;
+}
+
+.disc-drive-icon {
+    width: 3.5vh;
+    height: 3.5vh
 }

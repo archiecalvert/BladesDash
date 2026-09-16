@@ -14,6 +14,7 @@ import ConsoleSettingsIcon from "../../../assets/icons/settings/console.png"
 import FamilySettingsIcon from "../../../assets/icons/settings/family.png"
 import MemoryImage from "../../../assets/icons/settings/memory.png"
 import NetworkSettingsIcon from "../../../assets/icons/settings/network.png"
+import ComputersIcon from "../../../assets/icons/settings/computers.png"
 import VisionSettingsIcon from "../../../assets/icons/settings/vision.png"
 import InitialSetupImage from "../../../assets/icons/settings/initialsetup.png"
 
@@ -22,6 +23,7 @@ import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
 
 export function SettingsMenuContent() {
+    const [currentButtonIndex, setCurrentButtonIndex] = useState(0)
     return (
         <div className="settings-menu-content" style={{"--menu-z-index": MENU_Z_INDEX}}>
             <MenuUnderlay/>
@@ -30,13 +32,13 @@ export function SettingsMenuContent() {
                 <div className="settings-menu-rows">
                     <div className="media-menu-row" style={{alignItems: "start"}}>
                         <ButtonGroup>
-                            <StandardButton iconImage={ConsoleSettingsIcon}>Console Settings</StandardButton>
-                            <StandardButton iconImage={FamilySettingsIcon}>Family Settings</StandardButton>
-                            <StandardButton iconImage={MemoryImage}>Memory</StandardButton>
-                            <StandardButton iconImage={NetworkSettingsIcon}>Network Settings</StandardButton>
-                            <StandardButton iconImage={NetworkSettingsIcon}>Computers</StandardButton>
-                            <StandardButton iconImage={VisionSettingsIcon}>Xbox LIVE Vision</StandardButton>
-                            <StandardButton iconImage={InitialSetupImage}>Initial Setup</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 0} iconImage={ConsoleSettingsIcon}>Console Settings</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 1} iconImage={FamilySettingsIcon}>Family Settings</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 2} iconImage={MemoryImage}>Memory</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 3} iconImage={NetworkSettingsIcon}>Network Settings</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 4} iconImage={ComputersIcon}>Computers</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 5} iconImage={VisionSettingsIcon}>Xbox LIVE Vision</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 6} iconImage={InitialSetupImage}>Initial Setup</StandardButton>
                         </ButtonGroup>
                         <div className="menu-description-panel" style={{width: "50%", alignSelf: "start"}}>
                             <div style={{marginLeft: "5vh"}}>

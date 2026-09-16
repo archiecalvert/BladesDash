@@ -7,4 +7,5 @@
     letter-spacing: 0.1vh;
     color: rgba(40, 40, 40, 1);
     text-shadow: 0.5px 0.5px 1px rgb(87, 86, 86);
+    position: relative;
 }

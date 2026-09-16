@@ -31,6 +31,7 @@ export function GamesMenuContent(isOpen=false) {
             <MenuUnderlay/>
             <MenuContentContainer index={3} offsetIndex={2}>
                 <MenuTitle title="Games"/>
+                <DiscDrive style={{position: "absolute", width: "100%", bottom: "2.5vh"}}/>
                 <div className="game-menu-rows">
                     <div className="game-menu-row">
                         <div style={{width: "50%"}}>
@@ -53,9 +54,6 @@ export function GamesMenuContent(isOpen=false) {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div style={{marginTop: "26vh"}}>
-                    <DiscDrive style={{}} />
                 </div>
             </MenuContentContainer>
         </div>

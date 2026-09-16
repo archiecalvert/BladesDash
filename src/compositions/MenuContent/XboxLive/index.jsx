@@ -19,6 +19,8 @@ import { ButtonGroup } from "../../../components/ButtonGroup/component"
 
 export function XboxLiveMenuContent(isOpen=false) {
 
+    const [currentButtonIndex, setCurrentButtonIndex] = useState(1)
+
     useEffect(() => {
         
     }, [])
@@ -38,9 +40,9 @@ export function XboxLiveMenuContent(isOpen=false) {
                     </div>
                     <div className="live-menu-row" style={{alignItems: "start"}}>
                         <ButtonGroup>
-                            <StandardButton iconImage={MessagesImage}>Messages</StandardButton>
-                            <StandardButton iconImage={FriendsImage}>Friends</StandardButton>
-                            <StandardButton iconImage={ChatAndImImage}>Chat and IM</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 1} iconImage={MessagesImage}>Messages</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 2} iconImage={FriendsImage}>Friends</StandardButton>
+                            <StandardButton selected={currentButtonIndex == 3} iconImage={ChatAndImImage}>Chat and IM</StandardButton>
                         </ButtonGroup>
                         <div className="menu-description-panel" style={{width: "50%", alignSelf: "start"}}>
                             <div style={{marginLeft: "5vh"}}>
@@ -50,9 +52,7 @@ export function XboxLiveMenuContent(isOpen=false) {
                         </div>
                     </div>
                 </div>
-                <div style={{marginTop: "26vh"}}>
-                    <DiscDrive style={{}} />
-                </div>
+                <DiscDrive style={{position: "absolute", width: "100%", bottom: "2.5vh"}}/>
             </MenuContentContainer>
         </div>
     )
