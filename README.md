@@ -1,7 +1,6 @@
-# Tauri + React
+# Blades Dashboard Recreation
 
-This template should help get you started developing with Tauri and React in Vite.
+This project is a recreation of the blades dashboard from the Xbox 360 using React and Rust.
 
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+## Demo
+https://github.com/user-attachments/assets/3aa5bd77-e07d-4c49-b002-0975fd5a5674
