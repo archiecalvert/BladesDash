@@ -1,6 +1,6 @@
 .menu-content-container {
-    margin-top: 10.5vh;
-    margin-bottom: 16.5vh;
+    margin-top: 12.5vh;
+    margin-bottom: 19vh;
     z-index: var(--menu-content-container-z-index);
     font-size: 3vh;
     font-weight: 500;

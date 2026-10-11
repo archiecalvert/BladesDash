@@ -16,6 +16,7 @@ import ChatAndImImage from "../../../assets/icons/xboxlive/chatandim.png"
 
 import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
+import { MenuTooltip } from "../../../components/MenuTooltip/component"
 
 export function XboxLiveMenuContent(isOpen=false) {
 
@@ -44,12 +45,10 @@ export function XboxLiveMenuContent(isOpen=false) {
                             <StandardButton selected={currentButtonIndex == 2} iconImage={FriendsImage}>Friends</StandardButton>
                             <StandardButton selected={currentButtonIndex == 3} iconImage={ChatAndImImage}>Chat and IM</StandardButton>
                         </ButtonGroup>
-                        <div className="menu-description-panel" style={{width: "50%", alignSelf: "start"}}>
-                            <div style={{marginLeft: "5vh"}}>
-                                <p>{strings.menus.games.profile_card.title}</p>
-                                <p>{strings.menus.games.profile_card.description}</p>
-                            </div>
-                        </div>
+                        <MenuTooltip disableSideShadow>
+                            <p>{strings.menus.games.profile_card.title}</p>
+                            <p>{strings.menus.games.profile_card.description}</p>
+                        </MenuTooltip>
                     </div>
                 </div>
                 <DiscDrive style={{position: "absolute", width: "100%", bottom: "2.5vh"}}/>

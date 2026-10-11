@@ -1,0 +1,33 @@
+.menu-tooltip-panel {
+    width: 50%;
+    align-self: start;
+    position: relative;
+}
+
+.menu-tooltip-panel-content {
+    position: relative;
+    padding-left: 5vh;
+}
+
+.menu-tooltip-shadow-top {
+    position: absolute;
+    left: 10%;
+    top: -2vh;
+    width: 90%;
+    scale: -1;
+    height: 1vh;
+}
+
+.menu-tooltip-shadow-left {
+    position: absolute;
+    left: -2vh;
+    top: 10%;
+    width: 5vh;
+    scale: -1;
+    height: 90%;
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}

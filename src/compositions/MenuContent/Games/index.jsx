@@ -16,6 +16,7 @@ import PlayedGamesImage from "../../../assets/icons/games/played.png"
 
 import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
+import { MenuTooltip } from "../../../components/MenuTooltip/component"
 
 export function GamesMenuContent(isOpen=false) {
 
@@ -47,12 +48,10 @@ export function GamesMenuContent(isOpen=false) {
                             <StandardButton selected={currentButtonIndex == 2} iconImage={AchievementsImage}>Achievements</StandardButton>
                             <StandardButton selected={currentButtonIndex == 3} iconImage={PlayedGamesImage}>Played Games</StandardButton>
                         </ButtonGroup>
-                        <div className="menu-description-panel" style={{width: "50%", alignSelf: "start"}}>
-                            <div style={{marginLeft: "5vh"}}>
-                                <p>{strings.menus.games.profile_card.title}</p>
-                                <p>{strings.menus.games.profile_card.description}</p>
-                            </div>
-                        </div>
+                        <MenuTooltip>
+                            <p>{strings.menus.games.profile_card.title}</p>
+                            <p>{strings.menus.games.profile_card.description}</p>
+                        </MenuTooltip>
                     </div>
                 </div>
             </MenuContentContainer>

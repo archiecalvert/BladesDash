@@ -213,7 +213,6 @@ export function Wing({
             setIsMiddleTransitionState(false)
             setIsInTransition(false)
 
-            Resize()
             previousOpenIndex.current = openPageIndex
         }
 

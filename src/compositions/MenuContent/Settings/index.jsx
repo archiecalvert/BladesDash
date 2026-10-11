@@ -17,10 +17,9 @@ import NetworkSettingsIcon from "../../../assets/icons/settings/network.png"
 import ComputersIcon from "../../../assets/icons/settings/computers.png"
 import VisionSettingsIcon from "../../../assets/icons/settings/vision.png"
 import InitialSetupImage from "../../../assets/icons/settings/initialsetup.png"
-
-
 import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
+import { MenuTooltip } from "../../../components/MenuTooltip/component"
 
 export function SettingsMenuContent() {
     const [currentButtonIndex, setCurrentButtonIndex] = useState(0)
@@ -40,12 +39,10 @@ export function SettingsMenuContent() {
                             <StandardButton selected={currentButtonIndex == 5} iconImage={VisionSettingsIcon}>Xbox LIVE Vision</StandardButton>
                             <StandardButton selected={currentButtonIndex == 6} iconImage={InitialSetupImage}>Initial Setup</StandardButton>
                         </ButtonGroup>
-                        <div className="menu-description-panel" style={{width: "50%", alignSelf: "start"}}>
-                            <div style={{marginLeft: "5vh"}}>
-                                <p>{strings.menus.games.profile_card.title}</p>
-                                <p>{strings.menus.games.profile_card.description}</p>
-                            </div>
-                        </div>
+                        <MenuTooltip disableTopShadow disableSideShadow>
+                            <p>{strings.menus.games.profile_card.title}</p>
+                            <p>{strings.menus.games.profile_card.description}</p>
+                        </MenuTooltip>
                     </div>
                 </div>
             </MenuContentContainer>
