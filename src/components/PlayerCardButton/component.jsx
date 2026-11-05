@@ -9,7 +9,7 @@ export const ZONE = {
     UNDERGROUND: "Underground"
 }
 
-export function PlayerCardButton({gamertag="Player", rep=5, gamerscore=0, zone=ZONE.NONE}) {
+export function PlayerCardButton({gamertag="archiecalvert", rep=5, gamerscore=0, zone=ZONE.NONE}) {
     return (
         <div className="player-card-button">
             <div className="player-card-title player-card-title-silver">

@@ -27,7 +27,7 @@ export function XboxLiveMenuContent(isOpen=false) {
     }, [])
     return (
         <div className="live-menu-content" style={{"--menu-z-index": MENU_Z_INDEX}}>
-            <MenuUnderlay/>
+            <MenuUnderlay offset={1}/>
             <MenuContentContainer index={1} offsetIndex={0}>
                 <MenuTitle title="Xbox LIVE"/>
                 <div className="live-menu-rows">

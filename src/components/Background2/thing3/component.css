@@ -1,0 +1,162 @@
+@property --thing3-pos0 {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 0.3922%;
+}
+@property --thing3-pos1 {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 1.9608%;
+}
+@property --thing3-pos2 {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 10.5882%;
+}
+@property --thing3-pos3 {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 24.7059%;
+}
+@property --thing3-pos4 {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 41.1765%;
+}
+@property --thing3-pos5 {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 56.4706%;
+}
+@property --thing3-pos6 {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 72.1569%;
+}
+@property --thing3-pos7 {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 87.8431%;
+}
+@property --thing3-pos8 {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 100%;
+}
+
+@property --thing3-col0 {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #ff000000;
+}
+@property --thing3-col1 {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #ff000000;
+}
+
+@property --thing3-col2 {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #ff000000;
+}
+
+@property --thing3-col3 {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #ffffffff;
+}
+
+@property --thing3-col4 {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #ff000000;
+}
+
+@property --thing3-col5 {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #ffffffff;
+}
+
+@property --thing3-col6 {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #ff000000;
+}
+@property --thing3-col7 {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #ffffffff;
+}
+@property --thing3-col8 {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: #ff000000;
+}
+
+.thing3 {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 1;
+
+    transform-origin: center center;
+    translate: 10% -70%; 
+    transform-style: preserve-3d;
+    mix-blend-mode: lighten;
+
+    background: radial-gradient(circle,
+        var(--thing3-col0) var(--thing3-pos0),
+        var(--thing3-col1) var(--thing3-pos1),
+        var(--thing3-col2) var(--thing3-pos2),
+        var(--thing3-col3) var(--thing3-pos3),
+        var(--thing3-col4) var(--thing3-pos4),
+        var(--thing3-col5) var(--thing3-pos5),
+        var(--thing3-col6) var(--thing3-pos6),
+        var(--thing3-col7) var(--thing3-pos7),
+        var(--thing3-col8) var(--thing3-pos8)
+    );
+
+    animation: thing3Anim 13s linear infinite;
+}
+
+@keyframes thing3Anim {
+    0% {
+        width: 432px;
+        height: 440px;
+        transform-origin: 195.999939px 196px 0px;
+        transform:
+            translate3d(497.676636px, 493.388550px, -0.004333px)
+            scale3d(4, 3, 1);
+    }
+
+    32.3232% {
+        width: 560px;
+        height: 575px;
+        transform-origin: 384.993774px 384.998444px 0.018402px;
+        transform:
+            translate3d(827.931702px, 741.204895px, -0.004333px)
+            scale3d(4, 3, 1);
+    }
+
+    63.1313% {
+        width: 460px;
+        height: 440px;
+        transform-origin: 195.999939px 196px 0px;
+        transform:
+            translate3d(392.426636px, 469.763550px, -0.004333px)
+            scale3d(4, 3, 1);
+    }
+
+    100% {
+        width: 432px;
+        height: 440px;
+        transform-origin: 195.999939px 196px 0px;
+        transform:
+            translate3d(497.676636px, 493.388550px, -0.004333px)
+            scale3d(4, 3, 1);
+    }
+}

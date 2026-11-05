@@ -3,6 +3,12 @@
     height: 100vh;
     top: 0;
     left: 0;
+    opacity: 0.7;
     z-index: var(--menu-z-index);
-    background: rgb(36, 198, 15);
+    background: radial-gradient(circle,
+                rgba(15, 101, 20, 1) 00.0000%, 
+                rgba(55, 175, 40, 1) 34.9020%, 
+                rgba(15, 127, 15, 1) 67.4510%, 
+                rgba(15, 33,  20, 1) 100%
+                );
 }

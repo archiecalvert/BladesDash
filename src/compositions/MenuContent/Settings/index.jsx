@@ -25,7 +25,7 @@ export function SettingsMenuContent() {
     const [currentButtonIndex, setCurrentButtonIndex] = useState(0)
     return (
         <div className="settings-menu-content" style={{"--menu-z-index": MENU_Z_INDEX}}>
-            <MenuUnderlay/>
+            <MenuUnderlay offset={4}/>
             <MenuContentContainer  index={1} offsetIndex={6}>
                 <MenuTitle title="Settings"/>
                 <div className="settings-menu-rows">

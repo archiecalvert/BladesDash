@@ -8,6 +8,7 @@ import { OpenApplication, PlaySound, SOUNDS } from './utils/tauriWrapper';
 import { BLADE_SWIPE_ANIMATION_DURATION, ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN } from './utils/constants';
 import { MenuManager } from './components/MenuManager/component';
 import { Wing } from './components/Wing/component';
+import { BackgroundRipped } from './components/Background2/component';
 
 function App() {
 	const BLADE_COUNT = 5
@@ -72,11 +73,10 @@ function App() {
 		}
 	}, [])
 
-
 	return (
 		<div className="content-container">
 			<BootAnimationComponent isVisible={booting} setVideoDone={b => setIsBooting(!b)}/>
-			<WavesBackground isVisible={!booting} texture="/bg_spin_hq.jpg" speed={20} />
+			<BackgroundRipped/>
 			{
 				!booting && 
 				<>

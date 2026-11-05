@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1120.5" height="627.578" viewBox="0 0 1120.5 627.578">
+  <defs>
+    <radialGradient id="panelFill" cx="50%" cy="50%" r="72%">
+      <stop offset="48.6275%" stop-color="#c8c8c8" stop-opacity=".159"/>
+      <stop offset="85.4902%" stop-color="#d2d2d2" stop-opacity=".394"/>
+    </radialGradient>
+
+    <filter id="shadowBlur" x="-10%" y="-300%" width="120%" height="700%">
+      <feGaussianBlur stdDeviation="2.4"/>
+    </filter>
+    <filter id="wideBlur" x="-10%" y="-500%" width="120%" height="1100%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+
+    <linearGradient id="topShadowOpacity" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#111" stop-opacity="0"/>
+      <stop offset=".55" stop-color="#111" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#111" stop-opacity=".55"/>
+    </linearGradient>
+    <linearGradient id="bottomShadowOpacity" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#111" stop-opacity="0"/>
+      <stop offset=".55" stop-color="#111" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#111" stop-opacity=".55"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M .504753 0
+           L 0 0 L 0 558.223022
+           C 2.365238 551.474731 2.121136 545.407349 9.118515 526.030334
+           C 24.309731 512.343140 45.355705 512.343140 66.401680 512.343140
+           L 760.869812 512.343140
+           C 779.911377 512.343140 798.953003 512.343140 816.777954 531.278748
+           C 819.832214 546.001892 820.493958 549.191833 820.903015 553.413269
+           L 822.112183 557.713135
+           L 821.465393 2.305569
+           C 821.465393 17.066555 808.831726 44.773434 776.709900 45.157986
+           C 754.413147 45.424900 63.387291 45.157986 46.350075 45.157986
+           C 26.564659 45.157986 5.172119 35.398212 .504753 0 Z"
+        transform="translate(107.478157 40.097275)"
+        fill="url(#panelFill)"/>
+
+  <g opacity="0.7">
+    <path transform="translate(-40, 0)" d="M 151.5 39
+             C 151.5 59 160 77 177 82
+             C 187 85 198 85 211 85
+             H 907
+             C 920 85 931 85 941 82
+             C 958 77 966.5 59 966.5 39"
+          fill="none" stroke="#171717" stroke-width="7"
+          stroke-linecap="round" filter="url(#wideBlur)" opacity=".45"/>
+    <path transform="translate(-40, 0)" d="M 151.5 39
+             C 151.5 59 160 77 177 82
+             C 187 85 198 85 211 85
+             H 907
+             C 920 85 931 85 941 82
+             C 958 77 966.5 59 966.5 39"
+          fill="none" stroke="url(#topShadowOpacity)" stroke-width="1.5"
+          stroke-linecap="round" filter="url(#shadowBlur)"/>
+  </g>
+
+  <!-- Bottom inset shadow: matching curve, mirrored vertically. -->
+  <g opacity=".70">
+    <path transform="translate(-40, 12)" d="M 151.5 588
+             C 151.5 568 160 550 177 545
+             C 187 542 198 542 211 542
+             H 907
+             C 920 542 931 542 941 545
+             C 958 550 966.5 568 966.5 588"
+          fill="none" stroke="#171717" stroke-width="7"
+          stroke-linecap="round" filter="url(#wideBlur)" opacity=".45"/>
+    <path transform="translate(-40, 12)" d="M 151.5 588
+             C 151.5 568 160 550 177 545
+             C 187 542 198 542 211 542
+             H 907
+             C 920 542 931 542 941 545
+             C 958 550 966.5 568 966.5 588"
+          fill="none" stroke="url(#bottomShadowOpacity)" stroke-width="1.5"
+          stroke-linecap="round" filter="url(#shadowBlur)"/>
+  </g>
+</svg>

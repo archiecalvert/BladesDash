@@ -29,7 +29,7 @@ export function MediaMenuContent(isOpen=false) {
     }, [])
     return (
         <div className="media-menu-content" style={{"--menu-z-index": MENU_Z_INDEX}}>
-            <MenuUnderlay/>
+            <MenuUnderlay offset={3}/>
             <MenuContentContainer index={1} offsetIndex={4}>
                 <MenuTitle title="Media"/>
                 <div className="media-menu-rows">

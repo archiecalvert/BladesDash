@@ -12,7 +12,7 @@ export function MarketplaceMenuContent({index=2}) {
     }, [])
     return (
         <div className="marketplace-menu-content" style={{"--menu-z-index": MENU_Z_INDEX}}>
-            <MenuUnderlay/>
+            <MenuUnderlay offset={0}/>
             <MenuContentContainer  index={1} offsetIndex={-2}>
                 <MenuTitle title="Marketplace"/>
             </MenuContentContainer>

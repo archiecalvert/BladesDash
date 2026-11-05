@@ -1,12 +1,11 @@
 
 import { UI_Z_INDEX } from "../../utils/constants"
 import "./component.css"
+import underlay from "./image.svg"
 
-export function MenuUnderlay({isCurrentMenu=false}) {
+export function MenuUnderlay({offset=0}) {
     return (
-        <div style={{"--menu-underlay-z-index": UI_Z_INDEX}} className="menu-underlay">
-        
-        </div>
+        <img src={underlay} style={{left: `calc(2.1vw + ${offset} * 3.8vw)` ,"--menu-underlay-z-index": UI_Z_INDEX, "--menu-underlay-offset": offset}} className="menu-underlay"/>
     )
 
 }

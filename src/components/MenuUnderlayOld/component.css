@@ -1,0 +1,14 @@
+.menu-underlay {
+    width: 100vw;
+    height: 63vh;
+    background: white;
+    align-self: center;
+    justify-self: center;
+    opacity: 0.25;
+    border-top: solid 2px;
+    border-bottom: solid 2px;
+    border-color: rgba(0,0,0,0.4);
+    position: absolute;
+    z-index: var(--menu-underlay-z-index);
+    filter: blur(5px) drop-shadow(0px 0px 1rem rgba(0,0,0,1)) drop-shadow(0px 0px -1rem rgba(0,0,0,1));   
+}

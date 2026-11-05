@@ -29,7 +29,7 @@ export function GamesMenuContent(isOpen=false) {
     }, [])
     return (
         <div className="game-menu-content" style={{"--menu-z-index": MENU_Z_INDEX}}>
-            <MenuUnderlay/>
+            <MenuUnderlay offset={2}/>
             <MenuContentContainer index={3} offsetIndex={2}>
                 <MenuTitle title="Games"/>
                 <DiscDrive style={{position: "absolute", width: "100%", bottom: "2.5vh"}}/>

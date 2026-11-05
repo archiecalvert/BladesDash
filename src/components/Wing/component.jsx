@@ -14,7 +14,6 @@ import {BLADE_BACKGROUND_SWIPEIN_DURATION,
     BLADE_WHITESPACE_RIGHT,
 }  from "../../utils/constants"
 import {sleep}  from "../../utils/sleep"
-import { SIDES } from "../../utils/enums"
 import "./component.css"
 
 /**
@@ -30,7 +29,7 @@ export function Wing({
     openPageIndex,
     maximumIndex,
     backgroundRef,
-    color="#ff0000"
+    color="#ff0000",
 }) {
     const controls = useAnimationControls();
     
@@ -46,6 +45,10 @@ export function Wing({
     // ===========================================================================
     // ============================= EVENT LISTENERS =============================
     // ===========================================================================
+    /**
+     * Function which is called on resize event listener. It repositions the Wing components
+     * so they get positioned correctly.
+     */
     async function Resize() {
         if (index > openPageIndex) { setBaseX(window.innerWidth - getBackgroundXPosition())}
         else { setBaseX(getBackgroundXPosition()) }
@@ -56,7 +59,9 @@ export function Wing({
     // ===========================================================================
     // ================================= HELPERS =================================
     // ===========================================================================
-    // Gets the X position of the blade background
+    /** 
+     * Gets the X position of the blade background component.
+     */ 
     function getBackgroundXPosition() {
         function _getBackgroundPositionOffset() { return window.innerWidth * 0.035 }
     
@@ -65,16 +70,20 @@ export function Wing({
         return backgroundRef.current.getBoundingClientRect().width - _getBackgroundPositionOffset() - getSelfWidth() * (1 - BLADE_WHITESPACE_LEFT)
     }
 
+    /**
+     * Gets the width of the blade element.
+     * @returns The width of the blade element.
+     */
     function getSelfWidth() {
         if (!selfRef.current) return
         return selfRef.current.getBoundingClientRect().width
     }
-
+    
     function calculateZIndex(left, current) {
         return BLADE_SLIDER_BACKGROUND_Z_INDEX + (left ? current : maximumIndex - current)
     }
     /**
-     * 
+     * Function which gets the blades offset relative to its current position.
      * @param i the index which we want to calculate the offset for
      * @param cur the currently active page index
      */
@@ -94,7 +103,12 @@ export function Wing({
         }
     }
 
-    function waitForLayout() {
+    /**
+     * Function which waits for the necessary elements to be present in the DOM.
+     * This allows for the element to access to relative sizes of the elements, placing
+     * the UI properly.
+     */
+    function waitForLayoutToMount() {
         return new Promise(resolve => {
             const check = () => {
                 if (
@@ -116,11 +130,19 @@ export function Wing({
     // ===========================================================================
     // =============================== ANIMATIONS ================================
     // ===========================================================================
+    /**
+     * Function which sets the wing to its offset position when idle. This does not set the
+     * actual page position.
+     * @param {*} duration 
+     */
     async function animBladesIdlePosition(duration=0.2) {
         const [x, y] = getOffsetPosition(index, openPageIndex)
         await controls.start({x: x, y: y, transition: {duration: duration, ease: "linear"}})
     }
 
+    /**
+     * Updates the blades to move from being stacked ontop of eachother, to set in their default position.
+     */
     async function animBladesInitHideUnhide() {
         
         // hide behind blade for now
@@ -140,7 +162,7 @@ export function Wing({
         window.addEventListener("resize", Resize)
 
         async function f() {
-            await waitForLayout()
+            await waitForLayoutToMount()
             if (index > openPageIndex) { setBaseX(window.innerWidth - getBackgroundXPosition())}
             else { setBaseX(getBackgroundXPosition()) }
             await animBladesInitHideUnhide()
@@ -168,7 +190,7 @@ export function Wing({
                 const x1 = start - total_distance / 4
                 const x2 = start - total_distance * 0.75
 
-                await controls.start({zIndex: calculateZIndex(false, index), x: start, y: oldY, transition: {duration: 0.00000001,  ease: "linear"}})
+                await controls.start({zIndex: calculateZIndex(false, index), x: start, y: oldY, transition: {duration: 0,  ease: "linear"}})
                 await controls.start({x: x1, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
                 setIsMiddleTransitionState(true)
                 await controls.start({zIndex: calculateZIndex(true, index), x: x2, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 2, ease: "linear"}})
@@ -193,7 +215,7 @@ export function Wing({
                 const x1 = start + total_distance / 4
                 const x2 = end - total_distance / 4
 
-                await controls.start({zIndex: calculateZIndex(true, index), x: start, y: oldY, transition: {duration: 0.00000001,  ease: "linear"}})
+                await controls.start({zIndex: calculateZIndex(true, index), x: start, y: oldY, transition: {duration: 0,  ease: "linear"}})
                 await controls.start({x: x1, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 4, ease: "linear"}})
                 setIsMiddleTransitionState(true)
                 await controls.start({zIndex: calculateZIndex(false, index), x: x2, y: newY, transition: {duration: BLADE_SWIPE_ANIMATION_DURATION / 2, ease: "linear"}})
