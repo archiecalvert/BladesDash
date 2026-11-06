@@ -78,7 +78,7 @@ function App() {
 			<BootAnimationComponent isVisible={booting} setVideoDone={b => setIsBooting(!b)}/>
 			<BackgroundRipped/>
 			{
-				!booting && 
+				!booting &&
 				<>
 						<BladeBackground backgroundSide={backgroundWing} side="left"></BladeBackground>
 						<BladeBackground side="right"></BladeBackground>

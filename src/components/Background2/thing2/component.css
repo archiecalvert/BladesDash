@@ -98,26 +98,25 @@
 .thing2 {
     position: absolute;
 
-    width: 55%;
-    height: 55%;
+    width: 110vw;
 
-    height: 110%;
+    height: 130vh;
 
     left: 50%;
     top: 50%;
 
-    opacity: 0.5;
+    opacity: 0.6;
 
     transform-origin: center center;
     transform-style: preserve-3d;
-    mix-blend-mode: lighten;
+    mix-blend-mode: multiply;
     transform:
         translate3d(-50%, -50%, 0)
-        translate3d(0px, -10%, 300px)
-        rotateX(30deg)
-        rotateZ(35deg)
-        rotateY(-10deg)
-        scale3d(2, 1.25, 1);
+        translate3d(0px, -10%, -100px)
+        rotateX(15deg)
+        rotateZ(45deg)
+        rotateY(-15deg)
+        scale3d(1.45, 1.45, 1);
 
     background: radial-gradient(circle,
         var(--thing2-col0) var(--thing2-pos0),
@@ -131,7 +130,7 @@
         var(--thing2-col8) var(--thing2-pos8)
     );
 
-    animation: thing2Anim 13s linear infinite;
+    animation: thing2Anim 6s linear infinite;
 }
 
 @keyframes thing2Anim {

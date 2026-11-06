@@ -6,9 +6,9 @@
     top: -2.5vh;
     background-color: transparent;
     opacity: 1;
-    filter: blur(0px);
-    box-shadow: 1px;
     mix-blend-mode: color;
     position: absolute;
     z-index: var(--menu-underlay-z-index);
+    object-fit: fill;
+
 }

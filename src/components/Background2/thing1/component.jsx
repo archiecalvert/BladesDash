@@ -1,7 +1,7 @@
 import "./component.css"
 
-export function Thing1() {
+export function Thing1({children}) {
     return (
-        <div className="thing1"/>
+        <div className="thing1">{children}</div>
     )
 }
