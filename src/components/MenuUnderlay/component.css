@@ -1,14 +1,12 @@
 .menu-underlay {
-    width: 92vw;
-    height: 100vh;
-    scale: 0.99 1.1;
-    left: 9.5vw;
-    top: -2.5vh;
-    background-color: transparent;
+    /* width: 92vw; */
+    width: calc(100vw - 60vh);
+    height: 93vh;
+    top: 3vh;
+    padding-left: -10%;
     opacity: 1;
     mix-blend-mode: color;
     position: absolute;
     z-index: var(--menu-underlay-z-index);
     object-fit: fill;
-
 }

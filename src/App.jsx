@@ -87,7 +87,7 @@ function App() {
 						<Wing color="rgb(52, 187, 34)" backgroundRef={backgroundWing} isSelected={false} index={3} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"games"}/>
 						<Wing color="rgb(56, 112, 176)" backgroundRef={backgroundWing} isSelected={false} index={4} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} isLeft={false} title={"media"}/>
 						<Wing color="rgb(134, 87, 177)" backgroundRef={backgroundWing} isSelected={false} index={5} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT}  isLeft={false} title={"system"}/>
-						<MenuManager currentOpenPage={currentlyOpenIndex}/>
+						<MenuManager backgroundRef={backgroundWing} currentOpenPage={currentlyOpenIndex}/>
 					</>
 			}
 		</div>
