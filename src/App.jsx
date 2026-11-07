@@ -5,17 +5,17 @@ import { WavesBackground } from "./components/WavesBackground/component"
 import { BladeBackground } from './components/Blade/Background/component';
 import "./App.css";
 import { OpenApplication, PlaySound, SOUNDS } from './utils/tauriWrapper';
-import { BLADE_SWIPE_ANIMATION_DURATION, ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN, THROTTLE_INPUTS } from './utils/constants';
+import { BLADE_SWIPE_ANIMATION_DURATION, ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN, THROTTLE_INPUTS, BLADE_COUNT } from './utils/constants';
 import { MenuManager } from './components/MenuManager/component';
 import { Wing } from './components/Wing/component';
 import { BackgroundRipped } from './components/Background2/component';
 import throttle from "lodash/throttle"
+import { useGlobalStore } from './stores/globalStore';
 
 function App() {
-	const BLADE_COUNT = 5
-
+	const currentPage = useGlobalStore((state) => state.currentPage)
+	const setCurrentPage = useGlobalStore((state) => state.setCurrentPage)
 	const [booting, setIsBooting] = useState(ENABLE_BOOT_ANIMATION)
-	const [currentlyOpenIndex, setCurrentlyOpenIndex] = useState(3)
 	
 	const backgroundWing = useRef(null)
 	const heldKeys = useRef({})
@@ -29,15 +29,15 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		PlaySound(SOUNDS.BLADE_SWOOSH[currentlyOpenIndex - 1])
-	}, [currentlyOpenIndex])
+		PlaySound(SOUNDS.BLADE_SWOOSH[currentPage - 1])
+	}, [currentPage])
 
 	useEffect(() => {
 		function move(key) {
 			if (key === "d") {
-				setCurrentlyOpenIndex(prev => Math.min(BLADE_COUNT, prev + 1))
+				setCurrentPage(prev => Math.min(BLADE_COUNT, prev + 1))
 			}
-			if (key === "a") setCurrentlyOpenIndex(prev => Math.max(1, prev - 1))
+			if (key === "a") setCurrentPage(prev => Math.max(1, prev - 1))
 		}
 
 		const throttleMove = throttle(move, THROTTLE_INPUTS ? BLADE_SWIPE_ANIMATION_DURATION * 1000 * 1.75 : 0)
@@ -83,14 +83,14 @@ function App() {
 			{
 				!booting &&
 				<>
-						<BladeBackground backgroundSide={backgroundWing} side="left"></BladeBackground>
+						<BladeBackground side="left"></BladeBackground>
 						<BladeBackground side="right"></BladeBackground>
-						<Wing color="rgb(223, 123, 36)" backgroundRef={backgroundWing} isSelected={false} index={1} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"marketplace"}/>
-						<Wing color="rgb(227, 152, 14)" backgroundRef={backgroundWing} isSelected={false} index={2} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"xbox live"}/>
-						<Wing color="rgb(52, 187, 34)" backgroundRef={backgroundWing} isSelected={false} index={3} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} title={"games"}/>
-						<Wing color="rgb(56, 112, 176)" backgroundRef={backgroundWing} isSelected={false} index={4} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT} isLeft={false} title={"media"}/>
-						<Wing color="rgb(134, 87, 177)" backgroundRef={backgroundWing} isSelected={false} index={5} openPageIndex={currentlyOpenIndex} maximumIndex={BLADE_COUNT}  isLeft={false} title={"system"}/>
-						<MenuManager backgroundRef={backgroundWing} currentOpenPage={currentlyOpenIndex}/>
+						<Wing color="rgb(223, 123, 36)" index={1} title={"marketplace"}/>
+						<Wing color="rgb(227, 152, 14)" index={2} title={"xbox live"}/>
+						<Wing color="rgb(52, 187, 34)" index={3} title={"games"}/>
+						<Wing color="rgb(56, 112, 176)" index={4} isLeft={false} title={"media"}/>
+						<Wing color="rgb(134, 87, 177)" index={5}  isLeft={false} title={"system"}/>
+						<MenuManager currentOpenPage={currentPage}/>
 					</>
 			}
 		</div>

@@ -17,6 +17,7 @@ export const BLADE_WHITESPACE_RIGHT = 0.18548387
 // =========== | BLADE CONSTANTS | ===========
 // time taken for the blades to go from the center of the screen
 // to the side
+export const BLADE_COUNT = 5
 export const BLADE_BACKGROUND_SWIPEIN_DURATION = 0.6
 export const BLADE_ANIMATION_KEYFRAME_DURATION = 0.25
 export const BLADE_SWIPE_ANIMATION_DURATION = 0.1

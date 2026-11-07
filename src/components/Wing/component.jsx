@@ -12,34 +12,35 @@ import {BLADE_BACKGROUND_SWIPEIN_DURATION,
     BLADE_SWIPE_ANIMATION_DURATION,
     BLADE_WHITESPACE_LEFT,
     BLADE_WHITESPACE_RIGHT,
+    BLADE_COUNT
 }  from "../../utils/constants"
 import {sleep}  from "../../utils/sleep"
 import "./component.css"
+import { useGlobalStore } from "../../stores/globalStore"
 
 /**
  * @param title the title which is displayed on the wing
  * @param index the index which the blade is
  * @param openPageIndex the index which page is open/visible
- * @param maximumIndex
  * @param backgroundRef a reference to the background gradient behind the wings
  */
 export function Wing({
     title = "<placeholder>",
     index,
-    openPageIndex,
-    maximumIndex,
-    backgroundRef,
     color="#ff0000",
 }) {
     const controls = useAnimationControls();
     
     const [initing, setIniting] = useState(true)
+    const openPageIndex = useGlobalStore(state => state.currentPage)
+    const backgroundRef = useGlobalStore(state => state.bladeBackgroundRef)
     const [isMiddleTransitionState, setIsMiddleTransitionState] = useState(false)
     const [inTransition, setIsInTransition] = useState(false)
     const [isLeft, setIsLeft] = useState(index <= openPageIndex)
     const [baseX, setBaseX] = useState(0);
 
     const selfRef = useRef(null)
+    const setGlobalRef = useGlobalStore(state => state.setWing)
     const previousOpenIndex = useRef(openPageIndex)
     
     // ===========================================================================
@@ -64,10 +65,10 @@ export function Wing({
      */ 
     function getBackgroundXPosition() {
         function _getBackgroundPositionOffset() { return window.innerWidth * 0.035 }
-    
-        if(!backgroundRef.current || !window) return;
         
-        return backgroundRef.current.getBoundingClientRect().width - _getBackgroundPositionOffset() - getSelfWidth() * (1 - BLADE_WHITESPACE_LEFT)
+        if(!backgroundRef || !window) return;
+        
+        return backgroundRef.getBoundingClientRect().width - _getBackgroundPositionOffset() - getSelfWidth() * (1 - BLADE_WHITESPACE_LEFT)
     }
 
     /**
@@ -78,9 +79,14 @@ export function Wing({
         if (!selfRef.current) return
         return selfRef.current.getBoundingClientRect().width
     }
+
+    function setRefs(element) {
+        selfRef.current = element
+        setGlobalRef(index - 1, element)
+    }
     
     function calculateZIndex(left, current) {
-        return BLADE_SLIDER_BACKGROUND_Z_INDEX + (left ? current : maximumIndex - current)
+        return BLADE_SLIDER_BACKGROUND_Z_INDEX + (left ? current : BLADE_COUNT - current)
     }
     /**
      * Function which gets the blades offset relative to its current position.
@@ -92,8 +98,8 @@ export function Wing({
 
         // if right
         if (i > cur) {
-            const offsetX = (maximumIndex - i) * bladeWidth
-            const offsetY = (maximumIndex - cur - i) * 5
+            const offsetX = (BLADE_COUNT - i) * bladeWidth
+            const offsetY = (BLADE_COUNT - cur - i) * 5
             return [-offsetX, -offsetY]
         }
         else {
@@ -101,30 +107,6 @@ export function Wing({
             const offsetY = (cur - i - 1) * 10
             return [-offsetX, offsetY]
         }
-    }
-
-    /**
-     * Function which waits for the necessary elements to be present in the DOM.
-     * This allows for the element to access to relative sizes of the elements, placing
-     * the UI properly.
-     */
-    function waitForLayoutToMount() {
-        return new Promise(resolve => {
-            const check = () => {
-                if (
-                    backgroundRef.current &&
-                    selfRef.current &&
-                    backgroundRef.current.getBoundingClientRect().width > 0 &&
-                    selfRef.current.getBoundingClientRect().width > 0
-                ) {
-                    resolve()
-                } else {
-                    requestAnimationFrame(check)
-                }
-            }
-
-            check()
-        })
     }
 
     // ===========================================================================
@@ -146,7 +128,7 @@ export function Wing({
     async function animBladesInitHideUnhide() {
         
         // hide behind blade for now
-        await controls.start({zIndex: calculateZIndex(isLeft, index) - maximumIndex * 2, x: (index > openPageIndex ? 1 : -1) * getSelfWidth(), transition: {duration: 0, ease: "linear"}})
+        await controls.start({zIndex: calculateZIndex(isLeft, index) - BLADE_COUNT * 2, x: (index > openPageIndex ? 1 : -1) * getSelfWidth(), transition: {duration: 0, ease: "linear"}})
         await sleep(BLADE_BACKGROUND_SWIPEIN_DURATION * 1000)
         // move onto screen
         await controls.start({x: 0, transition: {duration: 0.2, ease: "linear"}})
@@ -159,19 +141,20 @@ export function Wing({
     // =============================== STATE LOGIC ===============================
     // ===========================================================================
     useEffect(() => {
-        window.addEventListener("resize", Resize)
-
+        if (!(backgroundRef && selfRef.current && backgroundRef.getBoundingClientRect().width > 0 && selfRef.current.getBoundingClientRect().width > 0)) return
+        
         async function f() {
-            await waitForLayoutToMount()
             if (index > openPageIndex) { setBaseX(window.innerWidth - getBackgroundXPosition())}
             else { setBaseX(getBackgroundXPosition()) }
             await animBladesInitHideUnhide()
             await animBladesIdlePosition()
             setIniting(false)
         }
+
+        window.addEventListener("resize", Resize)
         f()
 
-    }, [])
+    }, [backgroundRef])
 
     useEffect(() => {
         async function f() {
@@ -257,7 +240,7 @@ export function Wing({
             animate={controls}
         >
             <img
-                ref={selfRef}
+                ref={setRefs}
                 className="blade-wing-image"
                 id={`blade-wing-image-${index}`}
                 src={

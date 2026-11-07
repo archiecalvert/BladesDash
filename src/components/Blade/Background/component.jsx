@@ -5,24 +5,23 @@ import { SIDES } from "../../../utils/enums"
 import { BLADE_BACKGROUND_SWIPEIN_DURATION, BLADE_SLIDER_BACKGROUND_Z_INDEX } from "../../../utils/constants"
 import { useRef, useState, useEffect } from "react"
 import { motion } from "framer-motion"
-export function BladeBackground({side = SIDES.LEFT, backgroundSide }) {
+import { useGlobalStore } from "../../../stores/globalStore"
+export function BladeBackground({side = SIDES.LEFT }) {
     
     const MAX_BLADE_SCALE = 10
     const bladeEdge = useRef(null)
-
+    const setGlobalSelfRef = useGlobalStore(state => state.setBladeBackgroundRef)
     const [start, setStart] = useState()
     const [end, setEnd] = useState()
     const [width, setWidth] = useState()
     const [duration, setDuration] = useState(BLADE_BACKGROUND_SWIPEIN_DURATION)
 
     function SetBladeEdge(element) {
-
+        if(element === null) return
         bladeEdge.current = element
-
-        if (backgroundSide) {
-            backgroundSide.current = element
-        }
+        if (side === SIDES.LEFT) setGlobalSelfRef(element)
     }
+
     useEffect(() => {
         if (!bladeEdge.current) return
 
