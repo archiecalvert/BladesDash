@@ -1,6 +1,5 @@
 .menu-underlay {
-    /* width: 92vw; */
-    width: calc(100vw - 60vh);
+    width: calc(100vw - 60.5vh);
     height: 93vh;
     top: 3vh;
     padding-left: -10%;

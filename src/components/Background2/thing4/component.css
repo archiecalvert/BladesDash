@@ -98,15 +98,27 @@
 .thing4 {
     position: absolute;
 
-    width: 100%;
-    height: 100%;
+    width: 110vw;
 
-    opacity: 0.6;
+    height: 130vh;
 
-    filter: invert(1);
+    left: 50%;
+    top: 50%;
+
+    opacity: 0.4;
+
+    filter:invert(0.7);
+
     transform-origin: center center;
     transform-style: preserve-3d;
-    mix-blend-mode:multiply;
+    mix-blend-mode:lighten;
+    transform:
+        translate3d(-50%, -50%, 0)
+        translate3d(0px, -10%, -100px)
+        rotateX(15deg)
+        rotateZ(45deg)
+        rotateY(-15deg)
+        scale3d(1.45, 1.45, 1);
 
     background: radial-gradient(circle,
         var(--thing4-col0) var(--thing4-pos0),
@@ -120,52 +132,20 @@
         var(--thing4-col8) var(--thing4-pos8)
     );
 
-    animation: thing4Anim 13s linear infinite;
-    animation-delay: -5s;
+    animation: thing4Anim 15s ease-in-out infinite;
 }
 
 @keyframes thing4Anim {
-    0% {
-        width: 100vw;
-        height: 100vh;
-        transform-origin: 0px 0px 0px;
-        transform:
-            translate3d(-20vw, 0px, 0px)
-            scale3d(1.4, 1, 1);
-    }
-
-    25% {
-        width: 100vw;
-        height: 100vh;
-        transform-origin: 0px 0px 0px;
-        transform:
-            translate3d(-32.5vw, 0vh, 0px)
-            scale3d(1.75, 1.25, 1);
-    }
-
-    50% {
-        width: 100vw;
-        height: 100vh;
-        transform-origin: 0px 0px 0px;
-        transform:
-            translate3d(-25vw, 0vh, 10px)
-            scale3d(1.4, 1.1, 1);
-    }
-
-    75% {
-        width: 100vw;
-        height: 100vh;
-        transform-origin: 0px 0px 0px;
-        transform:
-            translate3d(-10vw, 0vh, 0px)
-            scale3d(1.4, 1.1, 1);
-    }
-    100% {
-        width: 100vw;
-        height: 100vh;
-        transform-origin: 0px 0px 0px;
-        transform:
-            translate3d(-20vw, 0px, 0px)
-            scale3d(1.4, 1, 1);
+    to {
+        --thing4-pos7: 99.2157%;
+        --thing4-pos6: 97.6471%;
+        --thing4-pos5: 87.4510%;
+        --thing4-pos4: 72.1569%;
+        --thing4-pos3: 56.4706%;
+        --thing4-pos2: 40.7843%;
+        --thing4-pos1: 24.3137%;
+        --thing4-col7: #ff000000;
+        --thing4-col1: #ffffffff;
+        --thing4-pos0: 10.5882%;
     }
 }

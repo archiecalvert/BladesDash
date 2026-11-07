@@ -130,7 +130,7 @@
         var(--thing2-col8) var(--thing2-pos8)
     );
 
-    animation: thing2Anim 6s linear infinite;
+    animation: thing2Anim 8s ease-in-out infinite;
 }
 
 @keyframes thing2Anim {

@@ -5,10 +5,11 @@ import { WavesBackground } from "./components/WavesBackground/component"
 import { BladeBackground } from './components/Blade/Background/component';
 import "./App.css";
 import { OpenApplication, PlaySound, SOUNDS } from './utils/tauriWrapper';
-import { BLADE_SWIPE_ANIMATION_DURATION, ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN } from './utils/constants';
+import { BLADE_SWIPE_ANIMATION_DURATION, ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN, THROTTLE_INPUTS } from './utils/constants';
 import { MenuManager } from './components/MenuManager/component';
 import { Wing } from './components/Wing/component';
 import { BackgroundRipped } from './components/Background2/component';
+import throttle from "lodash/throttle"
 
 function App() {
 	const BLADE_COUNT = 5
@@ -39,17 +40,19 @@ function App() {
 			if (key === "a") setCurrentlyOpenIndex(prev => Math.max(1, prev - 1))
 		}
 
+		const throttleMove = throttle(move, THROTTLE_INPUTS ? BLADE_SWIPE_ANIMATION_DURATION * 1000 * 1.75 : 0)
+
 		function handleKeyDown(e) {
 			if (e.key !== "a" && e.key !== "d") return
 			if (heldKeys.current[e.key]) return
 
 			heldKeys.current[e.key] = true
 
-			move(e.key)
+			throttleMove(e.key)
 
 			repeatTimer.current = setTimeout(() => {
 				repeatInterval.current = setInterval(() => {
-					if (heldKeys.current[e.key]) move(e.key)
+					if (heldKeys.current[e.key]) throttleMove(e.key)
 				}, BLADE_SWIPE_ANIMATION_DURATION * 1000 + 100) // repeat speed
 			}, BLADE_SWIPE_ANIMATION_DURATION * 1000 + 100) // time taken to repeat
 		}

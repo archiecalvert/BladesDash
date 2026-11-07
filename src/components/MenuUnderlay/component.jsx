@@ -7,7 +7,7 @@ import underlay from "./image.svg"
 export function MenuUnderlay({offset=0}) {
 
     return (
-        <img src={underlay} style={{left: `calc(20.5vh + ${offset} * 6.8vh)` ,"--menu-underlay-z-index": UI_Z_INDEX, "--menu-underlay-offset": offset}} className="menu-underlay"/>
+        <img src={underlay} style={{left: `calc(21vh + ${offset} * 6.75vh)` ,"--menu-underlay-z-index": UI_Z_INDEX, "--menu-underlay-offset": offset}} className="menu-underlay"/>
     )
 
 }

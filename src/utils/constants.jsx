@@ -1,6 +1,7 @@
 // ============== | SETTINGS | ===============
 export const FORCE_FULLSCREEN = false
 export const ENABLE_BOOT_ANIMATION = false;
+export const THROTTLE_INPUTS = true;
 
 // ============== | Z-INDEXES | ==============
 export const WAVES_BACKGROUND_Z_INDEX = 0           // base background image
