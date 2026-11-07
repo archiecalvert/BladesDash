@@ -30,7 +30,7 @@ export function MenuContentContainer({index=2, offsetIndex=2, children}) {
         async function fadeIn() {
             await controls.start({opacity: 0})
             await sleep(BLADE_SWIPE_ANIMATION_DURATION * 1000)
-            await controls.start({opacity: 1, transition: {duration: 0.15}})
+            await controls.start({opacity: 1, transition: {duration: 0.15, delay: 0.1}})
 
         }
 

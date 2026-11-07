@@ -11,6 +11,7 @@ export function BladeBackground({side = SIDES.LEFT }) {
     const MAX_BLADE_SCALE = 10
     const bladeEdge = useRef(null)
     const setGlobalSelfRef = useGlobalStore(state => state.setBladeBackgroundRef)
+    const setAnimationCompleted = useGlobalStore(state => state.setInitialAnimationCompleted)
     const [start, setStart] = useState()
     const [end, setEnd] = useState()
     const [width, setWidth] = useState()
@@ -38,7 +39,7 @@ export function BladeBackground({side = SIDES.LEFT }) {
         setStart(0)
         setWidth(w)
         setEnd(side == SIDES.LEFT ? -w - offset  : w + offset)
-
+        setTimeout(() => {setAnimationCompleted()}, 1000 * duration)
     }, [])
     
     return (
