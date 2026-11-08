@@ -1,5 +1,11 @@
 
-import { useState, useEffect, useRef } from "react"
+import {
+    useState,
+    useEffect,
+    useRef,
+    useLayoutEffect,
+    useCallback
+} from "react"
 import { motion, useAnimationControls } from "motion/react"
 
 import WingDeselected from "../../assets/Blade/blade_left_opaque.png"
@@ -41,13 +47,14 @@ export function Wing({
     const [hasSettled, setHasSettled] = useState(true)
 
     const selfRef = useRef(null)
+    const [selfElement, setSelfElement] = useState(null)
     const animationId = useRef(0)
     const previousOpenIndex = useRef(openPageIndex)
     const initialised = useRef(false)
 
     const NORMAL_SCALE = 1.1
     const SELECTED_SCALE = 1.17
-
+    
     // ===========================================================================
     // ================================= HELPERS =================================
     // ===========================================================================
@@ -99,10 +106,11 @@ export function Wing({
             (left ? current : BLADE_COUNT - current)
     }
 
-    function setRefs(element) {
+    const setRefs = useCallback((element) => {
         selfRef.current = element
+        setSelfElement(element)
         setGlobalRef(index - 1, element)
-    }
+    }, [index, setGlobalRef])
 
     function getOffsetPosition(i, cur) {
         const bladeWidth = getBladeScaledWidth() *
@@ -211,17 +219,26 @@ export function Wing({
     // =============================== STATE LOGIC ===============================
     // ===========================================================================
 
-    useEffect(() => {
-        if (
-            !backgroundRef ||
-            !selfRef.current ||
-            backgroundRef.getBoundingClientRect().width <= 0 ||
-            getSelfWidth() <= 0
-        ) return
+    useLayoutEffect(() => {
+        if (!backgroundRef || !selfElement) return
 
         let cancelled = false
+        let started = false
 
         async function initialise() {
+            if (started || cancelled) return
+
+            const backgroundBounds = backgroundRef.getBoundingClientRect()
+            const selfBounds = selfElement.getBoundingClientRect()
+
+            if (backgroundBounds.width <= 0 ||
+                backgroundBounds.height <= 0 ||
+                selfBounds.width <= 0 ||
+                selfBounds.height <= 0) {
+                return
+            }
+
+            started = true
             await animBladesInitHideUnhide()
 
             if (cancelled) return
@@ -234,20 +251,35 @@ export function Wing({
         }
 
         function handleResize() {
-            if (!initialised.current) return
+            if (!initialised.current) {
+                initialise()
+                return
+            }
+
             animBladesIdlePosition(0)
         }
 
+        const observer = new ResizeObserver(handleResize)
+
+        observer.observe(backgroundRef)
+        observer.observe(selfElement)
         window.addEventListener("resize", handleResize)
 
         initialise()
 
+        const frame = requestAnimationFrame(initialise)
+
         return () => {
             cancelled = true
+
+            cancelAnimationFrame(frame)
+            observer.disconnect()
+
             window.removeEventListener("resize", handleResize)
+
             controls.stop()
         }
-    }, [backgroundRef])
+    }, [backgroundRef, selfElement])
 
     /**
      * Function which causes the blade to scale based if its selected and has settled

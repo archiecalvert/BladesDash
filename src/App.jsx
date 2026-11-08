@@ -16,7 +16,7 @@ import { InitialFadeIn } from './components/InitialFadeIn/component';
 function App() {
 
 	const currentPage = fromGlobalStore((state) => state.currentPage)
-	const [booting, setIsBooting] = useState(ENABLE_BOOT_ANIMATION)
+	const bootAnimationPlaying = fromGlobalStore(state => state.bootAnimationPlaying)
 		
 	useEffect(() => {
 		if (FORCE_FULLSCREEN) {
@@ -31,10 +31,9 @@ function App() {
 	return (
 		<div className="content-container">
 			<InputManager/>
-			<BootAnimationComponent isVisible={booting} setVideoDone={b => setIsBooting(!b)}/>
+			<BootAnimationComponent/>
 			{
-				!booting &&
-				<>
+				!bootAnimationPlaying && <>
 					<InitialFadeIn/>
 					<BackgroundRipped/>
 					<BladeBackground side="left"></BladeBackground>

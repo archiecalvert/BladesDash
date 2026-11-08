@@ -1,7 +1,10 @@
 import "./component.css"
 import bootAnim from "../../assets/boot.mp4"
+import { fromGlobalStore } from "../../stores/globalStore";
 
-export function BootAnimationComponent({setVideoDone=false, isVisible=true}) {
+export function BootAnimationComponent({}) {
+    const isVisible = fromGlobalStore(state => state.bootAnimationPlaying)
+    const setBootAnimationPlaying = fromGlobalStore(state => state.setBootAnimationPlaying)
 
     if(isVisible)  return (
         <video
@@ -9,7 +12,7 @@ export function BootAnimationComponent({setVideoDone=false, isVisible=true}) {
             playsInline
             preload="auto"
             className="boot-animation-container"
-            onEnded={() => setVideoDone(true)}
+            onEnded={() => setBootAnimationPlaying(false)}
         >
             <source src={bootAnim} type="video/mp4" />
             

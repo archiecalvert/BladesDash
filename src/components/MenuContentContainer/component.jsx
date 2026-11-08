@@ -1,66 +1,139 @@
-import { useEffect, useState } from "react"
-import { easeIn, motion, transform, useAnimationControls } from "motion/react"
-import { BLADE_WHITESPACE_LEFT, BLADE_WHITESPACE_RIGHT, MENU_Z_INDEX, BLADE_SWIPE_ANIMATION_DURATION, BLADE_BACKGROUND_SWIPEIN_DURATION } from "../../utils/constants"
-import { sleep } from "../../utils/sleep"
 
+import { useEffect, useState, useCallback } from "react"
+import { motion, useAnimationControls } from "motion/react"
+
+import {
+    BLADE_WHITESPACE_LEFT,
+    BLADE_WHITESPACE_RIGHT,
+    MENU_Z_INDEX,
+    BLADE_SWIPE_ANIMATION_DURATION,
+    BLADE_BACKGROUND_SWIPEIN_DURATION
+} from "../../utils/constants"
+
+import { sleep } from "../../utils/sleep"
 import "./component.css"
 import { fromGlobalStore } from "../../stores/globalStore"
 
-export function MenuContentContainer({index=2, offsetIndex=2, children}) {
-    const controls = useAnimationControls();
+export function MenuContentContainer({
+    index = 2,
+    offsetIndex = 2,
+    children
+}) {
+    const controls = useAnimationControls()
+
     const [width, setWidth] = useState(0)
     const [offset, setOffset] = useState(0)
+
     const bladeWing = fromGlobalStore(state => state.wings[index - 1])
     const bladeBackground = fromGlobalStore(state => state.bladeBackgroundRef)
-    const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
+    const initialAnimationCompleted = fromGlobalStore(
+        state => state.initialAnimationCompleted
+    )
 
-     /**
-     * 
-     * @param i the index which we want to calculate the offset for
-     * @param cur the currently active page index
+    const [isReady, setIsReady] = useState(false)
+
+    /**
+     * Calculates the horizontal offset of the menu.
      */
-    function getOffsetPosition(i) {
-        function getSelfWidth() {
-            return bladeWing.getBoundingClientRect().width;
-        }
-        const bladeWidth = getSelfWidth() * ((1 - BLADE_WHITESPACE_LEFT) - BLADE_WHITESPACE_RIGHT)
+    const getOffsetPosition = useCallback(() => {
+        if (!bladeWing) return 0
 
-        return (i - 1) * bladeWidth
-    }
+        const bladeWidth = bladeWing.getBoundingClientRect().width
+
+        return (
+            (offsetIndex - 1) *
+            bladeWidth *
+            ((1 - BLADE_WHITESPACE_LEFT) - BLADE_WHITESPACE_RIGHT)
+        )
+    }, [bladeWing, offsetIndex])
+
+    /**
+     * Calculates the menu's dimensions and position.
+     */
+    const updateDimensions = useCallback(() => {
+        if (!bladeWing || !bladeBackground) return false
+
+        const wingBounds = bladeWing.getBoundingClientRect()
+        const backgroundBounds = bladeBackground.getBoundingClientRect()
+
+        if (wingBounds.width <= 0 || backgroundBounds.width <= 0) {
+            return false
+        }
+
+        const finalWidth =
+            window.innerWidth -
+            2 * backgroundBounds.width -
+            window.innerWidth * 0.135
+
+        setWidth(finalWidth)
+        setOffset(getOffsetPosition())
+
+        return true
+    }, [bladeWing, bladeBackground, getOffsetPosition])
 
     useEffect(() => {
+        if (!bladeWing || !bladeBackground) return
+
+        let cancelled = false
+        let started = false
+
         async function fadeIn() {
-            await controls.start({opacity: 0})
+            await controls.start({ opacity: 0 })
             await sleep((initialAnimationCompleted ? BLADE_SWIPE_ANIMATION_DURATION : BLADE_BACKGROUND_SWIPEIN_DURATION) * 1000)
-            await controls.start({opacity: 1, transition: {duration: 0.25, delay: 0.1}})
 
+            if (cancelled) return
+
+            await controls.start({ opacity: 1, transition: { duration: 0.25, delay: 0.1 }})
         }
 
-        function ResizeHandler() {
-            const backgroundWidth = bladeBackground.getBoundingClientRect().width;
-            const final = window.innerWidth - 2 * backgroundWidth - window.innerWidth * 0.15;
-            setWidth(final)
-            setOffset(getOffsetPosition(offsetIndex))
+        function initialise() {
+            if (cancelled || started) return
+            if (!updateDimensions()) return
+
+            started = true
+            setIsReady(true)
+            fadeIn()
         }
 
-        if (!(bladeWing && bladeBackground)) return
-        if (bladeWing === null) return
-        if (bladeBackground === null) return
+        function handleResize() {
+            if (!started) {
+                initialise()
+                return
+            }
+            updateDimensions()
+        }
 
-        const backgroundWidth = bladeBackground.getBoundingClientRect().width;
-        const final = window.innerWidth - 2 * backgroundWidth - window.innerWidth * 0.135;
-        setWidth(final)
-        setOffset(getOffsetPosition(offsetIndex))
-        fadeIn()
-        window.addEventListener("resize", ResizeHandler)
+        const observer = new ResizeObserver(handleResize)
+
+        observer.observe(bladeWing)
+        observer.observe(bladeBackground)
+
+        window.addEventListener("resize", handleResize)
+
+        initialise()
+
+        const frame = requestAnimationFrame(initialise)
 
         return () => {
-            window.removeEventListener("resize", ResizeHandler)
+            cancelled = true
+            cancelAnimationFrame(frame)
+            observer.disconnect()
+            window.removeEventListener("resize", handleResize)
+            controls.stop()
         }
-    }, [bladeWing, bladeBackground, offsetIndex])
+    }, [bladeWing, bladeBackground, initialAnimationCompleted, updateDimensions, controls])
 
     return (
-        <motion.div initial={{opacity: 0}} animate={controls} style={{width: width, marginLeft: offset, "--menu-content-container-z-index": MENU_Z_INDEX + 1}} className="menu-content-container">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={controls}
+            style={{
+                width,
+                marginLeft: offset,
+                "--menu-content-container-z-index": MENU_Z_INDEX + 1
+            }}
+            className="menu-content-container"
+        >
             {children}
         </motion.div>
     )

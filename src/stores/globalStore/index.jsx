@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { BLADE_COUNT, STARTING_BLADE } from "../../utils/constants";
+import { BLADE_COUNT, ENABLE_BOOT_ANIMATION, STARTING_BLADE } from "../../utils/constants";
 
 export const fromGlobalStore = create((set) => ({
     currentPage: STARTING_BLADE,
@@ -7,9 +7,10 @@ export const fromGlobalStore = create((set) => ({
     initialAnimationCompleted: false,
     menuTransitionInProgress: false,
     wings: Array.apply(null, Array(BLADE_COUNT)).map(function () {}),
+    bootAnimationPlaying: ENABLE_BOOT_ANIMATION,
 
     setCurrentPage: (pageNumber) => set((state) => ({
-        currentPage: typeof pageNumber === "function"
+            currentPage: typeof pageNumber === "function"
             ? pageNumber(state.currentPage)
             : pageNumber
         })
@@ -22,4 +23,5 @@ export const fromGlobalStore = create((set) => ({
             wings: state.wings.map((w, i) => i === index ? wing : w),
         })
     ),
+    setBootAnimationPlaying: value => set({bootAnimationPlaying: value})
 }))
