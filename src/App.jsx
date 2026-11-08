@@ -17,10 +17,16 @@ function App() {
 
 	const currentPage = fromGlobalStore((state) => state.currentPage)
 	const bootAnimationPlaying = fromGlobalStore(state => state.bootAnimationPlaying)
-		
+	const setBootAnimationPlaying = fromGlobalStore(state => state.setBootAnimationPlaying)
+	
 	useEffect(() => {
-		if (FORCE_FULLSCREEN) {
-			getCurrentWindow().setFullscreen(true);
+		const isOnWeb = typeof window.__TAURI_INTERNALS__ === "undefined"
+		if(isOnWeb) {
+			setBootAnimationPlaying(false)
+		} else {	
+			if (FORCE_FULLSCREEN) {
+				getCurrentWindow().setFullscreen(true);
+			}
 		}
 	}, []);
 

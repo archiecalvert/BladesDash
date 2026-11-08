@@ -8,7 +8,7 @@ export const fromGlobalStore = create((set) => ({
     menuTransitionInProgress: false,
     wings: Array.apply(null, Array(BLADE_COUNT)).map(function () {}),
     bootAnimationPlaying: ENABLE_BOOT_ANIMATION,
-
+    
     setCurrentPage: (pageNumber) => set((state) => ({
             currentPage: typeof pageNumber === "function"
             ? pageNumber(state.currentPage)
