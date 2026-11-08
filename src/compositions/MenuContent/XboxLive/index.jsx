@@ -33,7 +33,7 @@ export function XboxLiveMenuContent(isOpen=false) {
                 <div className="live-menu-rows">
                     <div className="live-menu-row">
                         <div style={{width: "50%"}}>
-                            <PlayerCardButton/>
+                            <PlayerCardButton gamertag="archiecalvert"/>
                         </div>
                         <div style={{width: "50%"}}>
                             <img style={{width: "100%", paddingLeft: "27%", paddingRight: "27%", aspectRatio: "auto", boxSizing: "border-box", filter: "drop-shadow(0 0 3px black)"}} src={XboxLiveLogo}/>

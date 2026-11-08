@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { easeIn, motion, transform, useAnimationControls } from "motion/react"
-import { BLADE_WHITESPACE_LEFT, BLADE_WHITESPACE_RIGHT, MENU_Z_INDEX, BLADE_SWIPE_ANIMATION_DURATION } from "../../utils/constants"
+import { BLADE_WHITESPACE_LEFT, BLADE_WHITESPACE_RIGHT, MENU_Z_INDEX, BLADE_SWIPE_ANIMATION_DURATION, BLADE_BACKGROUND_SWIPEIN_DURATION } from "../../utils/constants"
 import { sleep } from "../../utils/sleep"
 
 import "./component.css"
@@ -12,6 +12,8 @@ export function MenuContentContainer({index=2, offsetIndex=2, children}) {
     const [offset, setOffset] = useState(0)
     const bladeWing = fromGlobalStore(state => state.wings[index - 1])
     const bladeBackground = fromGlobalStore(state => state.bladeBackgroundRef)
+    const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
+
      /**
      * 
      * @param i the index which we want to calculate the offset for
@@ -29,8 +31,8 @@ export function MenuContentContainer({index=2, offsetIndex=2, children}) {
     useEffect(() => {
         async function fadeIn() {
             await controls.start({opacity: 0})
-            await sleep(BLADE_SWIPE_ANIMATION_DURATION * 1000)
-            await controls.start({opacity: 1, transition: {duration: 0.15, delay: 0.1}})
+            await sleep((initialAnimationCompleted ? BLADE_SWIPE_ANIMATION_DURATION : BLADE_BACKGROUND_SWIPEIN_DURATION) * 1000)
+            await controls.start({opacity: 1, transition: {duration: 0.25, delay: 0.1}})
 
         }
 
@@ -46,9 +48,7 @@ export function MenuContentContainer({index=2, offsetIndex=2, children}) {
         if (bladeBackground === null) return
 
         const backgroundWidth = bladeBackground.getBoundingClientRect().width;
-        console.log(backgroundWidth)
-        console.log(backgroundWidth)
-        const final = window.innerWidth - 2 * backgroundWidth - window.innerWidth * 0.15;
+        const final = window.innerWidth - 2 * backgroundWidth - window.innerWidth * 0.135;
         setWidth(final)
         setOffset(getOffsetPosition(offsetIndex))
         fadeIn()

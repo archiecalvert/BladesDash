@@ -1,6 +1,7 @@
-import PlaceholderImage from "../../assets/Images/Gamerpics/placeholder2.png"
+import PlaceholderImage from "../../assets/Images/Gamerpics/placeholder3.png"
 import GScoreImage from "../../assets/shdres/GScore.png"
 import "./component.css"
+import { Field } from "./Field"
 
 export const ZONE = {
     PRO: "Pro",
@@ -9,19 +10,20 @@ export const ZONE = {
     UNDERGROUND: "Underground"
 }
 
-export function PlayerCardButton({gamertag="archiecalvert", rep=5, gamerscore=0, zone=ZONE.NONE}) {
+const gamerscoreText = <p><img style={{transform: "translateY(0.85vh) translateX(-0.75vh)", marginRight: "-0.85vh", height: "3.5vh", marginTop: "-0.75vh", aspectRatio: "1 / 1"}} src={GScoreImage}/>amerscore</p>
+export function PlayerCardButton({gamertag="<placeholder>", rep=5, gamerscore=0, zone=ZONE.NONE}) {
     return (
         <div className="player-card-button">
             <div className="player-card-title player-card-title-silver">
                 {gamertag}
             </div>
             <div className="player-card-content">
-                <div style={{display: "flex", gap: "1vh"}}>
+                <div style={{display: "flex", gap: "1.5vh", flex: "70% 30%"}}>
                     <img className="player-card-gamerpic" src={PlaceholderImage}/>
-                    <div>
-                        <div>Games</div>
-                        <div style={{display: "flex", alignItems: "center"}}><img style={{transform: "translateY(0.35vh) translateX(-0.75vh)", marginRight: "-0.85vh", height: "3.5vh", aspectRatio: "1 / 1"}} src={GScoreImage}/>amerscore</div>
-                        <div>Achievements</div>
+                    <div style={{width: "100%"}}>
+                        <Field label="Games" value="0"/>
+                        <Field label={gamerscoreText} value="0"/>
+                        <Field label="Achievements" value="0"/>
                     </div>
                 </div>
             </div>

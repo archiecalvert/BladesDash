@@ -1,5 +1,6 @@
 .disc-drive-container {
-    width: 100%;
+    width: 97%;
+    margin-left: auto;
     border: solid 0.3vh;
     border-radius: 15vh;
     border-color: rgba(50, 50, 50, 0.3);
@@ -29,7 +30,7 @@
     height: 100%;
     display: flex;
     align-items: center;
-    padding-left: 1.5vh;
+    padding-left: 4.5vh;
     gap: 3vh;
 }
 

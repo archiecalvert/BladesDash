@@ -4,7 +4,7 @@
     top: 3vh;
     padding-left: -10%;
     opacity: 1;
-    mix-blend-mode: color;
+    mix-blend-mode:lighten;
     position: absolute;
     z-index: var(--menu-underlay-z-index);
     object-fit: fill;

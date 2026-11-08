@@ -8,7 +8,6 @@ import Xbox360Logo from "../../../assets/Images/Xbox_360.png"
 
 import "./index.css"
 import { MenuContentContainer } from "../../../components/MenuContentContainer/component"
-import { PlayerCardButton } from "../../../components/PlayerCardButton/component"
 
 import ConsoleSettingsIcon from "../../../assets/icons/settings/console.png"
 import FamilySettingsIcon from "../../../assets/icons/settings/family.png"

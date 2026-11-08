@@ -1,0 +1,8 @@
+.initial-page-fade-in {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(190,190, 190);
+    position: absolute;
+    top: 0;
+    left: 0;
+}

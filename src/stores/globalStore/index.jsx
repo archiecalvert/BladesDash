@@ -5,6 +5,7 @@ export const fromGlobalStore = create((set) => ({
     currentPage: STARTING_BLADE,
     bladeBackgroundRef: null,
     initialAnimationCompleted: false,
+    menuTransitionInProgress: false,
     wings: Array.apply(null, Array(BLADE_COUNT)).map(function () {}),
 
     setCurrentPage: (pageNumber) => set((state) => ({
@@ -13,6 +14,7 @@ export const fromGlobalStore = create((set) => ({
             : pageNumber
         })
     ),
+    setMenuTransitionInProgress: (value) => set({menuTransitionInProgress: value}),
     setInitialAnimationCompleted: () => set({initialAnimationCompleted: true}),
     setBladeBackgroundRef: (ref) => set({bladeBackgroundRef: ref}),
     setWing: (index, wing) =>

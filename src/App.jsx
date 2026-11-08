@@ -11,6 +11,7 @@ import { Wing } from './components/Wing/component';
 import { BackgroundRipped } from './components/Background2/component';
 import { fromGlobalStore } from './stores/globalStore';
 import { InputManager } from './utils/inputManager';
+import { InitialFadeIn } from './components/InitialFadeIn/component';
 
 function App() {
 
@@ -34,14 +35,15 @@ function App() {
 			{
 				!booting &&
 				<>
+					<InitialFadeIn/>
 					<BackgroundRipped/>
 					<BladeBackground side="left"></BladeBackground>
 					<BladeBackground side="right"></BladeBackground>
-					<Wing color="rgb(223, 123, 36)" index={1} title={"marketplace"}/>
-					<Wing color="rgb(227, 152, 14)" index={2} title={"xbox live"}/>
-					<Wing color="rgb(52, 187, 34)" index={3} title={"games"}/>
-					<Wing color="rgb(56, 112, 176)" index={4} isLeft={false} title={"media"}/>
-					<Wing color="rgb(134, 87, 177)" index={5}  isLeft={false} title={"system"}/>
+					<Wing color="rgb(248, 133, 50)" index={1} title={"marketplace"}/>
+					<Wing color="rgb(235, 156, 58)" index={2} title={"xbox live"}/>
+					<Wing color="rgb(42, 208, 20)" index={3} title={"games"}/>
+					<Wing color="rgb(75, 137, 208)" index={4} isLeft={false} title={"media"}/>
+					<Wing color="rgb(152, 108, 193)" index={5}  isLeft={false} title={"system"}/>
 					<MenuManager currentOpenPage={currentPage}/>
 				</>
 			}

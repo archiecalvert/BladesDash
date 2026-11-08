@@ -29,6 +29,10 @@
 
 .player-card-content {
     padding: 1.3vh;
+    padding-top: 0.1vh;
+    font-size: 2.9vh;
+    font-weight: 500;
+    letter-spacing: 0.15vh;
 }
 
 .player-card-gamerpic {
@@ -36,6 +40,7 @@
     border-color: rgba(30, 30, 30, 0.2);
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    height: auto;
-    width: 10vh;
+    height: 8.5vh;
+    align-self: flex-end;
 }
+
