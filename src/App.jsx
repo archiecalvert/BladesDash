@@ -9,12 +9,12 @@ import { ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN } from './utils/constants';
 import { MenuManager } from './components/MenuManager/component';
 import { Wing } from './components/Wing/component';
 import { BackgroundRipped } from './components/Background2/component';
-import { useGlobalStore } from './stores/globalStore';
+import { fromGlobalStore } from './stores/globalStore';
 import { InputManager } from './utils/inputManager';
 
 function App() {
 
-	const currentPage = useGlobalStore((state) => state.currentPage)
+	const currentPage = fromGlobalStore((state) => state.currentPage)
 	const [booting, setIsBooting] = useState(ENABLE_BOOT_ANIMATION)
 		
 	useEffect(() => {
@@ -31,10 +31,10 @@ function App() {
 		<div className="content-container">
 			<InputManager/>
 			<BootAnimationComponent isVisible={booting} setVideoDone={b => setIsBooting(!b)}/>
-			<BackgroundRipped/>
 			{
 				!booting &&
 				<>
+					<BackgroundRipped/>
 					<BladeBackground side="left"></BladeBackground>
 					<BladeBackground side="right"></BladeBackground>
 					<Wing color="rgb(223, 123, 36)" index={1} title={"marketplace"}/>

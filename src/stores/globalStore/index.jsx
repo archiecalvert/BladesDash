@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { BLADE_COUNT } from "../../utils/constants";
 
-export const useGlobalStore = create((set) => ({
+export const fromGlobalStore = create((set) => ({
     currentPage: 3,
     bladeBackgroundRef: null,
     initialAnimationCompleted: false,

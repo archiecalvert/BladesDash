@@ -9,17 +9,22 @@ import {
 } from "./constants"
 import throttle from "lodash/throttle"
 import { useRef, useEffect } from "react";
-import { useGlobalStore } from "../stores/globalStore";
+import { fromGlobalStore } from "../stores/globalStore";
 
 
 export function InputManager() {
+    const REPEAT_SPEED = BLADE_SWIPE_ANIMATION_DURATION * 1000 + 100
+    const REPEAT_PERIOD = BLADE_SWIPE_ANIMATION_DURATION * 1000 + 100
+
     const heldKeys = useRef({})
     const repeatTimer = useRef(null)
     const repeatInterval = useRef(null)
 
-    const setCurrentPage = useGlobalStore((state) => state.setCurrentPage)
+    const setCurrentPage = fromGlobalStore(state => state.setCurrentPage)
+    const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
 
     useEffect(() => {
+        if (!initialAnimationCompleted) return
         function fireAssociatedKeyEvents(key) {
             if (RIGHT_KEYS.includes(key)) {
                 setCurrentPage(prev => Math.min(BLADE_COUNT, prev + 1))
@@ -43,8 +48,8 @@ export function InputManager() {
             repeatTimer.current = setTimeout(() => {
                 repeatInterval.current = setInterval(() => {
                     if (heldKeys.current[e.key]) throttleFireAssociatedKeyEvents(e.key)
-                }, BLADE_SWIPE_ANIMATION_DURATION * 1000 + 100) // repeat speed
-            }, BLADE_SWIPE_ANIMATION_DURATION * 1000 + 100) // time taken to repeat
+                }, REPEAT_SPEED) // repeat speed
+            }, REPEAT_PERIOD) // time taken to repeat
         }
 
         function handleKeyUp(e) {
@@ -62,5 +67,5 @@ export function InputManager() {
             clearTimeout(repeatTimer.current)
             clearInterval(repeatInterval.current)
         }
-    }, [])
+    }, [initialAnimationCompleted])
 }

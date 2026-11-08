@@ -15,7 +15,7 @@ import {BLADE_BACKGROUND_SWIPEIN_DURATION,
 }  from "../../utils/constants"
 import {sleep}  from "../../utils/sleep"
 import "./component.css"
-import { useGlobalStore } from "../../stores/globalStore"
+import { fromGlobalStore } from "../../stores/globalStore"
 
 /**
  * @param title the title which is displayed on the wing
@@ -31,15 +31,15 @@ export function Wing({
     const controls = useAnimationControls();
     
     const [initing, setIniting] = useState(true)
-    const openPageIndex = useGlobalStore(state => state.currentPage)
-    const backgroundRef = useGlobalStore(state => state.bladeBackgroundRef)
+    const openPageIndex = fromGlobalStore(state => state.currentPage)
+    const backgroundRef = fromGlobalStore(state => state.bladeBackgroundRef)
     const [isMiddleTransitionState, setIsMiddleTransitionState] = useState(false)
     const [inTransition, setIsInTransition] = useState(false)
     const [isLeft, setIsLeft] = useState(index <= openPageIndex)
     const [baseX, setBaseX] = useState(0);
 
     const selfRef = useRef(null)
-    const setGlobalRef = useGlobalStore(state => state.setWing)
+    const setGlobalRef = fromGlobalStore(state => state.setWing)
     const previousOpenIndex = useRef(openPageIndex)
     
     // ===========================================================================

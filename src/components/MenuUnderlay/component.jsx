@@ -5,12 +5,12 @@ import {
 } from "../../utils/constants"
 import "./component.css"
 import underlay from "./image.svg"
-import { useGlobalStore } from "../../stores/globalStore"
+import { fromGlobalStore } from "../../stores/globalStore"
 import { motion } from "framer-motion"
 
 export function MenuUnderlay({ offset = 0 }) {
-    const initialAnimationCompleted = useGlobalStore(state => state.initialAnimationCompleted)
-    const currentPage = useGlobalStore(state => state.currentPage)
+    const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
+    const currentPage = fromGlobalStore(state => state.currentPage)
 
     const SCALE_MAX = 1.5
     const ANIMATION_DELAY = 0.2
