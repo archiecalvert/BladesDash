@@ -26,9 +26,7 @@ export function MenuContentContainer({
 
     const bladeWing = fromGlobalStore(state => state.wings[index - 1])
     const bladeBackground = fromGlobalStore(state => state.bladeBackgroundRef)
-    const initialAnimationCompleted = fromGlobalStore(
-        state => state.initialAnimationCompleted
-    )
+    const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
 
     const [isReady, setIsReady] = useState(false)
 
@@ -63,7 +61,7 @@ export function MenuContentContainer({
         const finalWidth =
             window.innerWidth -
             2 * backgroundBounds.width -
-            window.innerWidth * 0.135
+            window.innerWidth * 0.1
 
         setWidth(finalWidth)
         setOffset(getOffsetPosition())

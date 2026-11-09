@@ -52,8 +52,8 @@ export function Wing({
     const previousOpenIndex = useRef(openPageIndex)
     const initialised = useRef(false)
 
-    const NORMAL_SCALE = 1.1
-    const SELECTED_SCALE = 1.17
+    const NORMAL_SCALE = 0.94
+    const SELECTED_SCALE = 0.98
     
     // ===========================================================================
     // ================================= HELPERS =================================
@@ -83,7 +83,7 @@ export function Wing({
         if (!backgroundRef || !selfRef.current) return 0
 
         const backgroundWidth = backgroundRef.getBoundingClientRect().width
-        const offset = window.innerWidth * 0.035
+        const offset = window.innerWidth * 0.041
 
         return (
             backgroundWidth -
@@ -118,16 +118,16 @@ export function Wing({
 
         if (i > cur) {
             const offsetX = (BLADE_COUNT - i) * bladeWidth
-            const offsetY = (BLADE_COUNT - cur - i) * 5
+            const offsetY = (BLADE_COUNT - cur - i + 3) * 5
 
             return [-offsetX, -offsetY]
         }
 
         const offsetX = -(i - 1) * bladeWidth
-        const offsetY = (cur - i - 1) * 10
+        const offsetY = (cur - i - 3) * 10
 
         if (i == cur) {
-            const adjustX = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetX * 0.45)
+            const adjustX = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetX * -2.5)
             const adjustY = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetY * 0.55)
             return [-offsetX + adjustX, offsetY - adjustY]
         }
@@ -248,6 +248,7 @@ export function Wing({
             if (cancelled) return
 
             initialised.current = true
+            animateScale(true)
         }
 
         function handleResize() {

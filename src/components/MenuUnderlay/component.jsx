@@ -46,7 +46,7 @@ export function MenuUnderlay({ offset = 0 }) {
                 }
             }}
             style={{
-                left: `calc(20.55vh + ${offset} * 6.6vh)`,
+                left: `calc(19.85vh + ${offset} * 5.5vh)`,
                 "--menu-underlay-z-index": UI_Z_INDEX,
                 "--menu-underlay-offset": offset
             }}
