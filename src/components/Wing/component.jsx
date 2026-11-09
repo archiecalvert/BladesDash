@@ -98,7 +98,7 @@ export function Wing({
 
         return left
             ? backgroundX
-            : window.innerWidth - backgroundX - 0.088 * window.innerWidth
+            : window.innerWidth - backgroundX - getSelfWidth()
     }
 
     function calculateZIndex(left, current) {

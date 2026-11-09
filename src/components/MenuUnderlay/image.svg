@@ -3,8 +3,8 @@
      width="1120.5" height="627.578" viewBox="0 0 825 567.578" preserveAspectRatio="none">
   <defs>
     <radialGradient id="panelFill" cx="50%" cy="50%" r="72%">
-      <stop offset="48.6275%" stop-color="#c8c8c8" stop-opacity=".3309"/>
-      <stop offset="85.4902%" stop-color="#d2d2d2" stop-opacity=".594"/>
+      <stop offset="48.6275%" stop-color="#c8c8c8" stop-opacity=".20309"/>
+      <stop offset="85.4902%" stop-color="#d2d2d2" stop-opacity=".4494"/>
     </radialGradient>
 
     <filter id="shadowBlur" x="-10%" y="-300%" width="120%" height="700%">
