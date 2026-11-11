@@ -10,7 +10,7 @@ export const ZONE = {
     UNDERGROUND: "Underground"
 }
 
-const gamerscoreText = <p><img style={{transform: "translateY(0.85vh) translateX(-0.75vh)", marginRight: "-0.85vh", height: "3.5vh", marginTop: "-0.75vh", aspectRatio: "1 / 1"}} src={GScoreImage}/>amerscore</p>
+const gamerscoreText = <p><img style={{transform: "translateY(1.05vh) translateX(-0.75vh)", marginRight: "-0.85vh", height: "4.5vh", marginTop: "-1vh", aspectRatio: "1 / 1"}} src={GScoreImage}/>amerscore</p>
 export function PlayerCardButton({gamertag="<placeholder>", rep=5, gamerscore=0, zone=ZONE.NONE}) {
     return (
         <div className="player-card-button">

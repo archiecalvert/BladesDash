@@ -1,8 +1,8 @@
 .menu-content-container {
-    margin-top: 4.7vh;
+    margin-top: 4.3vh;
     margin-bottom: 15vh;
     z-index: var(--menu-content-container-z-index);
-    font-size: 3.2vh;
+    font-size: 3.5vh;
     font-weight: 500;
     letter-spacing: 0.15vh;
     color: rgba(40, 40, 40, 1);
