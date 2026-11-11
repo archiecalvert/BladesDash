@@ -1,6 +1,8 @@
 import {
     BLADE_BACKGROUND_SWIPEIN_DURATION,
     BLADE_SWIPE_ANIMATION_DURATION,
+    BLADE_UNHIDE_ANIMATION_DURATION,
+    BLADE_UNSTACK_ANIMATION_DURATION,
     UI_Z_INDEX
 } from "../../utils/constants"
 import "./component.css"
@@ -33,8 +35,8 @@ export function MenuUnderlay({ offset = 0 }) {
             }}
             transition={{
                 scaleX: {
-                    duration: BLADE_BACKGROUND_SWIPEIN_DURATION - ANIMATION_DELAY - 0.1,
-                    delay: ANIMATION_DELAY,
+                    duration: BLADE_UNHIDE_ANIMATION_DURATION + BLADE_UNSTACK_ANIMATION_DURATION - ANIMATION_DELAY,
+                    delay: BLADE_BACKGROUND_SWIPEIN_DURATION - ANIMATION_DELAY,
                     ease: "easeInOut"
                 },
                 opacity: {

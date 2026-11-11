@@ -7,7 +7,9 @@ import {
     BLADE_WHITESPACE_RIGHT,
     MENU_Z_INDEX,
     BLADE_SWIPE_ANIMATION_DURATION,
-    BLADE_BACKGROUND_SWIPEIN_DURATION
+    BLADE_BACKGROUND_SWIPEIN_DURATION,
+    BLADE_UNSTACK_ANIMATION_DURATION,
+    BLADE_UNHIDE_ANIMATION_DURATION
 } from "../../utils/constants"
 
 import { sleep } from "../../utils/sleep"
@@ -77,11 +79,14 @@ export function MenuContentContainer({
 
         async function fadeIn() {
             await controls.start({ opacity: 0 })
-            await sleep((initialAnimationCompleted ? BLADE_SWIPE_ANIMATION_DURATION : BLADE_BACKGROUND_SWIPEIN_DURATION) * 1000)
+            await sleep((initialAnimationCompleted ? 
+                BLADE_SWIPE_ANIMATION_DURATION : 
+                BLADE_BACKGROUND_SWIPEIN_DURATION + BLADE_UNHIDE_ANIMATION_DURATION)
+            * 1000)
 
             if (cancelled) return
 
-            await controls.start({ opacity: 1, transition: { duration: 0.25, delay: 0.1 }})
+            await controls.start({ opacity: 1, transition: { duration: BLADE_UNSTACK_ANIMATION_DURATION, delay: 0 }})
         }
 
         function initialise() {

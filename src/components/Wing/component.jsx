@@ -23,7 +23,9 @@ import {
     BLADE_SWIPE_ANIMATION_DURATION,
     BLADE_WHITESPACE_LEFT,
     BLADE_WHITESPACE_RIGHT,
-    BLADE_COUNT
+    BLADE_COUNT,
+    BLADE_UNHIDE_ANIMATION_DURATION,
+    BLADE_UNSTACK_ANIMATION_DURATION
 } from "../../utils/constants"
 
 import { sleep } from "../../utils/sleep"
@@ -202,7 +204,7 @@ export function Wing({
 
         // hide behind blade for now behind the background
         await controls.start({
-            x: baseX + (index > openPageIndex ? 1 : -1) * getSelfWidth(),
+            x: baseX + (index > openPageIndex ? 0.5 : -0.5) * getSelfWidth(),
             zIndex: calculateZIndex(left, index) - BLADE_COUNT * 2,
             transition: { duration: 0 }
         })
@@ -210,7 +212,7 @@ export function Wing({
         // wait for the blade backgrounds to enter and settle
         await sleep(BLADE_BACKGROUND_SWIPEIN_DURATION * 1000)
         // Move into the open position.
-        await controls.start({ x: baseX, transition: { duration: 0.2, ease: "linear" }})
+        await controls.start({ x: baseX, transition: { duration: BLADE_UNHIDE_ANIMATION_DURATION, ease: "linear" }})
         // set the z order
         await controls.start({ zIndex: calculateZIndex(left, index), transition: { duration: 0 }})
     }
@@ -243,7 +245,7 @@ export function Wing({
 
             if (cancelled) return
 
-            await animBladesIdlePosition(0.25)
+            await animBladesIdlePosition(BLADE_UNSTACK_ANIMATION_DURATION)
 
             if (cancelled) return
 

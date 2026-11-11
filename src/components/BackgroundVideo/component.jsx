@@ -1,6 +1,5 @@
 import "./component.css"
 import bg from "../../assets/bg.mp4"
-import { fromGlobalStore } from "../../stores/globalStore";
 
 export function BackgroundAnimationComponent({}) {
 
@@ -15,8 +14,5 @@ export function BackgroundAnimationComponent({}) {
             <source src={bg} type="video/mp4" />
             
         </video>
-
     )
-
-    return null;
 }

@@ -12,7 +12,7 @@ import { BackgroundRipped } from './components/Background2/component';
 import { fromGlobalStore } from './stores/globalStore';
 import { InputManager } from './utils/inputManager';
 import { InitialFadeIn } from './components/InitialFadeIn/component';
-import { BackgroundAnimationComponent } from './components/BackgroundTest/component';
+import { BackgroundAnimationComponent } from './components/BackgroundVideo/component';
 
 function App() {
 
@@ -22,6 +22,7 @@ function App() {
 	
 	useEffect(() => {
 		const isOnWeb = typeof window.__TAURI_INTERNALS__ === "undefined"
+		// override to disable the boot animation on web
 		if(isOnWeb) {
 			setBootAnimationPlaying(false)
 		} else {	
@@ -39,10 +40,10 @@ function App() {
 		<div className="content-container ">
 			<InputManager/>
 			<BootAnimationComponent/>
+			<BackgroundAnimationComponent/>
 			{
 				!bootAnimationPlaying && <>
 					<InitialFadeIn/>
-					<BackgroundAnimationComponent/>
 					<BladeBackground side="left"></BladeBackground>
 					<BladeBackground side="right"></BladeBackground>
 					<Wing color="rgb(248, 133, 50)" index={1} title={"marketplace"}/>

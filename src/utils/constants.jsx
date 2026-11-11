@@ -1,6 +1,6 @@
 // ============== | SETTINGS | ===============
-export const FORCE_FULLSCREEN = false
-export const ENABLE_BOOT_ANIMATION = false;
+export const FORCE_FULLSCREEN = true
+export const ENABLE_BOOT_ANIMATION = true;
 export const THROTTLE_INPUTS = true;
 export const STARTING_BLADE = 3
 
@@ -27,3 +27,6 @@ export const BLADE_WHITESPACE_RIGHT = 0.18548387
 export const BLADE_COUNT = 5
 export const BLADE_BACKGROUND_SWIPEIN_DURATION = 0.6
 export const BLADE_SWIPE_ANIMATION_DURATION = 0.1
+
+export const BLADE_UNHIDE_ANIMATION_DURATION = 0.25
+export const BLADE_UNSTACK_ANIMATION_DURATION = 0.25

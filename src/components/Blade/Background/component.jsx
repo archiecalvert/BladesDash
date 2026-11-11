@@ -53,7 +53,7 @@ export function BladeBackground({side = SIDES.LEFT }) {
                 height: "100%",
                 zIndex: BLADE_SLIDER_BACKGROUND_Z_INDEX,
                 display: "flex",
-                position: "absolute"
+                position: "absolute",
             }}
             animate={{
                 x: end,
