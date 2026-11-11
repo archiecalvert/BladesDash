@@ -14,7 +14,7 @@ export function MenuUnderlay({ offset = 0 }) {
     const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
     const currentPage = fromGlobalStore(state => state.currentPage)
 
-    const SCALE_MAX = 1.5
+    const SCALE_MAX = 1.4
     const ANIMATION_DELAY = 0.2
     const OPACITY_DURATION = 0.25
 
@@ -36,8 +36,8 @@ export function MenuUnderlay({ offset = 0 }) {
             transition={{
                 scaleX: {
                     duration: BLADE_UNHIDE_ANIMATION_DURATION + BLADE_UNSTACK_ANIMATION_DURATION - ANIMATION_DELAY,
-                    delay: BLADE_BACKGROUND_SWIPEIN_DURATION - ANIMATION_DELAY,
-                    ease: "easeInOut"
+                    delay: 0,
+                    ease: "easeOut"
                 },
                 opacity: {
                     duration: initialAnimationCompleted
@@ -48,7 +48,7 @@ export function MenuUnderlay({ offset = 0 }) {
                 }
             }}
             style={{
-                left: `calc(19.85vh + ${offset} * 5.5vh)`,
+                left: `calc(14vh + ${offset} * 6.1vh)`,
                 "--menu-underlay-z-index": UI_Z_INDEX,
                 "--menu-underlay-offset": offset
             }}

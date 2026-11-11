@@ -1,7 +1,7 @@
 .menu-underlay {
-    width: calc(100vw - 55vh);
-    height: 93vh;
-    top: 3vh;
+    width: calc(100vw - 50vh);
+    height: 85vh;
+    top: 6vh;
     padding-left: -10%;
     opacity: 1;
     mix-blend-mode:lighten;

@@ -43,6 +43,8 @@ export function Wing({
     const openPageIndex = fromGlobalStore(state => state.currentPage)
     const backgroundRef = fromGlobalStore(state => state.bladeBackgroundRef)
     const setGlobalRef = fromGlobalStore(state => state.setWing)
+    const setInitialAnimationCompleted = fromGlobalStore(state => state.setInitialAnimationCompleted)
+
 
     const [isMiddleTransitionState, setIsMiddleTransitionState] = useState(false)
     const [isLeft, setIsLeft] = useState(index <= openPageIndex)
@@ -85,7 +87,7 @@ export function Wing({
         if (!backgroundRef || !selfRef.current) return 0
 
         const backgroundWidth = backgroundRef.getBoundingClientRect().width
-        const offset = window.innerWidth * 0.041
+        const offset = window.innerWidth * 0.038
 
         return (
             backgroundWidth -
@@ -120,13 +122,13 @@ export function Wing({
 
         if (i > cur) {
             const offsetX = (BLADE_COUNT - i) * bladeWidth
-            const offsetY = (BLADE_COUNT - cur - i + 3) * 5
+            const offsetY = (BLADE_COUNT - cur - i + 1) * 5
 
             return [-offsetX, -offsetY]
         }
 
-        const offsetX = -(i - 1) * bladeWidth
-        const offsetY = (cur - i - 3) * 10
+        const offsetX = -(i - 2) * bladeWidth - getSelfWidth() * 0.05
+        const offsetY = (cur - i - 1) * 10
 
         if (i == cur) {
             const adjustX = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetX * 0.85)
@@ -251,6 +253,8 @@ export function Wing({
 
             initialised.current = true
             animateScale(true)
+            setInitialAnimationCompleted()
+            
         }
 
         function handleResize() {
@@ -443,7 +447,7 @@ export function Wing({
             <div className="blade-wing-title-anchor">
                 {!isMiddleTransitionState && (
                     <p
-                        style={!isLeft ? { transform: "rotate(90deg) translateY(2.3vh) translateX(-5%)" } : {} }
+                        style={!isLeft ? { transform: "rotate(90deg) translateY(2.4vh) translateX(-5%)" } : {} }
                         className="blade-wing-title"
                     >
                         {title}

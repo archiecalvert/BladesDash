@@ -1,5 +1,5 @@
 
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, useRef } from "react"
 import { motion, useAnimationControls } from "motion/react"
 
 import {
@@ -30,26 +30,24 @@ export function MenuContentContainer({
     const bladeBackground = fromGlobalStore(state => state.bladeBackgroundRef)
     const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
 
-    const [isReady, setIsReady] = useState(false)
+    const initialAnimationRef = useRef(initialAnimationCompleted)
 
-    /**
-     * Calculates the horizontal offset of the menu.
-     */
+    useEffect(() => {
+        initialAnimationRef.current = initialAnimationCompleted
+    }, [initialAnimationCompleted])
+
     const getOffsetPosition = useCallback(() => {
         if (!bladeWing) return 0
 
         const bladeWidth = bladeWing.getBoundingClientRect().width
 
         return (
-            (offsetIndex - 1) *
+            (offsetIndex - 2) *
             bladeWidth *
             ((1 - BLADE_WHITESPACE_LEFT) - BLADE_WHITESPACE_RIGHT)
         )
     }, [bladeWing, offsetIndex])
 
-    /**
-     * Calculates the menu's dimensions and position.
-     */
     const updateDimensions = useCallback(() => {
         if (!bladeWing || !bladeBackground) return false
 
@@ -63,7 +61,7 @@ export function MenuContentContainer({
         const finalWidth =
             window.innerWidth -
             2 * backgroundBounds.width -
-            window.innerWidth * 0.1
+            window.innerWidth * 0.11
 
         setWidth(finalWidth)
         setOffset(getOffsetPosition())
@@ -78,15 +76,26 @@ export function MenuContentContainer({
         let started = false
 
         async function fadeIn() {
-            await controls.start({ opacity: 0 })
-            await sleep((initialAnimationCompleted ? 
-                BLADE_SWIPE_ANIMATION_DURATION : 
-                BLADE_BACKGROUND_SWIPEIN_DURATION + BLADE_UNHIDE_ANIMATION_DURATION)
-            * 1000)
+            // Ensure the menu starts hidden.
+            controls.set({ opacity: 0 })
+
+            const delay = (
+                initialAnimationRef.current
+                    ? BLADE_SWIPE_ANIMATION_DURATION
+                    : BLADE_BACKGROUND_SWIPEIN_DURATION + BLADE_UNHIDE_ANIMATION_DURATION
+            ) * 1000
+
+            await sleep(delay)
 
             if (cancelled) return
 
-            await controls.start({ opacity: 1, transition: { duration: BLADE_UNSTACK_ANIMATION_DURATION, delay: 0 }})
+            await controls.start({
+                opacity: 1,
+                transition: {
+                    duration: BLADE_UNSTACK_ANIMATION_DURATION,
+                    delay: 0
+                }
+            })
         }
 
         function initialise() {
@@ -94,7 +103,6 @@ export function MenuContentContainer({
             if (!updateDimensions()) return
 
             started = true
-            setIsReady(true)
             fadeIn()
         }
 
@@ -103,6 +111,7 @@ export function MenuContentContainer({
                 initialise()
                 return
             }
+
             updateDimensions()
         }
 
@@ -124,7 +133,12 @@ export function MenuContentContainer({
             window.removeEventListener("resize", handleResize)
             controls.stop()
         }
-    }, [bladeWing, bladeBackground, initialAnimationCompleted, updateDimensions, controls])
+    }, [
+        bladeWing,
+        bladeBackground,
+        updateDimensions,
+        controls
+    ])
 
     return (
         <motion.div

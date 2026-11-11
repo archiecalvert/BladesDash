@@ -17,6 +17,7 @@ import ChatAndImImage from "../../../assets/icons/xboxlive/chatandim.png"
 import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
 import { MenuTooltip } from "../../../components/MenuTooltip/component"
+import { XboxLiveButton } from "../../../components/XboxLiveButton/component"
 
 export function XboxLiveMenuContent(isOpen=false) {
 
@@ -44,6 +45,7 @@ export function XboxLiveMenuContent(isOpen=false) {
                             <StandardButton selected={currentButtonIndex == 1} iconImage={MessagesImage}>Messages</StandardButton>
                             <StandardButton selected={currentButtonIndex == 2} iconImage={FriendsImage}>Friends</StandardButton>
                             <StandardButton selected={currentButtonIndex == 3} iconImage={ChatAndImImage}>Chat and IM</StandardButton>
+                            <XboxLiveButton/>
                         </ButtonGroup>
                         <MenuTooltip disableSideShadow>
                             <p>{strings.menus.games.profile_card.title}</p>

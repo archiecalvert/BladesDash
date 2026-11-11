@@ -23,7 +23,6 @@ export function InputManager() {
     const setCurrentPage = fromGlobalStore(state => state.setCurrentPage)
     const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
     const menuTransitionInProgress = fromGlobalStore(state => state.menuTransitionInProgress)
-    const setMenuTransitionInProgress = fromGlobalStore(state => state.setMenuTransitionInProgress)
 
     useEffect(() => {
         function fireAssociatedKeyEvents(key) {
