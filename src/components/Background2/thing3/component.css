@@ -105,7 +105,6 @@
 
     transform-origin: center center;
     transform-style: preserve-3d;
-    mix-blend-mode: color-burn;
 
     background: radial-gradient(circle,
         var(--thing3-col0) var(--thing3-pos0),

@@ -52,8 +52,8 @@ export function Wing({
     const previousOpenIndex = useRef(openPageIndex)
     const initialised = useRef(false)
 
-    const NORMAL_SCALE = 0.94
-    const SELECTED_SCALE = 0.98
+    const NORMAL_SCALE = 1.00
+    const SELECTED_SCALE = 1.05
     
     // ===========================================================================
     // ================================= HELPERS =================================
@@ -127,7 +127,7 @@ export function Wing({
         const offsetY = (cur - i - 3) * 10
 
         if (i == cur) {
-            const adjustX = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetX * -2.5)
+            const adjustX = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetX * 0.85)
             const adjustY = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetY * 0.55)
             return [-offsetX + adjustX, offsetY - adjustY]
         }

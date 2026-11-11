@@ -6,6 +6,6 @@
 
     perspective: 1000px;
     perspective-origin: 50% 50%;
-    filter: saturate(1) contrast(1);
+    filter:invert(0.2);
     transform-style: preserve-3d;
 }

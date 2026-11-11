@@ -109,7 +109,6 @@
 
     transform-origin: center center;
     transform-style: preserve-3d;
-    mix-blend-mode: multiply;
     transform:
         translate3d(-50%, -50%, 0)
         translate3d(0px, -10%, -100px)

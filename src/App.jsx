@@ -12,6 +12,7 @@ import { BackgroundRipped } from './components/Background2/component';
 import { fromGlobalStore } from './stores/globalStore';
 import { InputManager } from './utils/inputManager';
 import { InitialFadeIn } from './components/InitialFadeIn/component';
+import { BackgroundAnimationComponent } from './components/BackgroundTest/component';
 
 function App() {
 
@@ -35,13 +36,13 @@ function App() {
 	}, [currentPage])
 
 	return (
-		<div className="content-container">
+		<div className="content-container ">
 			<InputManager/>
 			<BootAnimationComponent/>
 			{
 				!bootAnimationPlaying && <>
 					<InitialFadeIn/>
-					<BackgroundRipped/>
+					<BackgroundAnimationComponent/>
 					<BladeBackground side="left"></BladeBackground>
 					<BladeBackground side="right"></BladeBackground>
 					<Wing color="rgb(248, 133, 50)" index={1} title={"marketplace"}/>

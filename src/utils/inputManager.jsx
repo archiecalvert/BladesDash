@@ -26,16 +26,17 @@ export function InputManager() {
     const setMenuTransitionInProgress = fromGlobalStore(state => state.setMenuTransitionInProgress)
 
     useEffect(() => {
-        if (!initialAnimationCompleted) return
         function fireAssociatedKeyEvents(key) {
             if (RIGHT_KEYS.includes(key)) {
-                    setCurrentPage(prev => Math.min(BLADE_COUNT, prev + 1))
+                setCurrentPage(prev => Math.min(BLADE_COUNT, prev + 1))
                 
             }
             if (LEFT_KEYS.includes(key)) {
                 setCurrentPage(prev => Math.max(1, prev - 1))
             }
         }
+        
+        if (!initialAnimationCompleted) return
 
         const throttleFireAssociatedKeyEvents = THROTTLE_INPUTS ?
             throttle(fireAssociatedKeyEvents, 0.3):
