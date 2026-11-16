@@ -20,6 +20,11 @@ function App() {
 	useInputManager()
 
 	useEffect(() => {
+		if (FORCE_FULLSCREEN) getCurrentWindow().setFullscreen(true)
+		
+	}, []);
+
+	useEffect(() => {
 		PlaySound(SOUNDS.BLADE_SWOOSH[currentPage - 1])
 	}, [currentPage])
 
