@@ -49,7 +49,7 @@ function App() {
 					<Wing color="rgb(42, 208, 20)" index={3} title={"games"}/>
 					<Wing color="rgb(75, 137, 208)" index={4} title={"media"}/>
 					<Wing color="rgb(152, 108, 193)" index={5} title={"system"}/>
-					<MenuManager currentOpenPage={currentPage}/>
+					<MenuManager/>
 				</>
 			}
 		</div>
