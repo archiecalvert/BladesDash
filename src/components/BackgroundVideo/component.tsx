@@ -5,13 +5,13 @@ export function BackgroundAnimationComponent() {
     return (
         <video
             autoPlay
+            muted
             playsInline
             preload="auto"
             className="background-container"
             loop
         >
-            <source src={bg} type="video/mp4" />
-            
+            <source src={bg} type="video/mp4" className="bg-video-render"/>
         </video>
     )
 }
