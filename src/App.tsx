@@ -2,7 +2,6 @@ import { getCurrentWindow } from '@tauri-apps/api/window';
 import {  useEffect } from "react";
 import { BootAnimationComponent } from "./components/BootAnim/component";
 import { BladeBackground } from './components/Blade/Background/component';
-import "./App.css";
 import {  PlaySound, SOUNDS } from './utils/tauriWrapper';
 import {  FORCE_FULLSCREEN } from './utils/constants';
 import { MenuManager } from './components/MenuManager/component';
@@ -11,17 +10,18 @@ import { fromGlobalStore } from './stores/globalStore';
 import { useInputManager } from './hooks/useInputManager';
 import { InitialFadeIn } from './components/InitialFadeIn/component';
 import { BackgroundAnimationComponent } from './components/BackgroundVideo/component';
+import "./App.css";
 
 function App() {
 
 	const currentPage = fromGlobalStore((state) => state.currentPage)
 	const bootAnimationPlaying = fromGlobalStore(state => state.bootAnimationPlaying)
+	const isOnWeb = fromGlobalStore(state => state.isOnWeb)
 
 	useInputManager()
 
 	useEffect(() => {
-		if (FORCE_FULLSCREEN) getCurrentWindow().setFullscreen(true)
-		
+		if (FORCE_FULLSCREEN && !isOnWeb) getCurrentWindow().setFullscreen(true)
 	}, []);
 
 	useEffect(() => {
