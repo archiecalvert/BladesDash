@@ -1,16 +1,15 @@
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { useState, useEffect } from "react";
 import { BootAnimationComponent } from "./components/BootAnim/component";
-import { WavesBackground } from "./components/WavesBackground/component"
 import { BladeBackground } from './components/Blade/Background/component';
 import "./App.css";
 import { OpenApplication, PlaySound, SOUNDS } from './utils/tauriWrapper';
 import { ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN } from './utils/constants';
 import { MenuManager } from './components/MenuManager/component';
 import { Wing } from './components/Wing/component';
-import { BackgroundRipped } from './components/Background2/component';
+import { BackgroundRipped } from './components/_Background2/component';
 import { fromGlobalStore } from './stores/globalStore';
-import { InputManager } from './utils/inputManager';
+import { useInputManager } from './hooks/useInputManager';
 import { InitialFadeIn } from './components/InitialFadeIn/component';
 import { BackgroundAnimationComponent } from './components/BackgroundVideo/component';
 
@@ -20,6 +19,7 @@ function App() {
 	const bootAnimationPlaying = fromGlobalStore(state => state.bootAnimationPlaying)
 	const setBootAnimationPlaying = fromGlobalStore(state => state.setBootAnimationPlaying)
 	
+	useInputManager()
 	useEffect(() => {
 		const isOnWeb = typeof window.__TAURI_INTERNALS__ === "undefined"
 		// override to disable the boot animation on web
@@ -38,7 +38,6 @@ function App() {
 
 	return (
 		<div className="content-container ">
-			<InputManager/>
 			<BootAnimationComponent/>
 			<BackgroundAnimationComponent/>
 			{
