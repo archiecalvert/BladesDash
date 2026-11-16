@@ -1,7 +1,7 @@
 // ============== | SETTINGS | ===============
 export const FORCE_FULLSCREEN = true
 export const ENABLE_BOOT_ANIMATION = true;
-export const USE_XBOX_ORIGINAL_BOOT_ANIMATION = true;
+export const USE_XBOX_ORIGINAL_BOOT_ANIMATION = false;
 export const THROTTLE_INPUTS = true;
 export const STARTING_BLADE = 2
 

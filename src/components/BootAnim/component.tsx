@@ -19,7 +19,7 @@ export function BootAnimationComponent() {
             onEnded={() => setBootAnimationPlaying(false)}
         >
             {
-                USE_XBOX_ORIGINAL_BOOT_ANIMATION ?
+                USE_XBOX_ORIGINAL_BOOT_ANIMATION || window.localStorage["use-original-boot-anim"] ?
                 <source src={bootAnimOriginal} type="video/mp4" /> :
                 <source src={bootAnim} type="video/mp4" />
             
