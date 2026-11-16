@@ -7,10 +7,12 @@ import { USE_XBOX_ORIGINAL_BOOT_ANIMATION } from "../../utils/constants";
 export function BootAnimationComponent() {
     const isVisible = fromGlobalStore(state => state.bootAnimationPlaying)
     const setBootAnimationPlaying = fromGlobalStore(state => state.setBootAnimationPlaying)
+    const isOnWeb = fromGlobalStore(state => state.isOnWeb)
 
     if(isVisible)  return (
         <video
             autoPlay
+            muted = {isOnWeb ? true : false}
             playsInline
             preload="auto"
             className="boot-animation-container"

@@ -16,20 +16,8 @@ function App() {
 
 	const currentPage = fromGlobalStore((state) => state.currentPage)
 	const bootAnimationPlaying = fromGlobalStore(state => state.bootAnimationPlaying)
-	const setBootAnimationPlaying = fromGlobalStore(state => state.setBootAnimationPlaying)
-	
+
 	useInputManager()
-	useEffect(() => {
-		const isOnWeb = typeof window.__TAURI_INTERNALS__ === "undefined"
-		// override to disable the boot animation on web
-		if(isOnWeb) {
-			setBootAnimationPlaying(false)
-		} else {	
-			if (FORCE_FULLSCREEN) {
-				getCurrentWindow().setFullscreen(true);
-			}
-		}
-	}, []);
 
 	useEffect(() => {
 		PlaySound(SOUNDS.BLADE_SWOOSH[currentPage - 1])

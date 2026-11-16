@@ -10,6 +10,7 @@ interface GlobalState {
     menuTransitionInProgress: boolean
     wings: (HTMLElement | null)[]
     bootAnimationPlaying: boolean
+    isOnWeb: boolean
 
     setCurrentPage: (pageNumber: SetStateAction<number>) => void
     setMenuTransitionInProgress: (value: boolean) => void
@@ -26,6 +27,7 @@ export const fromGlobalStore = create<GlobalState>((set) => ({
     menuTransitionInProgress: false,
     wings: Array.from({ length: BLADE_COUNT }, () => null),
     bootAnimationPlaying: ENABLE_BOOT_ANIMATION,
+    isOnWeb: typeof window.__TAURI_INTERNALS__ === "undefined",
 
     setCurrentPage: (pageNumber) => set((state) => ({
         currentPage: typeof pageNumber === "function"
