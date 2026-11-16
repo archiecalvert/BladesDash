@@ -425,7 +425,7 @@ export function Wing({
                 style={
                     !isMiddleTransitionState
                         ? {
-                            backgroundColor: index === openPageIndex
+                            background: index === openPageIndex
                                 ? color
                                 : "rgb(205, 205, 205)",
 

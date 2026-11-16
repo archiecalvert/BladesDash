@@ -1,6 +1,8 @@
 import "./component.css"
 import bootAnim from "../../assets/boot.mp4"
+import bootAnimOriginal from "../../assets/boot-original.mp4"
 import { fromGlobalStore } from "../../stores/globalStore";
+import { USE_XBOX_ORIGINAL_BOOT_ANIMATION } from "../../utils/constants";
 
 export function BootAnimationComponent() {
     const isVisible = fromGlobalStore(state => state.bootAnimationPlaying)
@@ -14,7 +16,12 @@ export function BootAnimationComponent() {
             className="boot-animation-container"
             onEnded={() => setBootAnimationPlaying(false)}
         >
-            <source src={bootAnim} type="video/mp4" />
+            {
+                USE_XBOX_ORIGINAL_BOOT_ANIMATION ?
+                <source src={bootAnimOriginal} type="video/mp4" /> :
+                <source src={bootAnim} type="video/mp4" />
+            
+            }
             
         </video>
 

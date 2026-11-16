@@ -4,5 +4,11 @@
     top: 0;
     left: 0;
     z-index: var(--menu-z-index);
-    background: rgba(251, 134, 1, 0.7);
+    background: linear-gradient(
+            rgba(222, 109, 2, 0.7) 00.0000%, 
+            rgba(222, 109, 2, 0.7) 34.9020%, 
+            rgba(233, 53, 3, 0.7) 67.4510%, 
+            rgba(233, 45, 3, 0.7) 100%
+    );
+    filter: saturate(1.5)
 }

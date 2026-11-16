@@ -6,7 +6,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    filter: saturate(1.6);
 }
 
 .menu-manager-content-grid {

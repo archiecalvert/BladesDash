@@ -44,7 +44,7 @@ function App() {
 					<InitialFadeIn/>
 					<BladeBackground side="left"></BladeBackground>
 					<BladeBackground side="right"></BladeBackground>
-					<Wing color="rgb(248, 133, 50)" index={1} title={"marketplace"}/>
+					<Wing color="linear-gradient(rgba(222, 109, 2, 1) 00.0000%, rgba(222, 109, 2, 1) 34.9020%, rgba(233, 53, 3, 1) 67.4510%, rgba(233, 45, 3, 1) 100%)" index={1} title={"marketplace"}/>
 					<Wing color="rgb(235, 156, 58)" index={2} title={"xbox live"}/>
 					<Wing color="rgb(42, 208, 20)" index={3} title={"games"}/>
 					<Wing color="rgb(75, 137, 208)" index={4} title={"media"}/>
