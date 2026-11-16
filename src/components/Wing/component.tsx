@@ -57,8 +57,8 @@ export function Wing({
 
     const selfRef = useRef<HTMLElement | null>(null)
     const [selfElement, setSelfElement] = useState<HTMLElement | null>(null)
-    const animationId = useRef(0)
-    const previousOpenIndex = useRef(openPageIndex)
+    const animationId = useRef<number>(0)
+    const previousOpenIndex = useRef<number>(openPageIndex)
     const initialised = useRef(false)
 
     const NORMAL_SCALE = 1.00

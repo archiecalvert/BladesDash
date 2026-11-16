@@ -36,7 +36,7 @@ export function MenuContentContainer({
     const bladeBackground = fromGlobalStore(state => state.bladeBackgroundRef)
     const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
 
-    const initialAnimationRef = useRef(initialAnimationCompleted)
+    const initialAnimationRef = useRef<boolean>(initialAnimationCompleted)
 
     useEffect(() => {
         initialAnimationRef.current = initialAnimationCompleted

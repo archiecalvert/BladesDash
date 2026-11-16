@@ -1,13 +1,12 @@
 import { getCurrentWindow } from '@tauri-apps/api/window';
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import { BootAnimationComponent } from "./components/BootAnim/component";
 import { BladeBackground } from './components/Blade/Background/component';
 import "./App.css";
-import { OpenApplication, PlaySound, SOUNDS } from './utils/tauriWrapper';
-import { ENABLE_BOOT_ANIMATION, FORCE_FULLSCREEN } from './utils/constants';
+import {  PlaySound, SOUNDS } from './utils/tauriWrapper';
+import {  FORCE_FULLSCREEN } from './utils/constants';
 import { MenuManager } from './components/MenuManager/component';
 import { Wing } from './components/Wing/component';
-import { BackgroundRipped } from './components/_Background2/component';
 import { fromGlobalStore } from './stores/globalStore';
 import { useInputManager } from './hooks/useInputManager';
 import { InitialFadeIn } from './components/InitialFadeIn/component';
@@ -48,8 +47,8 @@ function App() {
 					<Wing color="rgb(248, 133, 50)" index={1} title={"marketplace"}/>
 					<Wing color="rgb(235, 156, 58)" index={2} title={"xbox live"}/>
 					<Wing color="rgb(42, 208, 20)" index={3} title={"games"}/>
-					<Wing color="rgb(75, 137, 208)" index={4} isLeft={false} title={"media"}/>
-					<Wing color="rgb(152, 108, 193)" index={5}  isLeft={false} title={"system"}/>
+					<Wing color="rgb(75, 137, 208)" index={4} title={"media"}/>
+					<Wing color="rgb(152, 108, 193)" index={5} title={"system"}/>
 					<MenuManager currentOpenPage={currentPage}/>
 				</>
 			}

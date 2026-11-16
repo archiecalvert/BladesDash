@@ -6,9 +6,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    opacity: 0.55;
-    mix-blend-mode: normal;
-    filter: saturate(3);
+    filter: saturate(1.6);
 }
 
 .menu-manager-content-grid {

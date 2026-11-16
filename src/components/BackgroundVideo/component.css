@@ -2,6 +2,7 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    height: 100vh;
+    min-height: 100vh;
+    min-width: 100vw;
     object-fit: fill;
 }
