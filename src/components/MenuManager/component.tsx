@@ -1,24 +1,20 @@
-import { MarketplaceMenu } from "../../compositions/MenuFilters/Marketplace";
-import { XboxLiveMenu } from "../../compositions/MenuFilters/XboxLive";
-import { GamesMenu } from "../../compositions/MenuFilters/Games";
-import { SettingsMenu } from "../../compositions/MenuFilters/Settings";
-import { MarketplaceMenuContent } from "../../compositions/MenuContent/Marketplace";
-import { XboxLiveMenuContent } from "../../compositions/MenuContent/XboxLive";
-import { GamesMenuContent } from "../../compositions/MenuContent/Games";
-import { SettingsMenuContent } from "../../compositions/MenuContent/Settings";
-import { MediaMenuContent } from "../../compositions/MenuContent/Media";
+
+import { useEffect } from "react";
 import { motion, useAnimationControls } from "motion/react"
+import { BLADE_SWIPE_ANIMATION_DURATION } from "../../utils/constants";
+import { fromGlobalStore } from "../../stores/globalStore";
+import { fromMenuStore } from "../../stores/menuStore";
+import { BaseMenuData } from "../../data/baseMenuData";
 
 import "./component.css"
-import { useEffect } from "react";
-import { BLADE_SWIPE_ANIMATION_DURATION } from "../../utils/constants";
-import { MediaMenu } from "../../compositions/MenuFilters/Media";
-import { fromGlobalStore } from "../../stores/globalStore";
 
 export function MenuManager() {
     const controlsFilters = useAnimationControls();
     const currentOpenPage = fromGlobalStore(state => state.currentPage)
-    
+    const peekTopMenu = fromMenuStore(state => state.peekTopMenu)
+
+    const currentMenuState = peekTopMenu(currentOpenPage)
+
     useEffect(() => {
         async function f() {
             await controlsFilters.start({x: -window.innerWidth * (currentOpenPage - 1), transition: {duration: BLADE_SWIPE_ANIMATION_DURATION, ease: "linear"}})
@@ -33,21 +29,13 @@ export function MenuManager() {
     return (
         <>
         <motion.div initial={{x: -window.innerWidth * (currentOpenPage - 1)}} animate={controlsFilters} className="menu-manager-filter-grid">
-            <MarketplaceMenu/>
-            <XboxLiveMenu/>
-            <GamesMenu/>
-            <MediaMenu/>
-            <SettingsMenu/>
+            {Object.values(BaseMenuData).map((menu) => {
+                return menu.filter
+            })}
         </motion.div>
 
         <div className="menu-manager-content-grid">
-            {
-                currentOpenPage == 1 && <MarketplaceMenuContent/> ||
-                currentOpenPage == 2 && <XboxLiveMenuContent/> ||
-                currentOpenPage == 3 && <GamesMenuContent/> ||
-                currentOpenPage == 4 && <MediaMenuContent/> ||
-                currentOpenPage == 5 && <SettingsMenuContent/>
-            }
+            {currentMenuState.content}
         </div>
         </>
     )

@@ -5,10 +5,10 @@ import Shadow from "../../assets/shadow-horizontal.png"
 import {UI_Z_INDEX} from "../../utils/constants"
 
 interface StandardButtonProps {
-    height: string,
-    iconImage: string,
+    height?: string,
+    iconImage?: string,
     children: ReactNode,
-    selected: false,
+    selected: boolean,
 }
 
 export function StandardButton({height="5vh", iconImage="", children, selected=false}: StandardButtonProps) {

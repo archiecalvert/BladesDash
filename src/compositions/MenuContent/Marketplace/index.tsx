@@ -7,7 +7,7 @@ import type { CSSProperties } from "react"
 import "./index.css"
 
 export function MarketplaceMenuContent() {
-
+    
     return (
         <div className="marketplace-menu-content" style={{"--menu-z-index": MENU_Z_INDEX} as CSSProperties}>
             <MenuUnderlay offset={0}/>

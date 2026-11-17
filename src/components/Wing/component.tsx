@@ -266,7 +266,7 @@ export function Wing({
                 initialise()
                 return
             }
-
+            setIsLeft(index <= openPageIndex)
             animBladesIdlePosition(0)
         }
 

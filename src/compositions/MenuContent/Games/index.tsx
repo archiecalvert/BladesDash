@@ -17,16 +17,19 @@ import PlayedGamesImage from "../../../assets/icons/games/played.png"
 import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
 import { MenuTooltip } from "../../../components/MenuTooltip/component"
+import { fromMenuStore } from "../../../stores/menuStore"
+import { fromGlobalStore } from "../../../stores/globalStore"
 
 export function GamesMenuContent() {
 
-    const [currentButtonIndex, setCurrentButtonIndex] = useState(1)
-
-    useEffect(() => {
-        window.addEventListener("keydown", () => {
-            setCurrentButtonIndex(2)
-        })
-    }, [])
+    
+    const currentOpenPage = fromGlobalStore(state => state.currentPage)
+    const currentMenuState = fromMenuStore(state => {
+        const content = state.menuData[currentOpenPage - 1]?.content
+        return content?.[content.length - 1]
+    })
+    const tabIndex = currentMenuState?.tabIndex ?? 0
+    
     return (
         <div className="game-menu-content" style={{"--menu-z-index": MENU_Z_INDEX} as CSSProperties}>
             <MenuUnderlay offset={2}/>
@@ -44,9 +47,9 @@ export function GamesMenuContent() {
                     </div>
                     <div className="game-menu-row" style={{alignItems: "start"}}>
                         <ButtonGroup>
-                            <StandardButton selected={currentButtonIndex == 1} iconImage={GamesLibraryImage}>Games Library</StandardButton>
-                            <StandardButton selected={currentButtonIndex == 2} iconImage={AchievementsImage}>Achievements</StandardButton>
-                            <StandardButton selected={currentButtonIndex == 3} iconImage={PlayedGamesImage}>Played Games</StandardButton>
+                            <StandardButton selected={tabIndex === 1} iconImage={GamesLibraryImage}>Games Library</StandardButton>
+                            <StandardButton selected={tabIndex === 2} iconImage={AchievementsImage}>Achievements</StandardButton>
+                            <StandardButton selected={tabIndex === 3} iconImage={PlayedGamesImage}>Played Games</StandardButton>
                         </ButtonGroup>
                         <MenuTooltip>
                             <p>{strings.menus.games.profile_card.title}</p>

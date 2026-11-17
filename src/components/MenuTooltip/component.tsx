@@ -5,8 +5,8 @@ import "./component.css"
 
 interface MenuTooltipProps {
     children: ReactNode,
-    disableTopShadow: boolean,
-    disableSideShadow: boolean,
+    disableTopShadow?: boolean,
+    disableSideShadow?: boolean,
 }
 
 export function MenuTooltip({children, disableTopShadow=false, disableSideShadow=false}: MenuTooltipProps) {

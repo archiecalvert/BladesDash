@@ -4,10 +4,10 @@ import "./component.css"
 import { Field } from "./Field"
 
 interface PlayerCardButtonProps {
-    gamertag: string,
-    rep: number,
-    gamerscore: number,
-    zone: string,
+    gamertag?: string,
+    rep?: number,
+    gamerscore?: number,
+    zone?: string,
 }
 
 export const ZONE = {

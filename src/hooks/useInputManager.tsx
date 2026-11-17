@@ -10,6 +10,7 @@ import {
 import throttle from "lodash/throttle"
 import { useRef, useEffect } from "react";
 import { fromGlobalStore } from "../stores/globalStore";
+import { fromMenuStore } from "../stores/menuStore";
 
 
 export function useInputManager() {
@@ -21,6 +22,9 @@ export function useInputManager() {
     const repeatInterval = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     const setCurrentPage = fromGlobalStore(state => state.setCurrentPage)
+    const currentPage = fromGlobalStore(state => state.currentPage)
+    const incrementTabIndex = fromMenuStore(state => state.incrementTabIndex)
+    const decrementTabIndex = fromMenuStore(state => state.decrementTabIndex)
     const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
     const menuTransitionInProgress = fromGlobalStore(state => state.menuTransitionInProgress)
 
@@ -28,10 +32,15 @@ export function useInputManager() {
         function fireAssociatedKeyEvents(key: string) {
             if (RIGHT_KEYS.includes(key)) {
                 setCurrentPage(prev => Math.min(BLADE_COUNT, prev + 1))
-                
             }
             if (LEFT_KEYS.includes(key)) {
                 setCurrentPage(prev => Math.max(1, prev - 1))
+            }
+            if (DOWN_KEYS.includes(key)) {
+                incrementTabIndex(currentPage)
+            }
+            if(UP_KEYS.includes(key)) {
+                decrementTabIndex(currentPage)
             }
         }
         
@@ -70,5 +79,12 @@ export function useInputManager() {
             clearTimeout(repeatTimer.current ?? -1)
             clearInterval(repeatInterval.current ?? -1)
         }
-    }, [initialAnimationCompleted, menuTransitionInProgress])
+    }, [
+        initialAnimationCompleted,
+        menuTransitionInProgress,
+        currentPage,
+        incrementTabIndex,
+        decrementTabIndex,
+        setCurrentPage
+    ])
 }

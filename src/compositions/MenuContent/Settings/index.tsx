@@ -19,9 +19,17 @@ import InitialSetupImage from "../../../assets/icons/settings/initialsetup.png"
 import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
 import { MenuTooltip } from "../../../components/MenuTooltip/component"
+import { fromGlobalStore } from "../../../stores/globalStore"
+import { fromMenuStore } from "../../../stores/menuStore"
 
 export function SettingsMenuContent() {
-    const [currentButtonIndex, setCurrentButtonIndex] = useState(0)
+    const currentOpenPage = fromGlobalStore(state => state.currentPage)
+    const currentMenuState = fromMenuStore(state => {
+        const content = state.menuData[currentOpenPage - 1]?.content
+        return content?.[content.length - 1]
+    })
+    const tabIndex = currentMenuState?.tabIndex ?? 0
+
     return (
         <div className="settings-menu-content" style={{"--menu-z-index": MENU_Z_INDEX} as CSSProperties}>
             <MenuUnderlay offset={4}/>
@@ -30,13 +38,13 @@ export function SettingsMenuContent() {
                 <div className="settings-menu-rows">
                     <div className="media-menu-row" style={{alignItems: "start"}}>
                         <ButtonGroup>
-                            <StandardButton selected={currentButtonIndex == 0} iconImage={ConsoleSettingsIcon}>Console Settings</StandardButton>
-                            <StandardButton selected={currentButtonIndex == 1} iconImage={FamilySettingsIcon}>Family Settings</StandardButton>
-                            <StandardButton selected={currentButtonIndex == 2} iconImage={MemoryImage}>Memory</StandardButton>
-                            <StandardButton selected={currentButtonIndex == 3} iconImage={NetworkSettingsIcon}>Network Settings</StandardButton>
-                            <StandardButton selected={currentButtonIndex == 4} iconImage={ComputersIcon}>Computers</StandardButton>
-                            <StandardButton selected={currentButtonIndex == 5} iconImage={VisionSettingsIcon}>Xbox LIVE Vision</StandardButton>
-                            <StandardButton selected={currentButtonIndex == 6} iconImage={InitialSetupImage}>Initial Setup</StandardButton>
+                            <StandardButton selected={tabIndex === 0} iconImage={ConsoleSettingsIcon}>Console Settings</StandardButton>
+                            <StandardButton selected={tabIndex === 1} iconImage={FamilySettingsIcon}>Family Settings</StandardButton>
+                            <StandardButton selected={tabIndex === 2} iconImage={MemoryImage}>Memory</StandardButton>
+                            <StandardButton selected={tabIndex === 3} iconImage={NetworkSettingsIcon}>Network Settings</StandardButton>
+                            <StandardButton selected={tabIndex === 4} iconImage={ComputersIcon}>Computers</StandardButton>
+                            <StandardButton selected={tabIndex === 5} iconImage={VisionSettingsIcon}>Xbox LIVE Vision</StandardButton>
+                            <StandardButton selected={tabIndex === 6} iconImage={InitialSetupImage}>Initial Setup</StandardButton>
                         </ButtonGroup>
                         <MenuTooltip disableTopShadow disableSideShadow>
                             <p>{strings.menus.games.profile_card.title}</p>

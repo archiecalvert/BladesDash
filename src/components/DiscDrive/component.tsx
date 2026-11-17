@@ -2,7 +2,7 @@ import { CSSProperties } from "react"
 import "./component.css"
 
 interface DiscDriveProps {
-    title: string,
+    title?: string,
     style: CSSProperties,
 }
 

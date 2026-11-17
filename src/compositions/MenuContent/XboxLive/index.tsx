@@ -18,14 +18,18 @@ import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
 import { MenuTooltip } from "../../../components/MenuTooltip/component"
 import { XboxLiveButton } from "../../../components/XboxLiveButton/component"
+import { fromGlobalStore } from "../../../stores/globalStore"
+import { fromMenuStore } from "../../../stores/menuStore"
 
 export function XboxLiveMenuContent() {
 
-    const [currentButtonIndex, setCurrentButtonIndex] = useState(1)
+    const currentOpenPage = fromGlobalStore(state => state.currentPage)
+    const currentMenuState = fromMenuStore(state => {
+        const content = state.menuData[currentOpenPage - 1]?.content
+        return content?.[content.length - 1]
+    })
+    const tabIndex = currentMenuState?.tabIndex ?? 0
 
-    useEffect(() => {
-        
-    }, [])
     return (
         <div className="live-menu-content" style={{"--menu-z-index": MENU_Z_INDEX} as CSSProperties}>
             <MenuUnderlay offset={1}/>
@@ -42,9 +46,9 @@ export function XboxLiveMenuContent() {
                     </div>
                     <div className="live-menu-row" style={{alignItems: "start"}}>
                         <ButtonGroup>
-                            <StandardButton selected={currentButtonIndex == 1} iconImage={MessagesImage}>Messages</StandardButton>
-                            <StandardButton selected={currentButtonIndex == 2} iconImage={FriendsImage}>Friends</StandardButton>
-                            <StandardButton selected={currentButtonIndex == 3} iconImage={ChatAndImImage}>Chat and IM</StandardButton>
+                            <StandardButton selected={tabIndex == 1} iconImage={MessagesImage}>Messages</StandardButton>
+                            <StandardButton selected={tabIndex == 2} iconImage={FriendsImage}>Friends</StandardButton>
+                            <StandardButton selected={tabIndex == 3} iconImage={ChatAndImImage}>Chat and IM</StandardButton>
                             <XboxLiveButton/>
                         </ButtonGroup>
                         <MenuTooltip disableSideShadow>
