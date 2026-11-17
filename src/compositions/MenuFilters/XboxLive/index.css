@@ -5,6 +5,6 @@
     top: 0;
     left: 0;
     z-index: var(--menu-z-index);
-    background: rgba(235, 155, 34, 0.7);
+    background: rgba(233, 143, 8, 0.7);
     filter: saturate(1.5)
 }
