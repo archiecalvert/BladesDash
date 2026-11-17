@@ -12,7 +12,7 @@ interface GlobalState {
     bootAnimationPlaying: boolean
     isOnWeb: boolean
 
-    setCurrentPage: (pageNumber: SetStateAction<number>) => void
+    setCurrentPage: (pageNumber: SetStateAction<number>) => boolean
     setMenuTransitionInProgress: (value: boolean) => void
     setInitialAnimationCompleted: () => void
     setBladeBackgroundRef: (ref: HTMLElement | null) => void
@@ -29,11 +29,21 @@ export const fromGlobalStore = create<GlobalState>((set) => ({
     bootAnimationPlaying: ENABLE_BOOT_ANIMATION,
     isOnWeb: typeof window.__TAURI_INTERNALS__ === "undefined",
 
-    setCurrentPage: (pageNumber) => set((state) => ({
-        currentPage: typeof pageNumber === "function"
-            ? pageNumber(state.currentPage)
-            : pageNumber
-    })),
+    setCurrentPage: (pageNumber) => {
+        let updated = false
+
+        set((state) => {
+            const nextPage = typeof pageNumber === "function"
+                ? pageNumber(state.currentPage)
+                : pageNumber
+
+            updated = nextPage !== state.currentPage
+
+            return { currentPage: nextPage }
+        })
+
+        return updated
+    },
     setMenuTransitionInProgress: (value) => set({ menuTransitionInProgress: value }),
     setInitialAnimationCompleted: () => set({ initialAnimationCompleted: true }),
     setBladeBackgroundRef: (ref) => set({ bladeBackgroundRef: ref }),

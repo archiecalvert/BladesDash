@@ -12,6 +12,7 @@ import throttle from "lodash/throttle"
 import { useRef, useEffect } from "react"
 import { fromGlobalStore } from "../stores/globalStore"
 import { fromMenuStore } from "../stores/menuStore"
+import { PlaySound, SOUNDS } from "../utils/tauriWrapper"
 
 export function useInputManager() {
     const REPEAT_SPEED = BLADE_SWIPE_ANIMATION_DURATION * 1000
@@ -37,6 +38,11 @@ export function useInputManager() {
 
     useEffect(() => {
         if (!initialAnimationCompleted) return
+		PlaySound(SOUNDS.BLADE_SWOOSH[currentPage - 1])
+	}, [currentPage])
+
+    useEffect(() => {
+        if (!initialAnimationCompleted) return
 
         function fireAssociatedKeyEvents(key: string) {
             if (RIGHT_KEYS.includes(key)) {
@@ -48,11 +54,11 @@ export function useInputManager() {
             }
 
             if (DOWN_KEYS.includes(key)) {
-                incrementTabIndex(currentPageRef.current)
+                if (incrementTabIndex(currentPageRef.current)) PlaySound(SOUNDS.MENU_NAVIGATION)
             }
 
             if (UP_KEYS.includes(key)) {
-                decrementTabIndex(currentPageRef.current)
+                if (decrementTabIndex(currentPageRef.current)) PlaySound(SOUNDS.MENU_NAVIGATION)
             }
         }
 

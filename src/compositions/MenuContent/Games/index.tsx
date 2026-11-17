@@ -52,8 +52,11 @@ export function GamesMenuContent() {
                             <StandardButton selected={tabIndex === 3} iconImage={PlayedGamesImage}>Played Games</StandardButton>
                         </ButtonGroup>
                         <MenuTooltip>
-                            <p>{strings.menus.games.profile_card.title}</p>
-                            <p>{strings.menus.games.profile_card.description}</p>
+                            {Object.values(strings.menus.games).map((string, index) => {
+                                return index === tabIndex ? Object.values(string).map(s => {
+                                    return <p>{s}</p>
+                                }) : null
+                            })}
                         </MenuTooltip>
                     </div>
                 </div>

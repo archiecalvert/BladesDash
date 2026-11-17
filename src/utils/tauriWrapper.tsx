@@ -6,6 +6,7 @@ export const SOUNDS = {
                    "Blades/blades_swoosh_3.wav", 
                    "Blades/blades_swoosh_4.wav", 
                    "Blades/blades_swoosh_5.wav",],
+    MENU_NAVIGATION: "Menus/menus_up_down.wav",
 }
 
 /**

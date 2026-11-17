@@ -7,8 +7,8 @@ interface MenuState {
     menuData: BladeData[]
     pushMenuData: (page: number, maxTabIndex: number, subMenu: ReactElement, startTabIndex?: number,) => void
     peekTopMenu: (page: number) => MenuDataState
-    incrementTabIndex: (page: number) => void
-    decrementTabIndex: (page: number) => void
+    incrementTabIndex: (page: number) => boolean
+    decrementTabIndex: (page: number) => boolean
 }
 
 export interface BladeData {
@@ -47,6 +47,8 @@ export const fromMenuStore = create<MenuState>((set, get) => ({
         return menuData[len - 1]
     },
     incrementTabIndex: (page) => {
+        let updated = false
+
         set((state) => ({
             menuData: state.menuData.map((menu, index) =>
                 index !== page - 1
@@ -58,14 +60,27 @@ export const fromMenuStore = create<MenuState>((set, get) => ({
                                 ? subMenu
                                 : {
                                     ...subMenu,
-                                    tabIndex: Math.min( subMenu.tabIndex + 1, subMenu.maxTabIndex )
+                                    tabIndex: (() => {
+                                        const nextIndex = Math.min(
+                                            subMenu.tabIndex + 1,
+                                            subMenu.maxTabIndex
+                                        )
+
+                                        updated = nextIndex !== subMenu.tabIndex
+                                        return nextIndex
+                                    })()
                                 }
                         )
                     }
             )
         }))
+
+        return updated
     },
+
     decrementTabIndex: (page) => {
+        let updated = false
+
         set((state) => ({
             menuData: state.menuData.map((menu, index) =>
                 index !== page - 1
@@ -77,12 +92,22 @@ export const fromMenuStore = create<MenuState>((set, get) => ({
                                 ? subMenu
                                 : {
                                     ...subMenu,
-                                    tabIndex: Math.max( subMenu.tabIndex - 1, 0 )
+                                    tabIndex: (() => {
+                                        const nextIndex = Math.max(
+                                            subMenu.tabIndex - 1,
+                                            0
+                                        )
+
+                                        updated = nextIndex !== subMenu.tabIndex
+                                        return nextIndex
+                                    })()
                                 }
                         )
                     }
             )
         }))
+
+        return updated
     }
 }))
 

@@ -55,8 +55,11 @@ export function MediaMenuContent() {
                             <StandardButton selected={tabIndex == 5} iconImage={MediaCenterIcon}>Media Center</StandardButton>
                         </ButtonGroup>
                         <MenuTooltip>
-                            <p>{strings.menus.games.profile_card.title}</p>
-                            <p>{strings.menus.games.profile_card.description}</p>
+                           {Object.values(strings.menus.media).map((string, index) => {
+                                return index === tabIndex ? Object.values(string).map(s => {
+                                    return <p>{s}</p>
+                                }) : null
+                            })}
                         </MenuTooltip>
                     </div>
                 </div>

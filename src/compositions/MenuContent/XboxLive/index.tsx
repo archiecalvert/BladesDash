@@ -52,8 +52,11 @@ export function XboxLiveMenuContent() {
                             <XboxLiveButton/>
                         </ButtonGroup>
                         <MenuTooltip disableSideShadow>
-                            <p>{strings.menus.games.profile_card.title}</p>
-                            <p>{strings.menus.games.profile_card.description}</p>
+                           {Object.values(strings.menus.xbox_live).map((string, index) => {
+                                return index === tabIndex ? Object.values(string).map(s => {
+                                    return <p>{s}</p>
+                                }) : null
+                            })}
                         </MenuTooltip>
                     </div>
                 </div>

@@ -47,8 +47,11 @@ export function SettingsMenuContent() {
                             <StandardButton selected={tabIndex === 6} iconImage={InitialSetupImage}>Initial Setup</StandardButton>
                         </ButtonGroup>
                         <MenuTooltip disableTopShadow disableSideShadow>
-                            <p>{strings.menus.games.profile_card.title}</p>
-                            <p>{strings.menus.games.profile_card.description}</p>
+                            {Object.values(strings.menus.settings).map((string, index) => {
+                                return index === tabIndex ? Object.values(string).map(s => {
+                                    return <p>{s}</p>
+                                }) : null
+                            })}
                         </MenuTooltip>
                     </div>
                 </div>

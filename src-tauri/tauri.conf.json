@@ -33,7 +33,8 @@
     ],
     "resources": [
       "resources/*",
-      "resources/Blades"
+      "resources/Blades",
+      "resources/Menus"
     ]
   }
 }

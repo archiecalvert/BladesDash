@@ -24,10 +24,6 @@ function App() {
 		if (FORCE_FULLSCREEN && !isOnWeb) getCurrentWindow().setFullscreen(true)
 	}, []);
 
-	useEffect(() => {
-		PlaySound(SOUNDS.BLADE_SWOOSH[currentPage - 1])
-	}, [currentPage])
-
 	return (
 		<div className="content-container ">
 			<BootAnimationComponent/>
