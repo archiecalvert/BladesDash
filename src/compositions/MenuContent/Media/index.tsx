@@ -40,7 +40,7 @@ export function MediaMenuContent() {
                 <div className="media-menu-rows">
                     <div className="media-menu-row">
                         <div style={{width: "50%"}}>
-                            <PlayerCardButton gamertag="archiecalvert"/>
+                            <PlayerCardButton selected={tabIndex === 0} gamertag="archiecalvert"/>
                         </div>
                         <div style={{width: "50%"}}>
                             <img style={{width: "100%", paddingLeft: "27%", paddingRight: "27%", aspectRatio: "auto", boxSizing: "border-box", filter: "drop-shadow(0 0 3px black)"}} src={Xbox360Logo}/>

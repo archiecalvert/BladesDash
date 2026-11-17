@@ -38,7 +38,7 @@ export function XboxLiveMenuContent() {
                 <div className="live-menu-rows">
                     <div className="live-menu-row">
                         <div style={{width: "50%"}}>
-                            <PlayerCardButton gamertag="archiecalvert"/>
+                            <PlayerCardButton selected={tabIndex === 0} gamertag="archiecalvert"/>
                         </div>
                         <div style={{width: "50%"}}>
                             <img style={{width: "100%", paddingLeft: "27%", paddingRight: "27%", aspectRatio: "auto", boxSizing: "border-box", filter: "drop-shadow(0 0 3px black)"}} src={XboxLiveLogo}/>
@@ -46,10 +46,10 @@ export function XboxLiveMenuContent() {
                     </div>
                     <div className="live-menu-row" style={{alignItems: "start"}}>
                         <ButtonGroup>
-                            <StandardButton selected={tabIndex == 1} iconImage={MessagesImage}>Messages</StandardButton>
-                            <StandardButton selected={tabIndex == 2} iconImage={FriendsImage}>Friends</StandardButton>
-                            <StandardButton selected={tabIndex == 3} iconImage={ChatAndImImage}>Chat and IM</StandardButton>
-                            <XboxLiveButton/>
+                            <StandardButton selected={tabIndex === 1} iconImage={MessagesImage}>Messages</StandardButton>
+                            <StandardButton selected={tabIndex === 2} iconImage={FriendsImage}>Friends</StandardButton>
+                            <StandardButton selected={tabIndex === 3} iconImage={ChatAndImImage}>Chat and IM</StandardButton>
+                            <XboxLiveButton selected={tabIndex === 4}/>
                         </ButtonGroup>
                         <MenuTooltip disableSideShadow>
                            {Object.values(strings.menus.xbox_live).map((string, index) => {

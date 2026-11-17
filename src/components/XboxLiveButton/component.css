@@ -7,11 +7,27 @@
     margin-top: 1vh;
     outline: 0.3vh solid;
     outline-color: rgba(30, 30, 30, 0.4);
-    border-radius: 2vh;
+    border-radius: 1.5vh;
     overflow: hidden;
     border: 0.3vh solid rgba(196, 196, 196, 0.3);
     display: flex;
     align-items: center;
+    position: relative;
+}
+
+.xbox-live-button-selected {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+
+
+
+
+    box-shadow:
+        inset 0 0 10px 0px rgba(255, 255, 255, 0.8),
+        inset 0 0 8px 8px rgba(255, 255, 255, 0.4),
+        0 0 3px rgba(255, 255, 255, 0.5);
 }
 
 .xbox-live-button .xbox-live-logo {
@@ -19,6 +35,8 @@
     margin-left: 40%;
     right: 0px;
     aspect-ratio: auto;
-    object-fit:contain;
-    filter: drop-shadow(0 0 3px black)
+    object-fit: contain;
+    filter: drop-shadow(0 0 3px black);
+    position: relative;
+    z-index: 1;
 }
