@@ -15,7 +15,7 @@ export const BaseMenuData: Record<string, BladeData> = {
         content: [{
             content: <MarketplaceMenuContent/>,
             tabIndex: 0,
-            maxTabIndex: 0,
+            maxTabIndex: 1,
         } as MenuDataState],
         filter: <MarketplaceMenu/>,
     } as BladeData,

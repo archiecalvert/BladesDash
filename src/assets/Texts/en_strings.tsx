@@ -3,7 +3,12 @@
 export const strings = {
     menus: {
         marketplace: {
-            info: "Xbox LIVE Marketplace is your one-stop for great content from Xbox LIVE. Get playable game demos, trailers, game content, and videos, all from the comfort of your living room. Sign in and take a look!"
+            large_button: {
+                description: "Xbox LIVE Marketplace is your one-stop for great content from Xbox LIVE. Get playable game demos, trailers, game content, and videos, all from the comfort of your living room. Sign in and take a look!"
+            },
+            join_xbl: {
+                description: "Xbox LIVE Marketplace is your one-stop for great content from Xbox LIVE. Get playable game demos, trailers, game content, and videos, all from the comfort of your living room. Sign in and take a look!"
+            },
         },
         xbox_live: {
             profile_card: {

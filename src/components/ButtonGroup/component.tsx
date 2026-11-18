@@ -7,7 +7,7 @@ interface ButtonGroupProps {
 
 export function ButtonGroup({children}: ButtonGroupProps) {
     return (
-        <div style={{width: "50%", gap: "-1vh", display: "flex", flexDirection: "column"}}>
+        <div style={{width: "100%", gap: "-1vh", display: "flex", flexDirection: "column"}}>
             {children}
         </div>
     )

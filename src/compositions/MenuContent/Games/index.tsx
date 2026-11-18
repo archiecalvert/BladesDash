@@ -38,12 +38,8 @@ export function GamesMenuContent() {
                 <DiscDrive selected={tabIndex === 4} style={{position: "absolute", width: "100%", bottom: "2.5vh"}}/>
                 <div className="game-menu-rows">
                     <div className="game-menu-row">
-                        <div style={{width: "50%"}}>
-                            <PlayerCardButton selected={tabIndex === 0} gamertag="archiecalvert"/>
-                        </div>
-                        <div style={{width: "50%"}}>
-                            <img style={{width: "100%", paddingLeft: "27%", paddingRight: "27%", aspectRatio: "auto", boxSizing: "border-box", filter: "drop-shadow(0 0 3px black)"}} src={Xbox360Logo}/>
-                        </div>
+                        <PlayerCardButton selected={tabIndex === 0} gamertag="archiecalvert"/>
+                        <img style={{width: "100%", paddingLeft: "27%", paddingRight: "27%", alignSelf: "center", aspectRatio: "auto", boxSizing: "border-box", filter: "drop-shadow(0 0 3px black)"}} src={Xbox360Logo}/>
                     </div>
                     <div className="game-menu-row" style={{alignItems: "start"}}>
                         <ButtonGroup>

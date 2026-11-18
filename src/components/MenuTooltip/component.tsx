@@ -7,14 +7,15 @@ interface MenuTooltipProps {
     children: ReactNode,
     disableTopShadow?: boolean,
     disableSideShadow?: boolean,
+    disablePadding?: boolean,
 }
 
-export function MenuTooltip({children, disableTopShadow=false, disableSideShadow=false}: MenuTooltipProps) {
+export function MenuTooltip({children, disableTopShadow=false, disableSideShadow=false, disablePadding=false}: MenuTooltipProps) {
     return (
         <div className="menu-tooltip-panel">
             {!disableTopShadow && <img className="menu-tooltip-shadow-top" src={ShadowHorizontal}/>}
             {!disableSideShadow && <img className="menu-tooltip-shadow-left" src={ShadowVertical}/>}
-            <div className="menu-tooltip-panel-content">
+            <div style={{paddingLeft: disablePadding ? "0" : "5vh"}} className="menu-tooltip-panel-content">
                 {children}
             </div>
         </div>

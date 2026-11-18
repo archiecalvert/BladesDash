@@ -1,0 +1,23 @@
+.marketplace-xbox-live-button {
+    width: 100%;
+    aspect-ratio: 1.1 / 1;
+    max-height: 100%;
+    background-color: rgba(146, 146, 146, 0.415);
+    margin-bottom: 1vh;
+    outline: 0.3vh solid;
+    outline-color: rgba(30, 30, 30, 0.4);
+    border-radius: 1.5vh;
+    overflow: hidden;
+    border: 0.3vh solid rgba(196, 196, 196, 0.3);
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.xbox-live-logo {
+    height: 7vh;
+    padding: 2vh;
+    aspect-ratio: auto;
+    filter: drop-shadow(0 0 3px black);
+}

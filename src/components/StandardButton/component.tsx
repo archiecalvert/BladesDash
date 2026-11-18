@@ -6,12 +6,13 @@ import {UI_Z_INDEX} from "../../utils/constants"
 
 interface StandardButtonProps {
     height?: string,
+    buttonHeight?: string,
     iconImage?: string,
     children: ReactNode,
     selected: boolean,
 }
 
-export function StandardButton({height="5vh", iconImage="", children, selected=false}: StandardButtonProps) {
+export function StandardButton({height="5vh", buttonHeight="5vh", iconImage="", children, selected=false}: StandardButtonProps) {
     const controls = useAnimationControls()
 
     useEffect(() => {
@@ -32,7 +33,7 @@ export function StandardButton({height="5vh", iconImage="", children, selected=f
         >
             <motion.div initial={{opacity: 0}} animate={controls} className="standard-button-container-selected"/>
             <motion.img initial={{opacity: 0}} animate={controls} className="standard-button-shadow" src={Shadow} alt=""/>
-            {iconImage && <img className="standard-button-icon" src={iconImage} alt=""/>}
+            {iconImage && <img style={{height: buttonHeight}} className="standard-button-icon" src={iconImage} alt=""/>}
             <div style={{zIndex: UI_Z_INDEX + 1}}>
                 {children}
             </div>

@@ -37,12 +37,8 @@ export function XboxLiveMenuContent() {
                 <MenuTitle title="Xbox LIVE"/>
                 <div className="live-menu-rows">
                     <div className="live-menu-row">
-                        <div style={{width: "50%"}}>
-                            <PlayerCardButton selected={tabIndex === 0} gamertag="archiecalvert"/>
-                        </div>
-                        <div style={{width: "50%"}}>
-                            <img style={{width: "100%", paddingLeft: "27%", paddingRight: "27%", aspectRatio: "auto", boxSizing: "border-box", filter: "drop-shadow(0 0 3px black)"}} src={XboxLiveLogo}/>
-                        </div>
+                        <PlayerCardButton selected={tabIndex === 0} gamertag="archiecalvert"/>
+                        <img style={{width: "100%", paddingLeft: "27%", paddingRight: "27%", alignSelf:"center",  aspectRatio: "auto", boxSizing: "border-box", filter: "drop-shadow(0 0 3px black)"}} src={XboxLiveLogo}/>
                     </div>
                     <div className="live-menu-row" style={{alignItems: "start"}}>
                         <ButtonGroup>
