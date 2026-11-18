@@ -16,7 +16,7 @@ export const BLADE_SLIDER_BACKGROUND_Z_INDEX = 100  // blades solid background
 export const RIGHT_KEYS = ["d", "D", "ArrowRight"]
 export const LEFT_KEYS = ["a", "A", "ArrowLeft"]
 export const UP_KEYS = ["w", "W", "ArrowUp"]
-export const DOWN_KEYS = ["s", "S", "DOWN"]
+export const DOWN_KEYS = ["s", "S", "ArrowDown"]
 
 // ============ | BLADE SIZING | =============
 export const BLADE_WHITESPACE_LEFT = 0.403
