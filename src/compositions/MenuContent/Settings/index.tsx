@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { MenuTitle } from "../../../components/MenuTitle/component"
-import { DiscDrive } from "../../../components/DiscDrive/component"
 import { StandardButton } from "../../../components/StandardButton/component"
 import { MenuUnderlay } from "../../../components/MenuUnderlay/component"
 import { BLADE_WHITESPACE_LEFT, BLADE_WHITESPACE_RIGHT, MENU_Z_INDEX } from "../../../utils/constants"

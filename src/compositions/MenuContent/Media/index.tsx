@@ -63,7 +63,7 @@ export function MediaMenuContent() {
                         </MenuTooltip>
                     </div>
                 </div>
-                <DiscDrive style={{position: "absolute", width: "100%", bottom: "2.5vh"}}/>
+                <DiscDrive selected={tabIndex === 6} style={{position: "absolute", width: "100%", bottom: "2.5vh"}}/>
             </MenuContentContainer>
         </div>
     )

@@ -18,16 +18,13 @@
 .xbox-live-button-selected {
     position: absolute;
     inset: 0;
-    border-radius: inherit;
+    border-radius: 1.2vh;
     pointer-events: none;
-
-
-
-
+    
     box-shadow:
-        inset 0 0 10px 0px rgba(255, 255, 255, 0.8),
+        inset 0 0 10px 0px rgba(255, 255, 255, 0.4),
         inset 0 0 8px 8px rgba(255, 255, 255, 0.4),
-        0 0 3px rgba(255, 255, 255, 0.5);
+        0 0 3px rgba(255, 255, 255, 0.4);
 }
 
 .xbox-live-button .xbox-live-logo {
