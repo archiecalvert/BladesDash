@@ -3,7 +3,7 @@ export const FORCE_FULLSCREEN = true
 export const ENABLE_BOOT_ANIMATION = false;
 export const USE_XBOX_ORIGINAL_BOOT_ANIMATION = false;
 export const THROTTLE_INPUTS = false;
-export const STARTING_BLADE = 5
+export const STARTING_BLADE = 3
 
 // ============== | Z-INDEXES | ==============
 export const WAVES_BACKGROUND_Z_INDEX = 0           // base background image

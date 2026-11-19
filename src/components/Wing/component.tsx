@@ -419,12 +419,10 @@ export function Wing({
                 await controls.start({
                     x: index <= openPageIndex
                         ? -getSelfWidth()
-                        : window.innerWidth,
+                        : window.innerWidth + getOffsetPosition(index, openPageIndex)[0] + getSelfWidth(),
 
                     transition: {
-                        duration: index <= openPageIndex
-                            ? MENU_TRANSITION_DURATION
-                            : MENU_TRANSITION_DURATION * 2,
+                        duration: MENU_TRANSITION_DURATION,
                         ease: "linear"
                     }
                 })
