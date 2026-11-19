@@ -1,5 +1,5 @@
 // ============== | SETTINGS | ===============
-export const FORCE_FULLSCREEN = false
+export const FORCE_FULLSCREEN = true
 export const ENABLE_BOOT_ANIMATION = false;
 export const USE_XBOX_ORIGINAL_BOOT_ANIMATION = false;
 export const THROTTLE_INPUTS = false;
@@ -34,5 +34,5 @@ export const BLADE_SWIPE_ANIMATION_DURATION = 0.1
 export const BLADE_UNHIDE_ANIMATION_DURATION = 0.25
 export const BLADE_UNSTACK_ANIMATION_DURATION = 0.25
 
-export const MENU_TRANSITION_DURATION = 0.35
-export const MENU_TRANSITION_DELAY = 0.3
+export const MENU_TRANSITION_DURATION = 0.3
+export const MENU_TRANSITION_DELAY = 0.2

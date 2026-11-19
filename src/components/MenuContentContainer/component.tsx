@@ -9,7 +9,8 @@ import {
     BLADE_SWIPE_ANIMATION_DURATION,
     BLADE_BACKGROUND_SWIPEIN_DURATION,
     BLADE_UNSTACK_ANIMATION_DURATION,
-    BLADE_UNHIDE_ANIMATION_DURATION
+    BLADE_UNHIDE_ANIMATION_DURATION,
+    MENU_TRANSITION_DURATION
 } from "../../utils/constants"
 
 import { sleep } from "../../utils/sleep"
@@ -66,7 +67,7 @@ export function MenuContentContainer({
         }
 
         const finalWidth = fullyHideMenus 
-            ? (window.innerWidth - 2 * backgroundBounds.width)
+            ? (window.innerWidth - 1.85 * backgroundBounds.width)
             : (window.innerWidth - 2 * backgroundBounds.width - window.innerWidth * 0.11)
 
         setWidth(finalWidth)
@@ -87,7 +88,7 @@ export function MenuContentContainer({
 
             const delay = (
                 initialAnimationRef.current
-                    ? BLADE_SWIPE_ANIMATION_DURATION
+                    ? (fullyHideMenus ? MENU_TRANSITION_DURATION : BLADE_SWIPE_ANIMATION_DURATION)
                     : BLADE_BACKGROUND_SWIPEIN_DURATION + BLADE_UNHIDE_ANIMATION_DURATION
             ) * 1000
 

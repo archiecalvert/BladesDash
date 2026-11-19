@@ -27,7 +27,7 @@ export function MenuUnderlay({ offset = 0 }: MenuUnderlayProps) {
     const [animateScale, setAnimateScale] = useState(false)
     const [menuTransition, setMenuTransition] = useState(false)
 
-    const SCALE_MAX = 1.66
+    const SCALE_MAX = 1.75
     const ANIMATION_DELAY = 0.2
     const OPACITY_DURATION = 0.25
 
@@ -81,7 +81,7 @@ export function MenuUnderlay({ offset = 0 }: MenuUnderlayProps) {
                         ? MENU_TRANSITION_DURATION * 0.01
                         : BLADE_UNHIDE_ANIMATION_DURATION + BLADE_UNSTACK_ANIMATION_DURATION - ANIMATION_DELAY,
                     delay: menuTransition && !fullyHideMenus ? MENU_TRANSITION_DELAY : 0,
-                    ease: "easeOut"
+                    ease: "linear"
                 },
                 opacity: {
                     duration: menuTransition
@@ -94,12 +94,12 @@ export function MenuUnderlay({ offset = 0 }: MenuUnderlayProps) {
                         : initialAnimationCompleted
                             ? BLADE_SWIPE_ANIMATION_DURATION
                             : ANIMATION_DELAY,
-                    ease: "easeOut"
+                    ease: "linear"
                 },
                 left: {
                     duration: menuTransition ? MENU_TRANSITION_DURATION * 0.01 : 0,
                     delay: menuTransition && !fullyHideMenus ? MENU_TRANSITION_DELAY : 0,
-                    ease: "easeOut"
+                    ease: "linear"
                 }
             }}
             style={{
