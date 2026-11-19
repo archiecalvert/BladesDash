@@ -18,8 +18,9 @@ import { ButtonGroup } from "../../../components/ButtonGroup/component"
 import { MenuTooltip } from "../../../components/MenuTooltip/component"
 import { fromGlobalStore } from "../../../stores/globalStore"
 import { fromMenuStore, MenuDataState } from "../../../stores/menuStore"
-import { MenuComponent } from "../../../types/menus"
+import { MenuComponent, StateMachineData } from "../../../types/menus"
 import { ConsoleSettingsMenuContent } from "./ConsoleSettings"
+import { PlaySound, SOUNDS } from "../../../utils/tauriWrapper"
 
 export const SettingsMenuContent: MenuComponent = Object.assign(
     function SettingsMenuContent() {
@@ -28,7 +29,7 @@ export const SettingsMenuContent: MenuComponent = Object.assign(
             const content = state.menuData[currentOpenPage - 1]?.content
             return content?.[content.length - 1]
         })
-        const tabIndex = currentMenuState?.tabIndex ?? 0
+        const tabIndexY = currentMenuState?.tabIndexY ?? 0
 
         return (
             <div className="settings-menu-content" style={{"--menu-z-index": MENU_Z_INDEX} as CSSProperties}>
@@ -38,17 +39,17 @@ export const SettingsMenuContent: MenuComponent = Object.assign(
                     <div className="settings-menu-rows">
                         <div className="settings-menu-row" style={{alignItems: "start"}}>
                             <ButtonGroup>
-                                <StandardButton selected={tabIndex === 0} iconImage={ConsoleSettingsIcon}>Console Settings</StandardButton>
-                                <StandardButton selected={tabIndex === 1} iconImage={FamilySettingsIcon}>Family Settings</StandardButton>
-                                <StandardButton selected={tabIndex === 2} iconImage={MemoryImage}>Memory</StandardButton>
-                                <StandardButton selected={tabIndex === 3} iconImage={NetworkSettingsIcon}>Network Settings</StandardButton>
-                                <StandardButton selected={tabIndex === 4} iconImage={ComputersIcon}>Computers</StandardButton>
-                                <StandardButton selected={tabIndex === 5} iconImage={VisionSettingsIcon}>Xbox LIVE Vision</StandardButton>
-                                <StandardButton selected={tabIndex === 6} iconImage={InitialSetupImage}>Initial Setup</StandardButton>
+                                <StandardButton selected={tabIndexY === 0} iconImage={ConsoleSettingsIcon}>Console Settings</StandardButton>
+                                <StandardButton selected={tabIndexY === 1} iconImage={FamilySettingsIcon}>Family Settings</StandardButton>
+                                <StandardButton selected={tabIndexY === 2} iconImage={MemoryImage}>Memory</StandardButton>
+                                <StandardButton selected={tabIndexY === 3} iconImage={NetworkSettingsIcon}>Network Settings</StandardButton>
+                                <StandardButton selected={tabIndexY === 4} iconImage={ComputersIcon}>Computers</StandardButton>
+                                <StandardButton selected={tabIndexY === 5} iconImage={VisionSettingsIcon}>Xbox LIVE Vision</StandardButton>
+                                <StandardButton selected={tabIndexY === 6} iconImage={InitialSetupImage}>Initial Setup</StandardButton>
                             </ButtonGroup>
                             <MenuTooltip disableTopShadow disableSideShadow>
                                 {Object.values(strings.menus.settings).map((string, index) => {
-                                    return index === tabIndex ? Object.values(string).map(s => {
+                                    return index === tabIndexY ? Object.values(string).map(s => {
                                         return <p>{s}</p>
                                     }) : null
                                 })}
@@ -60,16 +61,52 @@ export const SettingsMenuContent: MenuComponent = Object.assign(
         )
     },
     {
-        getNextMenu: (tabIndex: number) => {
-            const menus: Record<number, MenuDataState> = {
-                0: {
-                    tabIndex: 0,
-                    maxTabIndex: 8,
-                    content: ConsoleSettingsMenuContent
-                } as MenuDataState,
-            }
+        stateMachine: {
+            triggerUpInput: (context: StateMachineData) => {
+                const currentPage = context.globalStore.currentPage
+                if (context.menuStore.decreaseTabIndexY(currentPage, 1)) PlaySound(SOUNDS.MENU_NAVIGATION)
+            },
+
+            triggerDownInput: (context: StateMachineData) => {
+                const currentPage = context.globalStore.currentPage
+                if (context.menuStore.increaseTabIndexY(currentPage, 1)) PlaySound(SOUNDS.MENU_NAVIGATION)
+            },
+
+            triggerLeftInput: (context: StateMachineData) => {
+                context.globalStore.setCurrentPage(prev => prev - 1)
+            },
             
-            return menus[tabIndex]
+            triggerRightInput: (context: StateMachineData) => {
+            },
+
+            triggerEnterInput: (context: StateMachineData) => {
+                const menus: Record<number, MenuDataState> = {
+                    0: {
+                        tabIndexX: 0,
+                        tabIndexY: 0,
+                        maxTabIndexX: 0,
+                        maxTabIndexY: 8,
+                        content: ConsoleSettingsMenuContent
+                    } as MenuDataState,
+                }
+                
+                const pushMenuData = context.menuStore.pushMenuData
+                const currentPage = context.globalStore.currentPage
+                const params = menus[context.tabIndexY]
+                pushMenuData(
+                    currentPage,
+                    params.maxTabIndexX,
+                    params.maxTabIndexY,
+                    params.content,
+                    params.tabIndexX,
+                    params.tabIndexY
+                )
+                context.globalStore.setFullyHideMenus(true)
+            },
+
+            triggerBackInput: (context: StateMachineData) => {
+
+            }
         }
     }
 )

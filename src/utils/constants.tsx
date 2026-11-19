@@ -1,6 +1,6 @@
 // ============== | SETTINGS | ===============
-export const FORCE_FULLSCREEN = false
-export const ENABLE_BOOT_ANIMATION = false;
+export const FORCE_FULLSCREEN = true
+export const ENABLE_BOOT_ANIMATION = true;
 export const USE_XBOX_ORIGINAL_BOOT_ANIMATION = false;
 export const THROTTLE_INPUTS = false;
 export const STARTING_BLADE = 2
@@ -18,6 +18,7 @@ export const LEFT_KEYS = ["a", "A", "ArrowLeft"]
 export const UP_KEYS = ["w", "W", "ArrowUp"]
 export const DOWN_KEYS = ["s", "S", "ArrowDown"]
 export const A_KEYS = ["x", "X"]
+export const B_KEYS = ["b", "B"]
 
 // ============ | BLADE SIZING | =============
 export const BLADE_WHITESPACE_LEFT = 0.403

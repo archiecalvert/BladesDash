@@ -14,40 +14,50 @@ export const BaseMenuData: Record<string, BladeData> = {
     marketplace: {
         content: [{
             content: MarketplaceMenuContent,
-            tabIndex: 0,
-            maxTabIndex: 1,
+            tabIndexX: 0,
+            tabIndexY: 0,
+            maxTabIndexX: 0,
+            maxTabIndexY: 1,
         } as MenuDataState],
         filter: <MarketplaceMenu/>,
     } as BladeData,
     xboxLive: {
         content: [{
             content: XboxLiveMenuContent,
-            tabIndex: 0,
-            maxTabIndex: 5,
+            tabIndexX: 0,
+            tabIndexY: 0,
+            maxTabIndexX: 0,
+            maxTabIndexY: 5,
         } as MenuDataState ],
         filter: <XboxLiveMenu/>,
     } as BladeData,
     games: {
         content: [{
             content: GamesMenuContent,
-            tabIndex: 0,
-            maxTabIndex: 4,
+            tabIndexX: 0,
+            tabIndexY: 0,
+            maxTabIndexX: 0,
+            maxTabIndexY: 4,
         } as MenuDataState ],
         filter: <GamesMenu/>,
     } as BladeData,
     media: {
         content: [{
             content: MediaMenuContent,
-            tabIndex: 0,
-            maxTabIndex: 6,
+            tabIndexX: 0,
+            tabIndexY: 0,
+            maxTabIndexX: 0,
+            maxTabIndexY: 6,
         } as MenuDataState ],
         filter: <MediaMenu/>,
     } as BladeData,
     settings: {
         content: [{
             content: SettingsMenuContent,
-            tabIndex: 0,
-            maxTabIndex: 6,
+            tabIndexX: 0,
+            tabIndexY: 0,
+            maxTabIndexX: 0,
+            maxTabIndexY: 6,
         } as MenuDataState ],
         filter: <SettingsMenu/>,
     } as BladeData

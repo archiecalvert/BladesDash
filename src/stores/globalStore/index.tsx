@@ -3,7 +3,7 @@ import { create } from "zustand"
 import type { SetStateAction } from "react"
 import { BLADE_COUNT, ENABLE_BOOT_ANIMATION, STARTING_BLADE } from "../../utils/constants"
 
-interface GlobalState {
+export interface GlobalState {
     currentPage: number
     fullyHideMenus: boolean
     bladeBackgroundRef: HTMLElement | null

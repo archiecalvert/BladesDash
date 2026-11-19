@@ -11,10 +11,12 @@ import { useInputManager } from './hooks/useInputManager';
 import { InitialFadeIn } from './components/InitialFadeIn/component';
 import { BackgroundAnimationComponent } from './components/BackgroundVideo/component';
 import "./App.css";
+import { fromMenuStore } from './stores/menuStore';
 
 function App() {
+	window.globalStore = fromGlobalStore()
+	window.menuStore = fromMenuStore()
 
-	const currentPage = fromGlobalStore((state) => state.currentPage)
 	const bootAnimationPlaying = fromGlobalStore(state => state.bootAnimationPlaying)
 	const isOnWeb = fromGlobalStore(state => state.isOnWeb)
 

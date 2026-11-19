@@ -7,6 +7,7 @@ import {
     BLADE_COUNT,
     BLADE_SWIPE_ANIMATION_DURATION,
     A_KEYS,
+    B_KEYS,
 } from "../utils/constants"
 
 import throttle from "lodash/throttle"
@@ -22,16 +23,15 @@ export function useInputManager() {
     const heldKeys = useRef<Record<string, boolean>>({})
     const repeatTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
     const repeatInterval = useRef<ReturnType<typeof setInterval> | null>(null)
-
+    
     const setCurrentPage = fromGlobalStore(state => state.setCurrentPage)
     const currentPage = fromGlobalStore(state => state.currentPage)
     const toggleFullyHideMenus = fromGlobalStore(state => state.toggleFullyHideMenus)
 
-    const incrementTabIndex = fromMenuStore(state => state.incrementTabIndex)
-    const decrementTabIndex = fromMenuStore(state => state.decrementTabIndex)
-    const goToNextPage = fromMenuStore(state => state.goToNextPage)
-
+    const triggerMenuInput = fromMenuStore(state => state.triggerMenuInput)
     const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
+
+    const globalStore = fromGlobalStore()
 
     const currentPageRef = useRef(currentPage)
 
@@ -46,26 +46,30 @@ export function useInputManager() {
 
     useEffect(() => {
         if (!initialAnimationCompleted) return
-
+        
         function fireAssociatedKeyEvents(key: string) {
             if (RIGHT_KEYS.includes(key)) {
-                setCurrentPage(prev => Math.min(BLADE_COUNT, prev + 1))
+                triggerMenuInput(currentPageRef.current, globalStore, "triggerRightInput")
             }
 
             if (LEFT_KEYS.includes(key)) {
-                setCurrentPage(prev => Math.max(1, prev - 1))
+                triggerMenuInput(currentPageRef.current, globalStore, "triggerLeftInput")
             }
 
             if (DOWN_KEYS.includes(key)) {
-                if (incrementTabIndex(currentPageRef.current)) PlaySound(SOUNDS.MENU_NAVIGATION)
+                triggerMenuInput(currentPageRef.current, globalStore, "triggerDownInput")
             }
 
             if (UP_KEYS.includes(key)) {
-                if (decrementTabIndex(currentPageRef.current)) PlaySound(SOUNDS.MENU_NAVIGATION)
+                triggerMenuInput(currentPageRef.current, globalStore, "triggerUpInput")
             }
 
             if (A_KEYS.includes(key)) {
-                goToNextPage(currentPageRef.current)
+                triggerMenuInput(currentPageRef.current, globalStore, "triggerEnterInput")
+            }
+            
+            if (B_KEYS.includes(key)) {
+                triggerMenuInput(currentPageRef.current, globalStore, "triggerBackInput")
             }
         }
 
@@ -114,8 +118,7 @@ export function useInputManager() {
     }, [
         initialAnimationCompleted,
         setCurrentPage,
-        incrementTabIndex,
-        decrementTabIndex,
+        globalStore,
         REPEAT_SPEED,
         REPEAT_PERIOD
     ])

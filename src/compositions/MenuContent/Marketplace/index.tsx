@@ -14,41 +14,67 @@ import { strings } from "../../../assets/Texts/en_strings"
 import { MarketplaceXboxLiveContainer } from "../../../components/MarketplaceXboxLiveContainer/component"
 
 import JoinXBLImage from "../../../assets/icons/marketplace/join_xbl.png"
-import { MenuComponent } from "../../../types/menus"
+import { MenuComponent, StateMachineData } from "../../../types/menus"
+import { PlaySound, SOUNDS } from "../../../utils/tauriWrapper"
 
 export const MarketplaceMenuContent: MenuComponent = Object.assign(
-     function MarketplaceMenuContent() {
-    
-    const currentOpenPage = fromGlobalStore(state => state.currentPage)
-    const currentMenuState = fromMenuStore(state => {
-        const content = state.menuData[currentOpenPage - 1]?.content
-        return content?.[content.length - 1]
-    })
-    const tabIndex = currentMenuState?.tabIndex ?? 0
-    return (
-        <div className="marketplace-menu-content" style={{"--menu-z-index": MENU_Z_INDEX} as CSSProperties}>
-            <MenuUnderlay offset={0}/>
-            <MenuContentContainer  index={1} offsetIndex={-2}>
-                <MenuTitle title="Marketplace"/>
-                <div className="marketplace-rows" style={{alignItems: "start"}}>
-                    <div className="marketplace-row" style={{alignItems: "start"}}>
-                        <MenuTooltip disableSideShadow disableTopShadow disablePadding>
-                            {Object.values(strings.menus.marketplace).map((string, index) => {
-                                return index === tabIndex ? Object.values(string).map(s => {
-                                    return <p>{s}</p>
-                                }) : null
-                            })}
-                        </MenuTooltip>
-                        <ButtonGroup>
-                        <MarketplaceXboxLiveContainer selected={tabIndex === 0}/>
-                            <StandardButton height="7vh" buttonHeight="9vh" selected={tabIndex === 1} iconImage={JoinXBLImage}>Join Xbox LIVE</StandardButton>
-                        </ButtonGroup>
+     function MarketplaceMenuContent() {  
+        const currentOpenPage = fromGlobalStore(state => state.currentPage)
+        const currentMenuState = fromMenuStore(state => {
+            const content = state.menuData[currentOpenPage - 1]?.content
+            return content?.[content.length - 1]
+        })
+        const tabIndexY = currentMenuState?.tabIndexY ?? 0
+        return (
+            <div className="marketplace-menu-content" style={{"--menu-z-index": MENU_Z_INDEX} as CSSProperties}>
+                <MenuUnderlay offset={0}/>
+                <MenuContentContainer  index={1} offsetIndex={-2}>
+                    <MenuTitle title="Marketplace"/>
+                    <div className="marketplace-rows" style={{alignItems: "start"}}>
+                        <div className="marketplace-row" style={{alignItems: "start"}}>
+                            <MenuTooltip disableSideShadow disableTopShadow disablePadding>
+                                {Object.values(strings.menus.marketplace).map((string, index) => {
+                                    return index === tabIndexY ? Object.values(string).map(s => {
+                                        return <p>{s}</p>
+                                    }) : null
+                                })}
+                            </MenuTooltip>
+                            <ButtonGroup>
+                            <MarketplaceXboxLiveContainer selected={tabIndexY === 0}/>
+                                <StandardButton height="7vh" buttonHeight="9vh" selected={tabIndexY === 1} iconImage={JoinXBLImage}>Join Xbox LIVE</StandardButton>
+                            </ButtonGroup>
+                        </div>
                     </div>
-                </div>
-            </MenuContentContainer>
-        </div>
-    )
-},
-{
-    getNextMenu: (_: number) => {return null}
-})
+                </MenuContentContainer>
+            </div>
+        )
+    },
+    {
+        stateMachine: {
+            triggerUpInput: (context: StateMachineData) => {
+                const currentPage = context.globalStore.currentPage
+                if (context.menuStore.decreaseTabIndexY(currentPage, 1)) PlaySound(SOUNDS.MENU_NAVIGATION)
+            },
+
+            triggerDownInput: (context: StateMachineData) => {
+                const currentPage = context.globalStore.currentPage
+                if (context.menuStore.increaseTabIndexY(currentPage, 1)) PlaySound(SOUNDS.MENU_NAVIGATION)
+            },
+
+            triggerLeftInput: (context: StateMachineData) => {
+            },
+            
+            triggerRightInput: (context: StateMachineData) => {
+                context.globalStore.setCurrentPage(prev => prev + 1)
+            },
+
+            triggerEnterInput: (context: StateMachineData) => {
+                return undefined
+            },
+
+            triggerBackInput: (context: StateMachineData) => {
+                
+            }
+        }
+    }
+)
