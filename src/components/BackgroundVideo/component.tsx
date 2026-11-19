@@ -10,6 +10,7 @@ export function BackgroundAnimationComponent() {
             preload="auto"
             className="background-container"
             loop
+            disablePictureInPicture
         >
             <source src={bg} type="video/mp4" className="bg-video-render"/>
         </video>

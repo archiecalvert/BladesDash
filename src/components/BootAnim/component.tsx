@@ -15,6 +15,7 @@ export function BootAnimationComponent() {
             muted = {isOnWeb ? true : false}
             playsInline
             preload="auto"
+            disablePictureInPicture
             className="boot-animation-container"
             onEnded={() => setBootAnimationPlaying(false)}
         >
