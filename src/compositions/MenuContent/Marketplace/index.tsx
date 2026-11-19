@@ -27,7 +27,6 @@ export const MarketplaceMenuContent: MenuComponent = Object.assign(
         const tabIndexY = currentMenuState?.tabIndexY ?? 0
         return (
             <div className="marketplace-menu-content" style={{"--menu-z-index": MENU_Z_INDEX} as CSSProperties}>
-                <MenuUnderlay offset={0}/>
                 <MenuContentContainer  index={1} offsetIndex={-2}>
                     <MenuTitle title="Marketplace"/>
                     <div className="marketplace-rows" style={{alignItems: "start"}}>

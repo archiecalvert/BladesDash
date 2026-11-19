@@ -35,7 +35,7 @@ export function MenuContentContainer({
     const bladeWing = fromGlobalStore(state => state.wings[index - 1])
     const bladeBackground = fromGlobalStore(state => state.bladeBackgroundRef)
     const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
-
+    const fullyHideMenus = fromGlobalStore(state => state.fullyHideMenus)
     const initialAnimationRef = useRef<boolean>(initialAnimationCompleted)
 
     useEffect(() => {
@@ -46,13 +46,14 @@ export function MenuContentContainer({
         if (!bladeWing) return 0
 
         const bladeWidth = bladeWing.getBoundingClientRect().width
-
+        
+        if (fullyHideMenus) return 0
         return (
             (offsetIndex - 2) *
             bladeWidth *
             ((1 - BLADE_WHITESPACE_LEFT) - BLADE_WHITESPACE_RIGHT)
         )
-    }, [bladeWing, offsetIndex])
+    }, [bladeWing, offsetIndex, fullyHideMenus])
 
     const updateDimensions = useCallback(() => {
         if (!bladeWing || !bladeBackground) return false
@@ -64,16 +65,15 @@ export function MenuContentContainer({
             return false
         }
 
-        const finalWidth =
-            window.innerWidth -
-            2 * backgroundBounds.width -
-            window.innerWidth * 0.11
+        const finalWidth = fullyHideMenus 
+            ? (window.innerWidth - 2 * backgroundBounds.width)
+            : (window.innerWidth - 2 * backgroundBounds.width - window.innerWidth * 0.11)
 
         setWidth(finalWidth)
         setOffset(getOffsetPosition())
 
         return true
-    }, [bladeWing, bladeBackground, getOffsetPosition])
+    }, [bladeWing, bladeBackground, getOffsetPosition, fullyHideMenus])
 
     useEffect(() => {
         if (!bladeWing || !bladeBackground) return

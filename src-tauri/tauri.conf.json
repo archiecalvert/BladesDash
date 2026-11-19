@@ -34,7 +34,8 @@
     "resources": [
       "resources/*",
       "resources/Blades",
-      "resources/Menus"
+      "resources/Menus",
+      "resources/Rips"
     ]
   }
 }

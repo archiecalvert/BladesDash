@@ -33,7 +33,6 @@ export const GamesMenuContent: MenuComponent = Object.assign(
         
         return (
             <div className="game-menu-content" style={{"--menu-z-index": MENU_Z_INDEX} as CSSProperties}>
-                <MenuUnderlay offset={2}/>
                 <MenuContentContainer index={3} offsetIndex={2}>
                     <MenuTitle title="Games"/>
                     <DiscDrive selected={tabIndexY === 4} style={{position: "absolute", width: "100%", bottom: "2.5vh"}}/>

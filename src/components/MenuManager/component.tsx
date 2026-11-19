@@ -7,6 +7,7 @@ import { fromMenuStore } from "../../stores/menuStore";
 import { BaseMenuData } from "../../data/baseMenuData";
 
 import "./component.css"
+import { MenuUnderlay } from "../MenuUnderlay/component";
 
 export function MenuManager() {
     const controlsFilters = useAnimationControls();
@@ -22,7 +23,7 @@ export function MenuManager() {
         }
         f()
         window.addEventListener("resize", () => {
-            controlsFilters.start({x: -window.innerWidth * (currentOpenPage - 1), transition: {duration: 0, ease: "linear"}})
+            controlsFilters.set({x: -window.innerWidth * (currentOpenPage - 1)})
         })
     }, [currentOpenPage])
 
@@ -36,6 +37,7 @@ export function MenuManager() {
 
         <div className="menu-manager-content-grid">
             <CurrentMenu/>
+            <MenuUnderlay offset={currentOpenPage - 1}/>
         </div>
         </>
     )

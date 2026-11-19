@@ -3,7 +3,7 @@
     height: 100vh;
     top: 0;
     left: 0;
-    z-index: var(--menu-z-index);
+    z-index: 1;
     background: linear-gradient(
             rgba(222, 109, 2, 0.7) 00.0000%, 
             rgba(222, 109, 2, 0.7) 34.9020%, 

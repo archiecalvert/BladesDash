@@ -36,7 +36,6 @@ export const MediaMenuContent: MenuComponent = Object.assign(
             
         return (
             <div className="media-menu-content" style={{"--menu-z-index": MENU_Z_INDEX} as CSSProperties}>
-                <MenuUnderlay offset={3}/>
                 <MenuContentContainer index={1} offsetIndex={4}>
                     <MenuTitle title="Media"/>
                     <div className="media-menu-rows">

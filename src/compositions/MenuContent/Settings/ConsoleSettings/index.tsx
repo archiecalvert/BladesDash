@@ -26,21 +26,20 @@ export const ConsoleSettingsMenuContent: MenuComponent = Object.assign(
 
         return (
             <div className="console-settings-menu-content" style={{"--menu-z-index": MENU_Z_INDEX} as CSSProperties}>
-                <MenuUnderlay offset={4}/>
                 <MenuContentContainer  index={1} offsetIndex={6}>
                     <MenuTitle title="Console Settings"/>
                     <div className="console-settings-menu-rows">
                         <div className="console-settings-menu-row" style={{alignItems: "start"}}>
                             <ButtonGroup>
-                                <StandardButton selected={tabIndexY === 0} iconImage={ConsoleSettingsIcon}>Display Settings</StandardButton>
-                                <StandardButton selected={tabIndexY === 1} iconImage={ConsoleSettingsIcon}>Audio</StandardButton>
-                                <StandardButton selected={tabIndexY === 2} iconImage={ConsoleSettingsIcon}>Themes</StandardButton>
-                                <StandardButton selected={tabIndexY === 3} iconImage={ConsoleSettingsIcon}>Languages</StandardButton>
-                                <StandardButton selected={tabIndexY === 4} iconImage={ConsoleSettingsIcon}>Clock</StandardButton>
-                                <StandardButton selected={tabIndexY === 5} iconImage={ConsoleSettingsIcon}>Locale</StandardButton>
-                                <StandardButton selected={tabIndexY === 6} iconImage={ConsoleSettingsIcon}>Startup</StandardButton>
-                                <StandardButton selected={tabIndexY === 7} iconImage={ConsoleSettingsIcon}>Shutdown</StandardButton>
-                                <StandardButton selected={tabIndexY === 8} iconImage={ConsoleSettingsIcon}>Screen Saver</StandardButton>
+                                <StandardButton selected={tabIndexY === 0}>Display Settings</StandardButton>
+                                <StandardButton selected={tabIndexY === 1}>Audio</StandardButton>
+                                <StandardButton selected={tabIndexY === 2}>Themes</StandardButton>
+                                <StandardButton selected={tabIndexY === 3}>Languages</StandardButton>
+                                <StandardButton selected={tabIndexY === 4}>Clock</StandardButton>
+                                <StandardButton selected={tabIndexY === 5}>Locale</StandardButton>
+                                <StandardButton selected={tabIndexY === 6}>Startup</StandardButton>
+                                <StandardButton selected={tabIndexY === 7}>Shutdown</StandardButton>
+                                <StandardButton selected={tabIndexY === 8}>Screen Saver</StandardButton>
                             </ButtonGroup>
                             <MenuTooltip disableTopShadow disableSideShadow>
                                 {Object.values(strings.menus.settings).map((string, index) => {
@@ -82,6 +81,7 @@ export const ConsoleSettingsMenuContent: MenuComponent = Object.assign(
                 const currentPage = context.globalStore.currentPage
                 context.menuStore.popMenuData(currentPage)
                 context.globalStore.setFullyHideMenus(false)
+                PlaySound(SOUNDS.BACK)
             }
         }
     }

@@ -21,6 +21,11 @@ import { fromMenuStore, MenuDataState } from "../../../stores/menuStore"
 import { MenuComponent, StateMachineData } from "../../../types/menus"
 import { ConsoleSettingsMenuContent } from "./ConsoleSettings"
 import { PlaySound, SOUNDS } from "../../../utils/tauriWrapper"
+import { FamilySettingsMenuContent } from "./FamilySettings"
+import { MemorySettingsMenuContent } from "./Memory"
+import { NetworkSettingsMenuContent } from "./NetworkSettings"
+import { ComputersSettingsMenuContent } from "./Computers"
+import { VisionSettingsMenuContent } from "./Vision"
 
 export const SettingsMenuContent: MenuComponent = Object.assign(
     function SettingsMenuContent() {
@@ -33,7 +38,6 @@ export const SettingsMenuContent: MenuComponent = Object.assign(
 
         return (
             <div className="settings-menu-content" style={{"--menu-z-index": MENU_Z_INDEX} as CSSProperties}>
-                <MenuUnderlay offset={4}/>
                 <MenuContentContainer  index={1} offsetIndex={6}>
                     <MenuTitle title="Settings"/>
                     <div className="settings-menu-rows">
@@ -80,6 +84,7 @@ export const SettingsMenuContent: MenuComponent = Object.assign(
             },
 
             triggerEnterInput: (context: StateMachineData) => {
+                PlaySound(SOUNDS.SELECT)    
                 const menus: Record<number, MenuDataState> = {
                     0: {
                         tabIndexX: 0,
@@ -87,6 +92,41 @@ export const SettingsMenuContent: MenuComponent = Object.assign(
                         maxTabIndexX: 0,
                         maxTabIndexY: 8,
                         content: ConsoleSettingsMenuContent
+                    } as MenuDataState,
+                    1: {
+                        tabIndexX: 0,
+                        tabIndexY: 0,
+                        maxTabIndexX: 0,
+                        maxTabIndexY: 1,
+                        content: FamilySettingsMenuContent,
+                    } as MenuDataState,
+                    2: {
+                        tabIndexX: 0,
+                        tabIndexY: 0,
+                        maxTabIndexX: 0,
+                        maxTabIndexY: 0,
+                        content: MemorySettingsMenuContent
+                    } as MenuDataState,
+                    3: {
+                        tabIndexX: 0,
+                        tabIndexY: 0,
+                        maxTabIndexX: 0,
+                        maxTabIndexY: 4,
+                        content: NetworkSettingsMenuContent
+                    } as MenuDataState,
+                    4: {
+                        tabIndexX: 0,
+                        tabIndexY: 0,
+                        maxTabIndexX: 0,
+                        maxTabIndexY: 0,
+                        content: ComputersSettingsMenuContent
+                    } as MenuDataState,
+                    5: {
+                        tabIndexX: 0,
+                        tabIndexY: 0,
+                        maxTabIndexX: 0,
+                        maxTabIndexY: 0,
+                        content: VisionSettingsMenuContent
                     } as MenuDataState,
                 }
                 

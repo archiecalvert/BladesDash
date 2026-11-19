@@ -1,0 +1,30 @@
+.network-settings-menu-content {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: var(--menu-z-index);
+    display: flex;
+    justify-content: center;
+}
+
+.network-settings-menu-rows{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 3.5vh;
+    gap: 1vh;
+}
+
+.network-settings-menu-row{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    width: 100%;
+    gap: 1vw;
+}
+
+p {
+    margin: 0px;
+    padding: 0px
+}

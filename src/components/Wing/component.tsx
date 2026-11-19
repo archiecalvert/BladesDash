@@ -25,7 +25,9 @@ import {
     BLADE_WHITESPACE_RIGHT,
     BLADE_COUNT,
     BLADE_UNHIDE_ANIMATION_DURATION,
-    BLADE_UNSTACK_ANIMATION_DURATION
+    BLADE_UNSTACK_ANIMATION_DURATION,
+    MENU_TRANSITION_DELAY,
+    MENU_TRANSITION_DURATION
 } from "../../utils/constants"
 
 import { sleep } from "../../utils/sleep"
@@ -49,6 +51,7 @@ export function Wing({
     const openPageIndex = fromGlobalStore(state => state.currentPage)
     const backgroundRef = fromGlobalStore(state => state.bladeBackgroundRef)
     const setGlobalRef = fromGlobalStore(state => state.setWing)
+    const fullyHideMenus = fromGlobalStore(state => state.fullyHideMenus)
     const setInitialAnimationCompleted = fromGlobalStore(state => state.setInitialAnimationCompleted)
 
     const [isMiddleTransitionState, setIsMiddleTransitionState] = useState(false)
@@ -60,6 +63,9 @@ export function Wing({
     const animationId = useRef<number>(0)
     const previousOpenIndex = useRef<number>(openPageIndex)
     const initialised = useRef(false)
+
+    const savedPosition = useRef<{ x: number; y: number } | null>(null)
+    const [isReadyForMenuTransitions, setIsReadyForMenuTransitions] = useState(false)
 
     const NORMAL_SCALE = 1.00
     const SELECTED_SCALE = 1.05
@@ -77,7 +83,9 @@ export function Wing({
     }
 
     function getTargetScale(settled: boolean = true) {
-        return index === openPageIndex && hasSettled ? SELECTED_SCALE : NORMAL_SCALE
+        return index === openPageIndex && hasSettled
+            ? SELECTED_SCALE
+            : NORMAL_SCALE
     }
 
     /**
@@ -107,7 +115,7 @@ export function Wing({
 
         return left
             ? backgroundX
-            : window.innerWidth - backgroundX - getSelfWidth()
+            : window.innerWidth - backgroundX - getSelfWidth() * 0.93
     }
 
     function calculateZIndex(left: boolean, current: number) {
@@ -137,7 +145,7 @@ export function Wing({
 
         if (i == cur) {
             const adjustX = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetX * 0.85)
-            const adjustY = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetY * 0.55)
+            const adjustY = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetY * 0.85)
             return [-offsetX + adjustX, offsetY - adjustY]
         }
 
@@ -256,6 +264,8 @@ export function Wing({
             if (cancelled) return
 
             initialised.current = true
+            setIsReadyForMenuTransitions(true)
+
             animateScale(true)
             setInitialAnimationCompleted()
             
@@ -396,6 +406,52 @@ export function Wing({
         }
 
     }, [index, openPageIndex])
+
+    useEffect(() => {
+        if (!isReadyForMenuTransitions) return
+        let cancelled = false
+        async function f() {
+            if (fullyHideMenus) {
+                // Save the original resting position before hiding.
+                const target = getTargetPosition(index, openPageIndex)
+                savedPosition.current = { x: target.x, y: target.y }
+                // Hide the wing.
+                await controls.start({
+                    x: index <= openPageIndex
+                        ? -getSelfWidth()
+                        : window.innerWidth,
+
+                    transition: {
+                        duration: index <= openPageIndex
+                            ? MENU_TRANSITION_DURATION
+                            : MENU_TRANSITION_DURATION * 2,
+                        ease: "linear"
+                    }
+                })
+
+            } else {
+                // Restore the original position.
+                const target = savedPosition.current
+                    ?? getTargetPosition(index, openPageIndex)
+                await controls.start({
+                    x: target.x,
+                    y: target.y,
+                    zIndex: calculateZIndex(index <= openPageIndex, index),
+                    transition: {
+                        duration: MENU_TRANSITION_DURATION,
+                        ease: "linear"
+                    }
+                })
+                savedPosition.current = null
+            }
+        }
+        f()
+        return () => {
+            cancelled = true
+            controls.stop()
+        }
+
+    }, [fullyHideMenus, isReadyForMenuTransitions])
 
     return (
         <motion.div
