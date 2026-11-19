@@ -2,8 +2,6 @@
 
 This project is a desktop recreation of the blades dashboard from the Xbox 360 using React and Rust.
 
-The project is built from scratch using ripped assets from a decompiled Xbox 360 Dashboard, obtained using xuitools.
-
 ## Features
 - Boot animation
 - Custom animations
