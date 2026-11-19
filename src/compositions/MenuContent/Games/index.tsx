@@ -19,8 +19,10 @@ import { ButtonGroup } from "../../../components/ButtonGroup/component"
 import { MenuTooltip } from "../../../components/MenuTooltip/component"
 import { fromMenuStore } from "../../../stores/menuStore"
 import { fromGlobalStore } from "../../../stores/globalStore"
+import { MenuComponent } from "../../../types/menus"
 
-export function GamesMenuContent() {
+export const GamesMenuContent: MenuComponent = Object.assign(
+function GamesMenuContent() {
 
     
     const currentOpenPage = fromGlobalStore(state => state.currentPage)
@@ -59,4 +61,7 @@ export function GamesMenuContent() {
             </MenuContentContainer>
         </div>
     )
-}
+},
+{
+    getNextMenu: (_: number) => {return null}
+})

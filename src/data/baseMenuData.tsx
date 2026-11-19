@@ -13,7 +13,7 @@ import { MediaMenu } from "../compositions/MenuFilters/Media";
 export const BaseMenuData: Record<string, BladeData> = {
     marketplace: {
         content: [{
-            content: <MarketplaceMenuContent/>,
+            content: MarketplaceMenuContent,
             tabIndex: 0,
             maxTabIndex: 1,
         } as MenuDataState],
@@ -21,7 +21,7 @@ export const BaseMenuData: Record<string, BladeData> = {
     } as BladeData,
     xboxLive: {
         content: [{
-            content: <XboxLiveMenuContent/>,
+            content: XboxLiveMenuContent,
             tabIndex: 0,
             maxTabIndex: 5,
         } as MenuDataState ],
@@ -29,7 +29,7 @@ export const BaseMenuData: Record<string, BladeData> = {
     } as BladeData,
     games: {
         content: [{
-            content: <GamesMenuContent/>,
+            content: GamesMenuContent,
             tabIndex: 0,
             maxTabIndex: 4,
         } as MenuDataState ],
@@ -37,7 +37,7 @@ export const BaseMenuData: Record<string, BladeData> = {
     } as BladeData,
     media: {
         content: [{
-            content: <MediaMenuContent/>,
+            content: MediaMenuContent,
             tabIndex: 0,
             maxTabIndex: 6,
         } as MenuDataState ],
@@ -45,7 +45,7 @@ export const BaseMenuData: Record<string, BladeData> = {
     } as BladeData,
     settings: {
         content: [{
-            content: <SettingsMenuContent/>,
+            content: SettingsMenuContent,
             tabIndex: 0,
             maxTabIndex: 6,
         } as MenuDataState ],

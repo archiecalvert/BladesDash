@@ -14,8 +14,10 @@ import { strings } from "../../../assets/Texts/en_strings"
 import { MarketplaceXboxLiveContainer } from "../../../components/MarketplaceXboxLiveContainer/component"
 
 import JoinXBLImage from "../../../assets/icons/marketplace/join_xbl.png"
+import { MenuComponent } from "../../../types/menus"
 
-export function MarketplaceMenuContent() {
+export const MarketplaceMenuContent: MenuComponent = Object.assign(
+     function MarketplaceMenuContent() {
     
     const currentOpenPage = fromGlobalStore(state => state.currentPage)
     const currentMenuState = fromMenuStore(state => {
@@ -46,4 +48,7 @@ export function MarketplaceMenuContent() {
             </MenuContentContainer>
         </div>
     )
-}
+},
+{
+    getNextMenu: (_: number) => {return null}
+})

@@ -10,6 +10,8 @@ export function BladeBackground({side = SIDES.LEFT }) {
     
     const bladeEdge = useRef<HTMLElement | null>(null)
     const setGlobalSelfRef = fromGlobalStore(state => state.setBladeBackgroundRef)
+    const fullyHideMenus = fromGlobalStore(state => state.fullyHideMenus)
+    const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
     const [start, setStart] = useState<number>()
     const [end, setEnd] = useState<number>()
     const [width, setWidth] = useState<number>()
@@ -21,12 +23,31 @@ export function BladeBackground({side = SIDES.LEFT }) {
         if (side === SIDES.LEFT) setGlobalSelfRef(element)
     }
 
+    function getOffsetValues() {
+        if (bladeEdge?.current === null) return {w: 0, offset: 0}
+        const offset = window.innerWidth * 0.035
+        const w = (window.innerWidth / 2 - bladeEdge.current.getBoundingClientRect().width)
+
+        return {w, offset}
+    }
+    function HideMenus() {
+        const {w, offset} = getOffsetValues()
+        const offset2 = 2
+        setEnd(side == SIDES.LEFT ? -offset2 * w - offset  : offset2 * w + offset)
+    }
+
+    function UnhideMenus() {
+        const {w, offset} = getOffsetValues()
+        setStart(0)
+        setWidth(w)
+        setEnd(side == SIDES.LEFT ? -w - offset : w + offset)
+    }
+
     useEffect(() => {
         function handleResize() {
             if( bladeEdge?.current == null) return
             setDuration(0)
-            const offset = window.innerWidth * 0.035
-            const w = (window.innerWidth / 2 - bladeEdge.current.getBoundingClientRect().width)
+            const {w, offset} = getOffsetValues()
             setStart(0)
             setWidth(w)
             setEnd(side == SIDES.LEFT ? -w - offset  : w + offset)
@@ -34,16 +55,20 @@ export function BladeBackground({side = SIDES.LEFT }) {
         if (!bladeEdge.current) return
 
         window.addEventListener("resize", handleResize)
-        const offset = window.innerWidth * 0.035
-        const w = (window.innerWidth / 2 - bladeEdge.current.getBoundingClientRect().width)
-        setStart(0)
-        setWidth(w)
-        setEnd(side == SIDES.LEFT ? -w - offset  : w + offset)
-
+        UnhideMenus()
         return (
             window.removeEventListener("resize", handleResize)
         )
     }, [])
+
+    useEffect(() => {
+        if(!bladeEdge?.current) return
+        if (fullyHideMenus) {
+            HideMenus()
+        } else {
+            UnhideMenus()
+        }
+    }, [fullyHideMenus, bladeEdge])
     
     return (
         <motion.div

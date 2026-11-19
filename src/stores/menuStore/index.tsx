@@ -2,13 +2,15 @@
 import { create } from "zustand"
 import type { ReactElement } from "react"
 import { BaseMenuData } from "../../data/baseMenuData"
+import { MenuComponent } from "../../types/menus"
 
 interface MenuState {
     menuData: BladeData[]
-    pushMenuData: (page: number, maxTabIndex: number, subMenu: ReactElement, startTabIndex?: number,) => void
+    pushMenuData: (page: number, maxTabIndex: number, subMenu: MenuComponent, startTabIndex?: number,) => void
     peekTopMenu: (page: number) => MenuDataState
     incrementTabIndex: (page: number) => boolean
     decrementTabIndex: (page: number) => boolean
+    goToNextPage: (page: number) => boolean
 }
 
 export interface BladeData {
@@ -19,7 +21,7 @@ export interface BladeData {
 export interface MenuDataState {
     tabIndex: number
     maxTabIndex: number
-    content: ReactElement
+    content: MenuComponent
 }
 
 export const fromMenuStore = create<MenuState>((set, get) => ({
@@ -28,7 +30,7 @@ export const fromMenuStore = create<MenuState>((set, get) => ({
     pushMenuData: (page, maxTabIndex, subMenu, startTabIndex = 0) => {
         set((state) => ({
             menuData: state.menuData.map((menu, index) =>
-                index !== page
+                index !== page - 1
                     ? menu
                     : {
                         ...menu,
@@ -108,6 +110,19 @@ export const fromMenuStore = create<MenuState>((set, get) => ({
         }))
 
         return updated
+    },
+
+    goToNextPage: (page) => {
+        const currentPageContent = get().menuData[page - 1].content
+        const length = currentPageContent.length
+        const currentPage = currentPageContent[length - 1]
+        const tabIndex = currentPage.tabIndex
+        const nextPage = currentPage.content.getNextMenu(tabIndex)
+
+        if (!nextPage) return false
+        get().pushMenuData(page, nextPage.maxTabIndex, nextPage.content, nextPage.tabIndex)
+
+        return true
     }
 }))
 

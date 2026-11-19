@@ -11,10 +11,11 @@ import "./component.css"
 export function MenuManager() {
     const controlsFilters = useAnimationControls();
     const currentOpenPage = fromGlobalStore(state => state.currentPage)
-    const peekTopMenu = fromMenuStore(state => state.peekTopMenu)
-
-    const currentMenuState = peekTopMenu(currentOpenPage)
-
+    const currentMenuState = fromMenuStore(state => {
+    const content = state.menuData[currentOpenPage - 1]?.content
+        return content?.[content.length - 1]
+    })
+    const CurrentMenu = currentMenuState.content
     useEffect(() => {
         async function f() {
             await controlsFilters.start({x: -window.innerWidth * (currentOpenPage - 1), transition: {duration: BLADE_SWIPE_ANIMATION_DURATION, ease: "linear"}})
@@ -25,7 +26,6 @@ export function MenuManager() {
         })
     }, [currentOpenPage])
 
-
     return (
         <>
         <motion.div initial={{x: -window.innerWidth * (currentOpenPage - 1)}} animate={controlsFilters} className="menu-manager-filter-grid">
@@ -35,7 +35,7 @@ export function MenuManager() {
         </motion.div>
 
         <div className="menu-manager-content-grid">
-            {currentMenuState.content}
+            <CurrentMenu/>
         </div>
         </>
     )

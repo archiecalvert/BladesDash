@@ -17,6 +17,7 @@ export const RIGHT_KEYS = ["d", "D", "ArrowRight"]
 export const LEFT_KEYS = ["a", "A", "ArrowLeft"]
 export const UP_KEYS = ["w", "W", "ArrowUp"]
 export const DOWN_KEYS = ["s", "S", "ArrowDown"]
+export const A_KEYS = ["x", "X"]
 
 // ============ | BLADE SIZING | =============
 export const BLADE_WHITESPACE_LEFT = 0.403

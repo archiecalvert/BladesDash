@@ -6,6 +6,7 @@ import {
     DOWN_KEYS,
     BLADE_COUNT,
     BLADE_SWIPE_ANIMATION_DURATION,
+    A_KEYS,
 } from "../utils/constants"
 
 import throttle from "lodash/throttle"
@@ -24,9 +25,11 @@ export function useInputManager() {
 
     const setCurrentPage = fromGlobalStore(state => state.setCurrentPage)
     const currentPage = fromGlobalStore(state => state.currentPage)
+    const toggleFullyHideMenus = fromGlobalStore(state => state.toggleFullyHideMenus)
 
     const incrementTabIndex = fromMenuStore(state => state.incrementTabIndex)
     const decrementTabIndex = fromMenuStore(state => state.decrementTabIndex)
+    const goToNextPage = fromMenuStore(state => state.goToNextPage)
 
     const initialAnimationCompleted = fromGlobalStore(state => state.initialAnimationCompleted)
 
@@ -59,6 +62,10 @@ export function useInputManager() {
 
             if (UP_KEYS.includes(key)) {
                 if (decrementTabIndex(currentPageRef.current)) PlaySound(SOUNDS.MENU_NAVIGATION)
+            }
+
+            if (A_KEYS.includes(key)) {
+                goToNextPage(currentPageRef.current)
             }
         }
 

@@ -5,6 +5,7 @@ import { BLADE_COUNT, ENABLE_BOOT_ANIMATION, STARTING_BLADE } from "../../utils/
 
 interface GlobalState {
     currentPage: number
+    fullyHideMenus: boolean
     bladeBackgroundRef: HTMLElement | null
     initialAnimationCompleted: boolean
     menuTransitionInProgress: boolean
@@ -12,6 +13,8 @@ interface GlobalState {
     bootAnimationPlaying: boolean
     isOnWeb: boolean
 
+    setFullyHideMenus: (value: boolean) => void
+    toggleFullyHideMenus: () => void
     setCurrentPage: (pageNumber: SetStateAction<number>) => boolean
     setMenuTransitionInProgress: (value: boolean) => void
     setInitialAnimationCompleted: () => void
@@ -20,8 +23,9 @@ interface GlobalState {
     setBootAnimationPlaying: (value: boolean) => void
 }
 
-export const fromGlobalStore = create<GlobalState>((set) => ({
+export const fromGlobalStore = create<GlobalState>((set, get) => ({
     currentPage: STARTING_BLADE,
+    fullyHideMenus: false,
     bladeBackgroundRef: null,
     initialAnimationCompleted: false,
     menuTransitionInProgress: false,
@@ -29,6 +33,8 @@ export const fromGlobalStore = create<GlobalState>((set) => ({
     bootAnimationPlaying: ENABLE_BOOT_ANIMATION,
     isOnWeb: typeof window.__TAURI_INTERNALS__ === "undefined",
 
+    setFullyHideMenus: (value) => set({fullyHideMenus: value}),
+    toggleFullyHideMenus: () => set({fullyHideMenus: !get().fullyHideMenus}),
     setCurrentPage: (pageNumber) => {
         let updated = false
 

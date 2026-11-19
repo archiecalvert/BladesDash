@@ -22,8 +22,10 @@ import { ButtonGroup } from "../../../components/ButtonGroup/component"
 import { MenuTooltip } from "../../../components/MenuTooltip/component"
 import { fromMenuStore } from "../../../stores/menuStore"
 import { fromGlobalStore } from "../../../stores/globalStore"
+import { MenuComponent } from "../../../types/menus"
 
-export function MediaMenuContent() {
+export const MediaMenuContent: MenuComponent = Object.assign(
+function MediaMenuContent() {
 
     const currentOpenPage = fromGlobalStore(state => state.currentPage)
      const currentMenuState = fromMenuStore(state => {
@@ -63,4 +65,8 @@ export function MediaMenuContent() {
             </MenuContentContainer>
         </div>
     )
+},
+{
+    getNextMenu: (_: number) => {return null}
 }
+)
