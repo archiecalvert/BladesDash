@@ -18,13 +18,19 @@ export function MenuManager() {
     })
     const CurrentMenu = currentMenuState.content
     useEffect(() => {
+
+        function handleResize() {
+            controlsFilters.set({x: -window.innerWidth * (currentOpenPage - 1)})
+        }
         async function f() {
             await controlsFilters.start({x: -window.innerWidth * (currentOpenPage - 1), transition: {duration: BLADE_SWIPE_ANIMATION_DURATION, ease: "linear"}})
         }
         f()
-        window.addEventListener("resize", () => {
-            controlsFilters.set({x: -window.innerWidth * (currentOpenPage - 1)})
-        })
+        window.addEventListener("resize", handleResize)
+        
+        return (
+            window.removeEventListener("resize", handleResize)
+        )
     }, [currentOpenPage])
 
     return (

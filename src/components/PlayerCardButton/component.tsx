@@ -30,9 +30,9 @@ export function PlayerCardButton({selected, gamertag="<placeholder>", rep=5, gam
         async function f() {
             const D = 0.25
             if(selected) {
-                await controls.start({opacity: 1, transition: {duration: D}})
+                await controls.start({opacity: 1, transition: {duration: D, ease: "linear"}})
             } else {
-                await controls.start({opacity: 0, transition: {duration: D}})
+                await controls.start({opacity: 0, transition: {duration: D, ease: "linear"}})
             }
         }
         f()

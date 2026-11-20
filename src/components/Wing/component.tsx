@@ -216,10 +216,9 @@ export function Wing({
         const baseX = getBaseX(left)
 
         // hide behind blade for now behind the background
-        await controls.start({
+        controls.set({
             x: baseX + (index > openPageIndex ? 0.5 : -0.5) * getSelfWidth(),
             zIndex: calculateZIndex(left, index) - BLADE_COUNT * 2,
-            transition: { duration: 0 }
         })
 
         // wait for the blade backgrounds to enter and settle
@@ -227,7 +226,7 @@ export function Wing({
         // Move into the open position.
         await controls.start({ x: baseX, transition: { duration: BLADE_UNHIDE_ANIMATION_DURATION, ease: "linear" }})
         // set the z order
-        await controls.start({ zIndex: calculateZIndex(left, index), transition: { duration: 0 }})
+        controls.set({ zIndex: calculateZIndex(left, index)})
     }
 
     // ===========================================================================
@@ -311,7 +310,7 @@ export function Wing({
             transition: {
                 scale: {
                     duration: BLADE_SWIPE_ANIMATION_DURATION,
-                    ease: "easeOut"
+                    ease: "linear"
                 }
             }
         })
@@ -419,10 +418,10 @@ export function Wing({
                 await controls.start({
                     x: index <= openPageIndex
                         ? -getSelfWidth()
-                        : window.innerWidth + getOffsetPosition(index, openPageIndex)[0] + getSelfWidth(),
+                        : window.innerWidth + getSelfWidth(),
 
                     transition: {
-                        duration: MENU_TRANSITION_DURATION,
+                        duration: MENU_TRANSITION_DURATION * 0.78,
                         ease: "linear"
                     }
                 })
@@ -436,7 +435,7 @@ export function Wing({
                     y: target.y,
                     zIndex: calculateZIndex(index <= openPageIndex, index),
                     transition: {
-                        duration: MENU_TRANSITION_DURATION,
+                        duration: MENU_TRANSITION_DURATION * 0.78,
                         ease: "linear"
                     }
                 })

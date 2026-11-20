@@ -100,7 +100,8 @@ export function MenuContentContainer({
                 opacity: 1,
                 transition: {
                     duration: BLADE_UNSTACK_ANIMATION_DURATION,
-                    delay: 0
+                    delay: 0,
+                    ease: "linear"
                 }
             })
         }

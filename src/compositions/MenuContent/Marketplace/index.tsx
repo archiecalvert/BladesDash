@@ -6,7 +6,7 @@ import type { CSSProperties } from "react"
 
 import "./index.css"
 import { fromGlobalStore } from "../../../stores/globalStore"
-import { fromMenuStore } from "../../../stores/menuStore"
+import { fromMenuStore, MenuDataState } from "../../../stores/menuStore"
 import { StandardButton } from "../../../components/StandardButton/component"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
 import { MenuTooltip } from "../../../components/MenuTooltip/component"
@@ -16,6 +16,8 @@ import { MarketplaceXboxLiveContainer } from "../../../components/MarketplaceXbo
 import JoinXBLImage from "../../../assets/icons/marketplace/join_xbl.png"
 import { MenuComponent, StateMachineData } from "../../../types/menus"
 import { PlaySound, SOUNDS } from "../../../utils/tauriWrapper"
+import { ConsoleSettingsMenuContent } from "../Settings/ConsoleSettings"
+import { FamilySettingsMenuContent } from "../Settings/FamilySettings"
 
 export const MarketplaceMenuContent: MenuComponent = Object.assign(
      function MarketplaceMenuContent() {  
@@ -68,7 +70,36 @@ export const MarketplaceMenuContent: MenuComponent = Object.assign(
             },
 
             triggerEnterInput: (context: StateMachineData) => {
-                return undefined
+                PlaySound(SOUNDS.SELECT)    
+                const menus: Record<number, MenuDataState> = {
+                    0: {
+                        tabIndexX: 0,
+                        tabIndexY: 0,
+                        maxTabIndexX: 0,
+                        maxTabIndexY: 8,
+                        content: ConsoleSettingsMenuContent
+                    } as MenuDataState,
+                    1: {
+                        tabIndexX: 0,
+                        tabIndexY: 0,
+                        maxTabIndexX: 0,
+                        maxTabIndexY: 1,
+                        content: FamilySettingsMenuContent,
+                    } as MenuDataState,
+                }
+                
+                const pushMenuData = context.menuStore.pushMenuData
+                const currentPage = context.globalStore.currentPage
+                const params = menus[context.tabIndexY]
+                pushMenuData(
+                    currentPage,
+                    params.maxTabIndexX,
+                    params.maxTabIndexY,
+                    params.content,
+                    params.tabIndexX,
+                    params.tabIndexY
+                )
+                context.globalStore.setFullyHideMenus(true)
             },
 
             triggerBackInput: (context: StateMachineData) => {
