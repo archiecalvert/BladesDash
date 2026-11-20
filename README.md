@@ -1,3 +1,6 @@
+
+
+
 # Blades Dashboard Recreation
 
 This project is a desktop recreation of the blades dashboard from the Xbox 360 using React and Rust.
@@ -13,6 +16,9 @@ In future, I plan to implement:
 - App launching
 - Steam Integration for friends list
 - Discord SDK Integration for voice chat
+
+## Demo Video
+https://github.com/user-attachments/assets/5fe160ca-a5ca-4f05-b34f-586ea4de0c98
 
 ## Screenshots
 
