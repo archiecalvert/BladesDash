@@ -1,0 +1,36 @@
+.games-menu-xbox-live-button {
+    width: 100%;
+    background-color: rgb(91, 95, 96);
+    outline: 0.3vh solid;
+    outline-color: rgba(30, 30, 30, 0.4);
+    border-radius: 1.5vh;
+    overflow: hidden;
+    border: 0.3vh solid rgba(196, 196, 196, 0.3);
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.games-menu-xbox-live-button-selected {
+    position: absolute;
+    inset: 0;
+    border-radius: 1.2vh;
+    pointer-events: none;
+    
+    box-shadow:
+        inset 0 0 10px 0px rgba(255, 255, 255, 0.4),
+        inset 0 0 8px 8px rgba(255, 255, 255, 0.4),
+        0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+.games-menu-xbox-live-button .games-menu-xbox-live-logo {
+    height: 60%;
+    margin-left: 40%;
+    right: 0px;
+    aspect-ratio: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 3px black);
+    position: relative;
+    z-index: 1;
+}
+

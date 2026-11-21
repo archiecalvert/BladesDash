@@ -17,10 +17,11 @@ import PlayedGamesImage from "../../../assets/icons/games/played.png"
 import {strings} from "../../../assets/Texts/en_strings"
 import { ButtonGroup } from "../../../components/ButtonGroup/component"
 import { MenuTooltip } from "../../../components/MenuTooltip/component"
-import { fromMenuStore } from "../../../stores/menuStore"
+import { fromMenuStore, MenuDataState } from "../../../stores/menuStore"
 import { fromGlobalStore } from "../../../stores/globalStore"
 import { MenuComponent, StateMachineData } from "../../../types/menus"
 import { PlaySound, SOUNDS } from "../../../utils/tauriWrapper"
+import { GamesLibraryMenuContent } from "./GamesLibrary"
 
 export const GamesMenuContent: MenuComponent = Object.assign(
     function GamesMenuContent() {
@@ -81,7 +82,29 @@ export const GamesMenuContent: MenuComponent = Object.assign(
             },
 
             triggerEnterInput: (context: StateMachineData) => {
-                return undefined
+                PlaySound(SOUNDS.SELECT)    
+                const menus: Record<number, MenuDataState> = {
+                    1: {
+                        tabIndexX: 0,
+                        tabIndexY: 1,
+                        maxTabIndexX: 0,
+                        maxTabIndexY: 5,
+                        content: GamesLibraryMenuContent
+                    } as MenuDataState,
+                }
+                
+                const pushMenuData = context.menuStore.pushMenuData
+                const currentPage = context.globalStore.currentPage
+                const params = menus[context.tabIndexY]
+                pushMenuData(
+                    currentPage,
+                    params.maxTabIndexX,
+                    params.maxTabIndexY,
+                    params.content,
+                    params.tabIndexX,
+                    params.tabIndexY
+                )
+                context.globalStore.setFullyHideMenus(true)
             },
 
             triggerBackInput: (context: StateMachineData) => {
