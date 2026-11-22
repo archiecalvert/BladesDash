@@ -34,6 +34,7 @@ export function MenuUnderlay({ offset = 0 }: MenuUnderlayProps) {
     const isActive = currentPage - offset - 1 === 0
     const previousFullyHideMenus = useRef(fullyHideMenus)
 
+    const left = `calc(15vh + ${offset} * 6.5vh)`
     useEffect(() => {
         const visibilityChanged = previousFullyHideMenus.current !== fullyHideMenus
 
@@ -64,7 +65,7 @@ export function MenuUnderlay({ offset = 0 }: MenuUnderlayProps) {
                 scaleX: initialAnimationCompleted && !fullyHideMenus ? 1 : SCALE_MAX,
                 scaleY: 1,
                 opacity: isActive || animateScale ? 1 : 0,
-                left: fullyHideMenus ? "26.2vh" : `calc(14vh + ${offset} * 6.1vh)`,
+                left: fullyHideMenus ? "26.2vh" : left,
                 transition: {delay: menuTransition && !fullyHideMenus ? MENU_TRANSITION_DELAY : 0, ease: "linear"}
             }}
             onAnimationComplete={() => {
@@ -103,7 +104,7 @@ export function MenuUnderlay({ offset = 0 }: MenuUnderlayProps) {
                 }
             }}
             style={{
-                left: `calc(14vh + ${offset} * 6.1vh)`,
+                left: left,
                 "--menu-underlay-z-index": UI_Z_INDEX - 2,
                 "--menu-underlay-offset": offset
             } as CSSProperties}
