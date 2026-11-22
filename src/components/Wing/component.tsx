@@ -145,7 +145,7 @@ export function Wing({
 
         if (i == cur) {
             const adjustX = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetX * 0.85)
-            const adjustY = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetY * -10)
+            const adjustY = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetY * 10)
             return [-offsetX + adjustX, offsetY - adjustY]
         }
 
