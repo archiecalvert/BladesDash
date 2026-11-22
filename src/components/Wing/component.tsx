@@ -26,7 +26,6 @@ import {
     BLADE_COUNT,
     BLADE_UNHIDE_ANIMATION_DURATION,
     BLADE_UNSTACK_ANIMATION_DURATION,
-    MENU_TRANSITION_DELAY,
     MENU_TRANSITION_DURATION
 } from "../../utils/constants"
 
@@ -56,7 +55,7 @@ export function Wing({
 
     const [isMiddleTransitionState, setIsMiddleTransitionState] = useState(false)
     const [isLeft, setIsLeft] = useState(index <= openPageIndex)
-    const [hasSettled, setHasSettled] = useState(true)
+    const [hasSettled, setHasSettled] = useState(false)
 
     const selfRef = useRef<HTMLElement | null>(null)
     const [selfElement, setSelfElement] = useState<HTMLElement | null>(null)
@@ -67,8 +66,9 @@ export function Wing({
     const savedPosition = useRef<{ x: number; y: number } | null>(null)
     const [isReadyForMenuTransitions, setIsReadyForMenuTransitions] = useState(false)
 
-    const NORMAL_SCALE = 1.00
-    const SELECTED_SCALE = 1.05
+    const NORMAL_SCALE = 1.0
+    const Y_SCALE = 1.25
+    const SELECTED_SCALE = 1.1
     
     // ===========================================================================
     // ================================= HELPERS =================================
@@ -93,14 +93,14 @@ export function Wing({
      * @returns The width of the blade element, scaled.
      */
     function getBladeScaledWidth(scale = getTargetScale()) {
-        return getSelfWidth() * scale
+        return getSelfWidth() * scale * Y_SCALE
     }
 
     function getBackgroundXPosition() {
         if (!backgroundRef || !selfRef.current) return 0
 
         const backgroundWidth = backgroundRef.getBoundingClientRect().width
-        const offset = window.innerWidth * 0.038
+        const offset = window.innerWidth * 0.038 / Y_SCALE
 
         return (
             backgroundWidth -
@@ -115,7 +115,7 @@ export function Wing({
 
         return left
             ? backgroundX
-            : window.innerWidth - backgroundX - getSelfWidth() * 0.93
+            : window.innerWidth - backgroundX - getSelfWidth() * 1.23
     }
 
     function calculateZIndex(left: boolean, current: number) {
@@ -135,7 +135,7 @@ export function Wing({
 
         if (i > cur) {
             const offsetX = (BLADE_COUNT - i) * bladeWidth
-            const offsetY = (BLADE_COUNT - cur - i + 1) * 5
+            const offsetY = (BLADE_COUNT - cur - i - 2.5) * 4
 
             return [-offsetX, -offsetY]
         }
@@ -145,7 +145,7 @@ export function Wing({
 
         if (i == cur) {
             const adjustX = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetX * 0.85)
-            const adjustY = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetY * 0.85)
+            const adjustY = (i / BLADE_COUNT) * (SELECTED_SCALE - 1) * (offsetY * -10)
             return [-offsetX + adjustX, offsetY - adjustY]
         }
 
@@ -264,8 +264,8 @@ export function Wing({
 
             initialised.current = true
             setIsReadyForMenuTransitions(true)
-
-            animateScale(true)
+            index == openPageIndex ?  animateScale(true, SELECTED_SCALE) : animateScale(true)
+            setHasSettled(true)
             setInitialAnimationCompleted()
             
         }
@@ -304,9 +304,9 @@ export function Wing({
     /**
      * Function which causes the blade to scale based if its selected and has settled
      */
-    async function animateScale(settled = true) {
+    async function animateScale(settled = true, setOverrideScale: number | undefined = undefined) {
         await controls.start({
-            scale: getTargetScale(settled),
+            scale: typeof setOverrideScale == "undefined" ? getTargetScale(settled) : setOverrideScale,
             transition: {
                 scale: {
                     duration: BLADE_SWIPE_ANIMATION_DURATION,
@@ -393,8 +393,8 @@ export function Wing({
 
             if (isCancelled()) return
             animateScale(true)
-            setHasSettled(true)
             setIsMiddleTransitionState(false)
+            setHasSettled(true)
         }
 
         transition()
@@ -417,8 +417,8 @@ export function Wing({
                 // Hide the wing.
                 await controls.start({
                     x: index <= openPageIndex
-                        ? -getSelfWidth()
-                        : window.innerWidth + getSelfWidth(),
+                        ? -getSelfWidth() * 1.5
+                        : window.innerWidth + getSelfWidth() * 1.5,
 
                     transition: {
                         duration: MENU_TRANSITION_DURATION * 0.78,
@@ -462,7 +462,7 @@ export function Wing({
                     : "drop-shadow(-6px -2px 5px rgba(40,40,40,0.6)) drop-shadow(6px -2px 5px rgba(40,40,40,0.6))",
                 }}
             animate={controls}
-            initial={{scale: NORMAL_SCALE}}
+            initial={{scaleY: NORMAL_SCALE, scaleX: NORMAL_SCALE * Y_SCALE}}
         >
             <img
                 ref={setRefs}
@@ -503,7 +503,7 @@ export function Wing({
             <div className="blade-wing-title-anchor">
                 {!isMiddleTransitionState && (
                     <p
-                        style={!isLeft ? { transform: "rotate(90deg) translateY(2.4vh) translateX(-5%)" } : {} }
+                        style={!isLeft ? { transform: `rotate(90deg) translateY(2.3vh) scaleY(0.8)`,} : {} }
                         className="blade-wing-title"
                     >
                         {title}

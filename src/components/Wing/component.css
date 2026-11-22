@@ -1,6 +1,6 @@
 .blade-wing {
-    height: calc(120%);
-    translate: 0 -5%;
+    height: calc(105%);
+    translate: 0 -4%;
     position: absolute;
     background-color: black;
 }
@@ -26,15 +26,14 @@
 
     left: 0px;
     top: 0px;
-
     margin: 0;
     white-space: nowrap;
-
+    translate: -0.9vh -10%;
     transform-origin: left bottom;
-    transform: rotate(90deg);
+    transform: rotate(90deg) scaleY(calc(1 / 1.2));
 
     color: #505050;
     font-weight: 100;
-    font-size: 3.3vh;
+    font-size: 3.55vh;
     letter-spacing: 1px;
 }

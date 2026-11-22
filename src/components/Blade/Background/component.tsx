@@ -58,7 +58,7 @@ export function BladeBackground({ side = SIDES.LEFT }) {
         const width = w + element.offsetWidth
 
         setPosition({
-            visible: isLeft ? -w - offset : w + offset,
+            visible: (isLeft ? -w - offset : w + offset) - window.innerWidth * 0.006,
             hidden: isLeft ? -width : width,
             width: w,
             ready: true
@@ -71,11 +71,9 @@ export function BladeBackground({ side = SIDES.LEFT }) {
         if (!element) return
 
         // Wait until the image has its actual dimensions.
-        if (element.complete) {
-            calculatePositions()
-        } else {
-            element.addEventListener("load", calculatePositions)
-        }
+
+        element.addEventListener("load", calculatePositions)
+        
 
         function handleResize() {
             setDuration(0)
