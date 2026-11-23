@@ -2,23 +2,36 @@
 import { create } from "zustand"
 import type { ReactElement } from "react"
 import { BaseMenuData } from "../../data/baseMenuData"
-import { MenuComponent, MenuStateMachineActions, StateMachineData } from "../../types/menus"
+import { MenuComponent, MenuStateMachineActions } from "../../types/menus"
 import { GlobalState } from "../globalStore"
 
 export interface MenuState {
     menuData: BladeData[]
-    pushMenuData: (page: number,
-                   maxTabIndexX: number,
-                   maxTabIndexY: number,
-                   subMenu: MenuComponent,
-                   startTabIndexX?: number,
-                   startTabIndexY?: number) => void
+
+    pushMenuData: (
+        page: number,
+        maxTabIndexX: number | undefined,
+        maxTabIndexY: number | undefined,
+        subMenu: MenuComponent,
+        startTabIndexX?: number,
+        startTabIndexY?: number
+    ) => void
+
     popMenuData: (page: number) => void
-    peekTopMenu: (page: number) => MenuDataState
+    peekTopMenu: (page: number) => MenuDataState | undefined
+
+    // Dynamically update navigation boundaries
+    setNavigationBounds: (
+        page: number,
+        maxTabIndexX?: number,
+        maxTabIndexY?: number
+    ) => void
+
     increaseTabIndexX: (page: number, amount: number) => boolean
     decreaseTabIndexX: (page: number, amount: number) => boolean
     increaseTabIndexY: (page: number, amount: number) => boolean
     decreaseTabIndexY: (page: number, amount: number) => boolean
+
     triggerMenuInput: (
         page: number,
         globalStore: GlobalState,
@@ -34,28 +47,38 @@ export interface BladeData {
 export interface MenuDataState {
     tabIndexX: number
     tabIndexY: number
-    maxTabIndexX: number
-    maxTabIndexY: number
+    maxTabIndexX?: number
+    maxTabIndexY?: number
     content: MenuComponent
 }
 
 export const fromMenuStore = create<MenuState>((set, get) => ({
     menuData: Object.values(BaseMenuData),
 
-    pushMenuData: (page, maxTabIndexX, maxTabIndexY, subMenu, startTabIndexX = 0, startTabIndexY = 0) => {
+    pushMenuData: (
+        page,
+        maxTabIndexX,
+        maxTabIndexY,
+        subMenu,
+        startTabIndexX = 0,
+        startTabIndexY = 0
+    ) => {
         set((state) => ({
             menuData: state.menuData.map((menu, index) =>
                 index !== page - 1
                     ? menu
                     : {
                         ...menu,
-                        content: [...menu.content, {
-                            content: subMenu,
-                            tabIndexX: startTabIndexX,
-                            tabIndexY: startTabIndexY,
-                            maxTabIndexX,
-                            maxTabIndexY,
-                        }]
+                        content: [
+                            ...menu.content,
+                            {
+                                content: subMenu,
+                                tabIndexX: startTabIndexX,
+                                tabIndexY: startTabIndexY,
+                                maxTabIndexX,
+                                maxTabIndexY,
+                            }
+                        ]
                     }
             )
         }))
@@ -73,11 +96,54 @@ export const fromMenuStore = create<MenuState>((set, get) => ({
             )
         }))
     },
+
     peekTopMenu: (page) => {
-        const menuData = get().menuData[page - 1].content
-        const len = menuData.length ?? 0
-        return menuData[len - 1]
+        const menuData = get().menuData[page - 1]?.content
+        return menuData?.[menuData.length - 1]
     },
+
+    // Update the navigation boundaries of the active submenu
+    setNavigationBounds: (page, maxTabIndexX, maxTabIndexY) => {
+        set((state) => ({
+            menuData: state.menuData.map((menu, index) => {
+                if (index !== page - 1) return menu
+
+                const lastIndex = menu.content.length - 1
+
+                if (lastIndex < 0) return menu
+
+                return {
+                    ...menu,
+                    content: menu.content.map((subMenu, subIndex) => {
+                        if (subIndex !== lastIndex) return subMenu
+
+                        return {
+                            ...subMenu,
+
+                            maxTabIndexX,
+                            maxTabIndexY,
+
+                            // Clamp current selection only when bounded
+                            tabIndexX: maxTabIndexX === undefined
+                                ? subMenu.tabIndexX
+                                : Math.min(
+                                    subMenu.tabIndexX,
+                                    Math.max(0, maxTabIndexX)
+                                ),
+
+                            tabIndexY: maxTabIndexY === undefined
+                                ? subMenu.tabIndexY
+                                : Math.min(
+                                    subMenu.tabIndexY,
+                                    Math.max(0, maxTabIndexY)
+                                )
+                        }
+                    })
+                }
+            })
+        }))
+    },
+
     increaseTabIndexX: (page, amount) => {
         let updated = false
 
@@ -93,44 +159,16 @@ export const fromMenuStore = create<MenuState>((set, get) => ({
                                 : {
                                     ...subMenu,
                                     tabIndexX: (() => {
-                                        const nextIndex = Math.min(
-                                            subMenu.tabIndexX + amount,
-                                            subMenu.maxTabIndexX
-                                        )
+                                        const nextIndex =
+                                            subMenu.maxTabIndexX === undefined
+                                                ? subMenu.tabIndexX + amount
+                                                : Math.min(
+                                                    subMenu.tabIndexX + amount,
+                                                    subMenu.maxTabIndexX
+                                                )
 
                                         updated = nextIndex !== subMenu.tabIndexX
                                         return nextIndex
-                                    })()
-                                }
-                        )
-                    }
-            )
-        }))
-
-        return updated
-    },
-    decreaseTabIndexY: (page, amount) => {
-        let updated = false
-
-        set((state) => ({
-            menuData: state.menuData.map((menu, index) =>
-                index !== page - 1
-                    ? menu
-                    : {
-                        ...menu,
-                        content: menu.content.map((subMenu, subIndex) =>
-                            subIndex !== menu.content.length - 1
-                                ? subMenu
-                                : {
-                                    ...subMenu,
-                                    tabIndexY: (() => {
-                                        const prevIndex = Math.max(
-                                            subMenu.tabIndexY - amount,
-                                            0
-                                        )
-
-                                        updated = prevIndex !== subMenu.tabIndexY
-                                        return prevIndex
                                     })()
                                 }
                         )
@@ -156,10 +194,9 @@ export const fromMenuStore = create<MenuState>((set, get) => ({
                                 : {
                                     ...subMenu,
                                     tabIndexX: (() => {
-                                        const prevIndex = Math.max(
-                                            subMenu.tabIndexX - amount,
-                                            0
-                                        )
+                                        const prevIndex = subMenu.maxTabIndexX !== undefined 
+                                            ? Math.max( subMenu.tabIndexX - amount, 0 )
+                                            : subMenu.tabIndexX - amount
 
                                         updated = prevIndex !== subMenu.tabIndexX
                                         return prevIndex
@@ -172,6 +209,7 @@ export const fromMenuStore = create<MenuState>((set, get) => ({
 
         return updated
     },
+
     increaseTabIndexY: (page, amount) => {
         let updated = false
 
@@ -187,10 +225,10 @@ export const fromMenuStore = create<MenuState>((set, get) => ({
                                 : {
                                     ...subMenu,
                                     tabIndexY: (() => {
-                                        const nextIndex = Math.min(
-                                            subMenu.tabIndexY + amount,
-                                            subMenu.maxTabIndexY
-                                        )
+                                        const nextIndex =
+                                            subMenu.maxTabIndexY === undefined
+                                                ? subMenu.tabIndexY + amount
+                                                : Math.min(subMenu.tabIndexY + amount, subMenu.maxTabIndexY)
 
                                         updated = nextIndex !== subMenu.tabIndexY
                                         return nextIndex
@@ -204,12 +242,50 @@ export const fromMenuStore = create<MenuState>((set, get) => ({
         return updated
     },
 
+    decreaseTabIndexY: (page, amount) => {
+        let updated = false
+
+        set((state) => ({
+            menuData: state.menuData.map((menu, index) =>
+                index !== page - 1
+                    ? menu
+                    : {
+                        ...menu,
+                        content: menu.content.map((subMenu, subIndex) =>
+                            subIndex !== menu.content.length - 1
+                                ? subMenu
+                                : {
+                                    ...subMenu,
+                                    tabIndexY: (() => {
+                                        const prevIndex = subMenu.maxTabIndexY !== undefined
+                                            ? Math.max( subMenu.tabIndexY - amount, 0 )
+                                            : subMenu.tabIndexY - amount
+
+                                        updated = prevIndex !== subMenu.tabIndexY
+                                        return prevIndex
+                                    })()
+                                }
+                        )
+                    }
+            )
+        }))
+
+        return updated
+    },
+
     triggerMenuInput: (page, globalStore, input) => {
         const currentMenu = get().peekTopMenu(page)
+
         if (!currentMenu) return
+
         const { content, tabIndexX, tabIndexY } = currentMenu
         const menuStore = get()
-        content.stateMachine[input]({tabIndexX, tabIndexY, globalStore, menuStore})
+
+        content.stateMachine[input]({
+            tabIndexX,
+            tabIndexY,
+            globalStore,
+            menuStore
+        })
     },
 }))
-

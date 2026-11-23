@@ -1,0 +1,33 @@
+.games-library-my-games-menu-content {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: var(--menu-z-index);
+    display: flex;
+    justify-content: center;
+    margin-top: -1.2vh;
+}
+
+.games-library-my-games-menu-rows{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin-top: 5vh;
+    margin-bottom: 2vh;
+    gap: 1vh;
+}
+
+.games-library-my-games-menu-row{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    width: 100%;
+    gap: 1vw;
+}
+
+p {
+    margin: 0px;
+    padding: 0px
+}

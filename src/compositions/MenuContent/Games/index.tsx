@@ -22,6 +22,8 @@ import { fromGlobalStore } from "../../../stores/globalStore"
 import { MenuComponent, StateMachineData } from "../../../types/menus"
 import { PlaySound, SOUNDS } from "../../../utils/tauriWrapper"
 import { GamesLibraryMenuContent } from "./GamesLibrary"
+import { AchievementsMenuContent } from "./Achievements"
+import { PlayedGamesMenuContent, RecentlyPlayedMenuContent } from "./PlayedGames"
 
 export const GamesMenuContent: MenuComponent = Object.assign(
     function GamesMenuContent() {
@@ -90,6 +92,20 @@ export const GamesMenuContent: MenuComponent = Object.assign(
                         maxTabIndexX: 0,
                         maxTabIndexY: 5,
                         content: GamesLibraryMenuContent
+                    } as MenuDataState,
+                    2: {
+                        tabIndexX: 0,
+                        tabIndexY: 0,
+                        maxTabIndexX: 0,
+                        maxTabIndexY: 0,
+                        content: AchievementsMenuContent
+                    } as MenuDataState,
+                    3: {
+                        tabIndexX: 0,
+                        tabIndexY: 0,
+                        maxTabIndexX: 0,
+                        maxTabIndexY: 0,
+                        content: PlayedGamesMenuContent
                     } as MenuDataState,
                 }
                 

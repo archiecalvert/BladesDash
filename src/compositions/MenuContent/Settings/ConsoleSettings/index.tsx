@@ -42,7 +42,7 @@ export const ConsoleSettingsMenuContent: MenuComponent = Object.assign(
                                 <StandardButton selected={tabIndexY === 8}>Screen Saver</StandardButton>
                             </ButtonGroup>
                             <MenuTooltip disableTopShadow disableSideShadow>
-                                {Object.values(strings.menus.settings).map((string, index) => {
+                                {Object.values(strings.menus.settings$display).map((string, index) => {
                                     return index === tabIndexY ? Object.values(string).map(s => {
                                         return <p>{s}</p>
                                     }) : null

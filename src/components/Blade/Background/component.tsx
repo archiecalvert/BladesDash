@@ -58,7 +58,7 @@ export function BladeBackground({ side = SIDES.LEFT }) {
         const width = w + element.offsetWidth
 
         setPosition({
-            visible: (isLeft ? -w - offset : w + offset) - window.innerWidth * 0.006,
+            visible: (isLeft ? -w - offset - window.innerWidth * 0.015 : w + offset - window.innerWidth * 0.006),
             hidden: isLeft ? -width : width,
             width: w,
             ready: true

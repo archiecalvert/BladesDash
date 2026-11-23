@@ -1,7 +1,11 @@
 
 
+
 export const strings = {
     menus: {
+// =========================
+//      MARKETPLACE
+// =========================
         marketplace: {
             large_button: {
                 description: "Xbox LIVE Marketplace is your one-stop for great content from Xbox LIVE. Get playable game demos, trailers, game content, and videos, all from the comfort of your living room. Sign in and take a look!"
@@ -10,6 +14,10 @@ export const strings = {
                 description: "Xbox LIVE Marketplace is your one-stop for great content from Xbox LIVE. Get playable game demos, trailers, game content, and videos, all from the comfort of your living room. Sign in and take a look!"
             },
         },
+
+// =========================
+//        XBOX LIVE
+// =========================
         xbox_live: {
             profile_card: {
                 title: "Xbox LIVE",
@@ -36,6 +44,9 @@ export const strings = {
             }
 
         },
+// =========================
+//         GAMES
+// =========================
         games: {
             profile_card: {
                 title: "Xbox LIVE",
@@ -60,6 +71,33 @@ export const strings = {
                 description: "Insert a game, DVD, or CD."
             }
         },
+        games$games_library: {
+            xbox_live_btn: {
+
+            },
+            my_games: {
+                title: "My Games",
+                description: (count: number) => `You have ${count} games on your console. Select this option to play a game now.`
+            },
+            last_played_game: {
+                title: "Last Played Game"
+            },
+            friends_playing_now: {
+                title: "Friends Playing Now",
+                description: "You have no friends online playing games."
+            },
+            game_store: {
+                title: "Download Games",
+                description: "Choose from a variety of games, including Xbox LIVE Arcade, Xbox Originals, demos, and more. Connect to Xbox LIVE to download games."
+            },
+            auto_downloads: {
+                title: "Auto Downloads",
+                description: "Automatically download free trial versions of new Xbox LIVE Arcade games as they become available."
+            }
+        },
+// =========================
+//          MEDIA
+// =========================
         media: {
             profile_card: {
                 title: "Xbox LIVE",
@@ -89,6 +127,9 @@ export const strings = {
                 description: "Insert a game, DVD, or CD."
             }
         },
+// =========================
+//        SETTINGS
+// =========================
         settings: {
             console_settings: {
                 title: "Edit your Xbox 360 system settings, including:",
@@ -118,6 +159,16 @@ export const strings = {
             initial_setup: {
                 description: "Run the system setup that launched the first time you started the console."
             }
+        },
+        settings$display: {
+            display_settings: {
+                title: "Current Setting",
+                resolution: `${window.innerHeight}p`,
+                ratio: window.innerHeight < window.innerWidth ? "Widescreen" : "Normal",
+                reference_level: "Standard",
+                gap: <ul></ul>,
+                description: "Change your display output settings. Display settings include screen size, output mode, and HDTV.",
+            },
         }
     },
 }
