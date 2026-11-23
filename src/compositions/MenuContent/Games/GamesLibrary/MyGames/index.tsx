@@ -34,7 +34,7 @@ export const GamesLibraryMyGamesMenuContent: MenuComponent = Object.assign(
         const tabIndexY = currentMenuState?.tabIndexY ?? 0
         const tabIndexX = currentMenuState?.tabIndexX ?? 0
 
-        const games = ["s1", "s2", "s1", "s2", "s1", "s2", "s2"]
+        const games = ["s1", "s2", "s1", "s2", "s1", "s2", "s2", "s2"]
 
         useEffect(() => {
             setNavigationBounds(
@@ -58,6 +58,9 @@ export const GamesLibraryMyGamesMenuContent: MenuComponent = Object.assign(
                                     return <GameTileButton selected={tabIndexY == index}>{game}</GameTileButton>
                                 })}
                             </ButtonGroup>
+                        </div>
+                        <div style={{height: "100%"}} className="games-library-my-games-menu-row">
+                            <p className="games-library-my-games-title-position-text">{tabIndexY + 1} of {games.length}</p>
                         </div>
                     </div>
                 </MenuContentContainer>

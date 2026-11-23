@@ -13,7 +13,7 @@ interface GameTileButtonProps {
     selected: boolean,
 }
 
-export function GameTileButton({buttonHeight="4vh", iconImage, children, selected=false}: GameTileButtonProps) {
+export function GameTileButton({buttonHeight="4.2vh", iconImage, children, selected=false}: GameTileButtonProps) {
     const controls = useAnimationControls()
 
     useEffect(() => {
