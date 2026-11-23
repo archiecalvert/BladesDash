@@ -26,6 +26,10 @@ function App() {
 		if (FORCE_FULLSCREEN && !isOnWeb) getCurrentWindow().setFullscreen(true)
 	}, []);
 
+	useEffect(() => {
+		if(!bootAnimationPlaying) PlaySound(SOUNDS.SECOND_LEVEL_CLOSE)
+	}, [bootAnimationPlaying])
+
 	return (
 		<div className="content-container ">
 			<BootAnimationComponent/>
