@@ -65,6 +65,7 @@ export const MemorySettingsMenuContent: MenuComponent = Object.assign(
                 context.menuStore.popMenuData(currentPage)
                 context.globalStore.setFullyHideMenus(false)
                 PlaySound(SOUNDS.BACK)
+                PlaySound(SOUNDS.SECOND_LEVEL_CLOSE)
 
             }
         }

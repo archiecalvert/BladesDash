@@ -9,6 +9,8 @@ export const SOUNDS = {
     MENU_NAVIGATION: "Menus/menus_up_down.wav",
     SELECT: "Rips/btn_Select.wav",
     BACK: "Rips/btn_Back.wav",
+    SECOND_LEVEL_OPEN: "Rips/dash_2ndLevelOpen.wav",
+    SECOND_LEVEL_CLOSE: "Rips/dash_2ndLevelClose.wav",
 }
 
 /**

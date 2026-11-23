@@ -142,6 +142,7 @@ export const SettingsMenuContent: MenuComponent = Object.assign(
                     params.tabIndexY
                 )
                 context.globalStore.setFullyHideMenus(true)
+                PlaySound(SOUNDS.SECOND_LEVEL_OPEN)
             },
 
             triggerBackInput: (context: StateMachineData) => {
