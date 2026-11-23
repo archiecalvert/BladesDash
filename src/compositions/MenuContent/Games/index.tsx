@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { MenuTitle } from "../../../components/MenuTitle/component"
 import { DiscDrive } from "../../../components/DiscDrive/component"
-import { StandardButton } from "../../../components/StandardButton/component"
+import { StandardButton } from "../../../components/Buttons/StandardButton/component"
 import { MenuUnderlay } from "../../../components/MenuUnderlay/component"
 import { MENU_Z_INDEX } from "../../../utils/constants"
 import Xbox360Logo from "../../../assets/Images/Xbox_360.png"
@@ -15,7 +15,7 @@ import AchievementsImage from "../../../assets/icons/games/achievements.png"
 import PlayedGamesImage from "../../../assets/icons/games/played.png"
 
 import {strings} from "../../../assets/Texts/en_strings"
-import { ButtonGroup } from "../../../components/ButtonGroup/component"
+import { ButtonGroup } from "../../../components/Buttons/ButtonGroup/component"
 import { MenuTooltip } from "../../../components/MenuTooltip/component"
 import { fromMenuStore, MenuDataState } from "../../../stores/menuStore"
 import { fromGlobalStore } from "../../../stores/globalStore"
@@ -23,7 +23,7 @@ import { MenuComponent, StateMachineData } from "../../../types/menus"
 import { PlaySound, SOUNDS } from "../../../utils/tauriWrapper"
 import { GamesLibraryMenuContent } from "./GamesLibrary"
 import { AchievementsMenuContent } from "./Achievements"
-import { PlayedGamesMenuContent, RecentlyPlayedMenuContent } from "./PlayedGames"
+import { PlayedGamesMenuContent } from "./PlayedGames"
 
 export const GamesMenuContent: MenuComponent = Object.assign(
     function GamesMenuContent() {

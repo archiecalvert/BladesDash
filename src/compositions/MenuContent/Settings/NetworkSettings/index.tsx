@@ -1,5 +1,5 @@
 import { MenuTitle } from "../../../../components/MenuTitle/component"
-import { StandardButton } from "../../../../components/StandardButton/component"
+import { StandardButton } from "../../../../components/Buttons/StandardButton/component"
 import { MenuUnderlay } from "../../../../components/MenuUnderlay/component"
 import { MENU_Z_INDEX } from "../../../../utils/constants"
 import type { CSSProperties } from "react"
@@ -8,7 +8,7 @@ import { MenuContentContainer } from "../../../../components/MenuContentContaine
 
 import ConsoleSettingsIcon from "../../../../assets/icons/settings/console.png"
 import {strings} from "../../../../assets/Texts/en_strings"
-import { ButtonGroup } from "../../../../components/ButtonGroup/component"
+import { ButtonGroup } from "../../../../components/Buttons/ButtonGroup/component"
 import { MenuTooltip } from "../../../../components/MenuTooltip/component"
 import { fromGlobalStore } from "../../../../stores/globalStore"
 import { fromMenuStore } from "../../../../stores/menuStore"

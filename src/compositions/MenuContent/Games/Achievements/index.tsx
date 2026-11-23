@@ -1,5 +1,5 @@
 import { MenuTitle } from "../../../../components/MenuTitle/component"
-import { StandardButton } from "../../../../components/StandardButton/component"
+import { StandardButton } from "../../../../components/Buttons/StandardButton/component"
 import { MenuUnderlay } from "../../../../components/MenuUnderlay/component"
 import { MENU_Z_INDEX } from "../../../../utils/constants"
 import type { CSSProperties } from "react"
@@ -7,19 +7,12 @@ import "./index.css"
 import { MenuContentContainer } from "../../../../components/MenuContentContainer/component"
 
 import {strings} from "../../../../assets/Texts/en_strings"
-import { ButtonGroup } from "../../../../components/ButtonGroup/component"
+import { ButtonGroup } from "../../../../components/Buttons/ButtonGroup/component"
 import { MenuTooltip } from "../../../../components/MenuTooltip/component"
 import { fromGlobalStore } from "../../../../stores/globalStore"
 import { fromMenuStore } from "../../../../stores/menuStore"
 import { MenuComponent, StateMachineData } from "../../../../types/menus"
 import { PlaySound, SOUNDS } from "../../../../utils/tauriWrapper"
-import { GamesMenuButton } from "../../../../components/GamesMenuButton/component"
-import { GamesMenuXboxLiveButton } from "../../../../components/GamesMenuXboxLiveButton/component"
-import MyGames from "../../../../assets/icons/games/played.png"
-import LastPlayedIcon from "../../../../assets/icons/games/played.png"
-import FriendsPlayingNowIcon from "../../../../assets/icons/games/friends-now.png"
-import GamesStoreIcon from "../../../../assets/icons/games/played.png"
-import AutoDownloadsIcon from "../../../../assets/icons/games/auto-downloads.png"
 
 export const AchievementsMenuContent: MenuComponent = Object.assign(
     function AchievementsMenuContent() {

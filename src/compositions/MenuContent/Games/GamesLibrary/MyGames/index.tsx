@@ -8,6 +8,9 @@ import { fromMenuStore } from "../../../../../stores/menuStore"
 import { MenuComponent, StateMachineData } from "../../../../../types/menus"
 import { PlaySound, SOUNDS } from "../../../../../utils/tauriWrapper"
 import { MenuSelectionCarousel } from "../../../../../components/MenuSelectionCarousel/component"
+import { ButtonGroup } from "../../../../../components/Buttons/ButtonGroup/component"
+import { StandardButton } from "../../../../../components/Buttons/StandardButton/component"
+import { GameTileButton } from "../../../../../components/Buttons/GameTileButton/component"
 
 export const GamesLibraryMyGamesMenuContent: MenuComponent = Object.assign(
     function GamesLibraryMyGamesMenuContent() {
@@ -31,7 +34,7 @@ export const GamesLibraryMyGamesMenuContent: MenuComponent = Object.assign(
         const tabIndexY = currentMenuState?.tabIndexY ?? 0
         const tabIndexX = currentMenuState?.tabIndexX ?? 0
 
-        const games = ["s1", "s2", "s1", "s2", "s1", "s2"]
+        const games = ["s1", "s2", "s1", "s2", "s1", "s2", "s2"]
 
         useEffect(() => {
             setNavigationBounds(
@@ -50,7 +53,11 @@ export const GamesLibraryMyGamesMenuContent: MenuComponent = Object.assign(
                     <div className="games-library-my-games-menu-rows">
                         <MenuSelectionCarousel menuNames={menuNames}/>
                         <div className="games-library-my-games-menu-row" style={{alignItems: "start"}}>
-    
+                            <ButtonGroup>
+                                {games.map((game, index) => {
+                                    return <GameTileButton selected={tabIndexY == index}>{game}</GameTileButton>
+                                })}
+                            </ButtonGroup>
                         </div>
                     </div>
                 </MenuContentContainer>
