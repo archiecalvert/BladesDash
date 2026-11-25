@@ -10,7 +10,7 @@ import "./index.css"
 import { MenuContentContainer } from "../../../components/MenuContentContainer/component"
 import { PlayerCardButton } from "../../../components/PlayerCardButton/component"
 
-import MessagesImage from "../../../assets/icons/xboxlive/messages.png"
+import MessagesImage from "../../../assets/Rips/bl/friends/ico_32x_Mail.png"
 import FriendsImage from "../../../assets/icons/xboxlive/friends.png"
 import ChatAndImImage from "../../../assets/icons/xboxlive/chatandim.png"
 

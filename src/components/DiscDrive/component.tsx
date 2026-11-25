@@ -1,5 +1,6 @@
 import { CSSProperties, useEffect } from "react"
 import { motion, useAnimationControls } from "motion/react"
+import EjectIcon from "../../assets/Rips/bl/$flash_dash/ico_32x_Eject.png"
 import "./component.css"
 
 interface DiscDriveProps {
@@ -35,7 +36,7 @@ export function DiscDrive({
             </div>
 
             <div className="disc-drive-content-container">
-                <div className="disc-drive-icon" />
+                <img className="disc-drive-icon" src={EjectIcon}/>
                 <p style={{ transform: "translateY(-0.2vh)" }}>
                     {title}
                 </p>

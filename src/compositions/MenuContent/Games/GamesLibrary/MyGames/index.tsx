@@ -1,6 +1,6 @@
 import { MenuTitle } from "../../../../../components/MenuTitle/component"
 import { MENU_Z_INDEX } from "../../../../../utils/constants"
-import { useEffect, type CSSProperties } from "react"
+import { useEffect, useState, type CSSProperties } from "react"
 import "./index.css"
 import { MenuContentContainer } from "../../../../../components/MenuContentContainer/component"
 import { fromGlobalStore } from "../../../../../stores/globalStore"
@@ -11,10 +11,19 @@ import { MenuSelectionCarousel } from "../../../../../components/MenuSelectionCa
 import { ButtonGroup } from "../../../../../components/Buttons/ButtonGroup/component"
 import { StandardButton } from "../../../../../components/Buttons/StandardButton/component"
 import { GameTileButton } from "../../../../../components/Buttons/GameTileButton/component"
+import { LimitedButtonGroup } from "../../../../../components/Buttons/LimitedButtonGroup/component"
 
 export const GamesLibraryMyGamesMenuContent: MenuComponent = Object.assign(
     function GamesLibraryMyGamesMenuContent() {
-    
+        const GAMES = [
+            ["Halo 3", "Gears of War 2", "Forza Motorsport 4", "Fable II", "Call of Duty: Black Ops", "Red Dead Redemption", "Minecraft: Xbox 360 Edition", "Skate 3", "Left 4 Dead 2", "GTA IV", "Halo Reach", "Portal 2"],
+            ["GTA V", "Halo 3", "Forza Horizon", "Fable III", "Call of Duty: Modern Warfare 2", "Skate 3", "Mass Effect 2", "Gears of War 3", "Batman: Arkham City", "Bioshock Infinite", "Red Dead Redemption", "Far Cry 3"],
+            ["Gears of War", "Halo Reach", "Assassin's Creed II", "Forza Motorsport 4", "Call of Duty: Black Ops II", "Borderlands 2", "Minecraft: Xbox 360 Edition", "Fable II", "Dead Space", "Alan Wake", "Portal 2", "Saints Row: The Third"],
+            ["Halo 4", "GTA V", "Gears of War 3", "Forza Horizon", "Skate 2", "Fallout 3", "Call of Duty: Modern Warfare 3", "Red Dead Redemption", "Batman: Arkham Asylum", "Left 4 Dead 2", "Bioshock", "Crackdown"]
+        ];
+
+        const [gamesList, setGamesList] = useState<string[]>(GAMES[0])
+
         const menuNames = [
             "All Games",
             "Arcade",
@@ -31,19 +40,23 @@ export const GamesLibraryMyGamesMenuContent: MenuComponent = Object.assign(
         const setNavigationBounds = fromMenuStore(
             state => state.setNavigationBounds
         )
+        const resetTabIndexY = fromMenuStore(state => state.resetTabIndexY)
         const tabIndexY = currentMenuState?.tabIndexY ?? 0
         const tabIndexX = currentMenuState?.tabIndexX ?? 0
 
-        const games = ["s1", "s2", "s1", "s2", "s1", "s2", "s2", "s2"]
 
         useEffect(() => {
             setNavigationBounds(
                 currentOpenPage,
                 undefined,
-                games.length - 1    // Maximum Y index
+                gamesList.length - 1
             )
-        }, [currentOpenPage, games.length, setNavigationBounds])
+        }, [currentOpenPage, gamesList.length, setNavigationBounds])
 
+        useEffect(() => {
+            setGamesList(GAMES[Math.abs(tabIndexX % GAMES.length)])
+            resetTabIndexY(currentOpenPage)
+        }, [tabIndexX])
     
 
         return (
@@ -53,14 +66,14 @@ export const GamesLibraryMyGamesMenuContent: MenuComponent = Object.assign(
                     <div className="games-library-my-games-menu-rows">
                         <MenuSelectionCarousel menuNames={menuNames}/>
                         <div className="games-library-my-games-menu-row" style={{alignItems: "start"}}>
-                            <ButtonGroup>
-                                {games.map((game, index) => {
-                                    return <GameTileButton selected={tabIndexY == index}>{game}</GameTileButton>
+                            <LimitedButtonGroup limit={8} tabIndex={tabIndexY}>
+                                {gamesList.map((game, _) => {
+                                    return <GameTileButton selected={false}>{game}</GameTileButton>
                                 })}
-                            </ButtonGroup>
+                            </LimitedButtonGroup>
                         </div>
                         <div style={{height: "100%"}} className="games-library-my-games-menu-row">
-                            <p className="games-library-my-games-title-position-text">{tabIndexY + 1} of {games.length}</p>
+                            <p className="games-library-my-games-title-position-text">{tabIndexY + 1} of {gamesList.length}</p>
                         </div>
                     </div>
                 </MenuContentContainer>

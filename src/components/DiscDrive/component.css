@@ -68,6 +68,7 @@
 }
 
 .disc-drive-icon {
-    width: 3.5vh;
-    height: 3.5vh;
+    margin-left: -1vh;
+    aspect-ratio: auto;
+    height: 5vh;
 }

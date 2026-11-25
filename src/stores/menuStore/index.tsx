@@ -31,6 +31,8 @@ export interface MenuState {
     decreaseTabIndexX: (page: number, amount: number) => boolean
     increaseTabIndexY: (page: number, amount: number) => boolean
     decreaseTabIndexY: (page: number, amount: number) => boolean
+    resetTabIndexX: (page: number) => void
+    resetTabIndexY: (page: number) => void
 
     triggerMenuInput: (
         page: number,
@@ -271,6 +273,19 @@ export const fromMenuStore = create<MenuState>((set, get) => ({
         }))
 
         return updated
+    },
+
+    resetTabIndexX: (page) => {
+        const content = get().menuData[page - 1]?.content
+        const tabIndexX = content[content.length - 1].tabIndexX
+        get().decreaseTabIndexX(page, tabIndexX)
+        
+    },
+
+    resetTabIndexY: (page) => {
+        const content = get().menuData[page - 1]?.content
+        const tabIndexY = content[content.length - 1].tabIndexY
+        get().decreaseTabIndexY(page, tabIndexY)
     },
 
     triggerMenuInput: (page, globalStore, input) => {
